@@ -1,0 +1,100 @@
+grammar compilation.WhileLanguage with org.eclipse.xtext.common.Terminals
+
+generate whileLanguage "http://www.WhileLanguage.compilation"
+
+/* HEAD */
+Program:
+	(functions+=Function)*
+;
+	
+Function:
+	'function' name=SYMBOL ':' definition=Definition
+;
+
+Definition:
+	read = Read
+	'%'
+	commands=Commands
+	'%'
+	write = Write
+;
+
+/* Input & Output */
+
+Read :
+	'read' variable+=VARIABLE (',' variable+=VARIABLE)*
+;
+Write :
+	'write' variable+=VARIABLE (',' variable+=VARIABLE)*
+;
+
+
+/* Commandes */
+
+Affectation:
+	affectations += VARIABLE (',' affectations += VARIABLE)* ':=' valeurs += Expr (',' valeurs += Expr)*
+;
+
+Nop:
+	nop='nop'
+;
+
+Commands:
+	command=Command (';' commands+=Command)*
+;
+
+Command:
+	command=Nop | 
+	command=Affectation | 
+	command=While|
+	command=For|
+	command=If|
+	command=Foreach	
+;
+
+Foreach:
+	('foreach' expr1=Expr 'in' expr2=Expr 'do' commands=Commands 'od')
+;
+
+If:
+	('if' expr=Expr 'then' commands1=Commands (=>'else' commands2=Commands)? 'fi') 	
+;
+
+For:
+	('for' expr=Expr 'do' commands=Commands 'od') 
+;
+
+While:
+	('while' expr=Expr 'do' commands=Commands 'od')
+;
+
+Expr: 
+	exprsimple=ExprSimple
+;	
+	
+ExprSimple:
+	valeur='nil' | valeur=VARIABLE | valeur=SYMBOL |
+	'(' ope='cons' lexpr=Lexpr ')' |
+	'(' ope='list' lexpr=Lexpr ')' |
+	'(' ope='hd' expr=Expr ')' |
+	'(' ope='tl' expr=Expr ')' |
+	'(' ope='!' expr=Expr ')' |
+	'(' call=SYMBOL lexpr=Lexpr ')'|
+	'(' ex1 = Expr ope=('and' | 'or' | '=?') ex2=Expr ')'
+;
+
+Lexpr:
+	expr=Expr (lexpr=Lexpr)?
+;
+
+
+
+terminal VARIABLE:
+	'A'..'Z'('A'..'Z'|'a'..'z')*
+;
+	
+terminal SYMBOL:
+	'a'..'z'('A'..'Z'|'a'..'z'|'0'..'9')*
+	((('-'|'+'|'.'|'/'|'_'|'&')|"->")('A'..'Z'|'a'..'z'|'0'..'9')+)*
+	('!'|'?')?
+;
