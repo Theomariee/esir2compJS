@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 /.WhileLanguageRuntimeModule.java._trace
 /.WhileLanguageStandaloneSetup.java._trace
+=======
+/.WhileLanguageRuntimeModule.java._trace
+/.WhileLanguageStandaloneSetup.java._trace
+>>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
 /.WhileLanguageRuntimeModule.xtendbin
 /.WhileLanguageStandaloneSetup.xtendbin
 /WhileLanguageRuntimeModule.java

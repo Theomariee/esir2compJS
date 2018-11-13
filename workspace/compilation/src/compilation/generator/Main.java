@@ -3,10 +3,21 @@
  */
 package compilation.generator;
 
-import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.MissingArgumentException;
+import org.apache.commons.cli.MissingOptionException;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -25,25 +36,123 @@ import compilation.WhileLanguageStandaloneSetup;
 
 public class Main {
 
-	public static void main(String[] args) {
-		
+	@SuppressWarnings("static-access")
+	public static void main(String[] args) throws ParseException, FileNotFoundException {
+
 		if (args.length < 1) {
 			System.err.println("Aborting: no path to EMF resource provided!");
 			return;
 		}
+		List<Integer> params = new ArrayList<Integer>();
+		WhileLanguageGenerator.init(params);
+
+		String outputFile = "";
 		Injector injector = new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
-		
-		/* TODO : gerer ici le parsing des options
-		 * Les valeurs sont à passer via une Map<String, Integer> 
-		 * pour les indentations et via String output pour le fichier de sortie du -o.
-		 * Definir les clés de la map en "final static indent<Struct>" (indentIf, indentWhile, etc...)
-		*/
-		String output = "";
-		
-		main.runGenerator(args[0], output, new HashMap<String, Integer>());
-		//TODO décomenté et passer en paramètre la map et input et output
-		//main.runGenerator(input, output, indentations);
+
+		/*
+		 * TODO : gerer ici le parsing des options Les valeurs sont à passer via une
+		 * Map<String, Integer> pour les indentations et via String output pour le
+		 * fichier de sortie du -o. Definir les clés de la map en
+		 * "final static indent<Struct>" (indentIf, indentWhile, etc...)
+		 */
+
+		/* Étape 1 : Définition des options. */
+		Options options = new Options();
+		Option o = OptionBuilder.withArgName("FILE").hasArg()
+				.withDescription("Creates an output file with the name given has an argument.").withLongOpt("output")
+				.create('o');
+		Option all = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
+				.withDescription("Number of spaces chosen for the general indentation.").withLongOpt("allindent")
+				.create("all");
+		Option iF = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
+				.withDescription("Number of spaces chosen for the indenting of the if blocks.").withLongOpt("ifindent")
+				.create("if");
+		Option whilE = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
+				.withDescription("Number of spaces chosen for the indenting of the while blocks.")
+				.withLongOpt("whileindent").create("while");
+		Option help = new Option("help", "Gives a detailed list of the options the user can use for the whpp command.");
+		Option dO = new Option("", "");
+		Option foR = new Option("", "");
+		Option foreach = new Option("", "");
+		/* On les ajoute à notre groupe d'options. */
+		options.addOption(o);
+		options.addOption(all);
+		options.addOption(iF);
+		options.addOption(whilE);
+		options.addOption(help);
+		// options.addOption(foR);
+		// options.addOption(foreach);
+		// options.addOption(dO);
+
+		/* Étape 2 : Analyse de la ligne de commande. */
+		try {
+			CommandLineParser parser = new GnuParser();
+			CommandLine cmd = parser.parse(options, args);
+			/* Etape 3: Récupération et traitement des résultat. */
+			if (cmd.hasOption("help")) {
+				HelpFormatter formatter = new HelpFormatter();
+				formatter.printHelp(args[0], options);
+				System.exit(1);
+			}
+			if (cmd.hasOption("all")) {
+				params.set(WhileLanguageGenerator.INDENT_ALL, ((Number) cmd.getParsedOptionValue("all")).intValue());
+			}
+			if (cmd.hasOption("if")) {
+				params.set(WhileLanguageGenerator.INDENT_IF, ((Number) cmd.getParsedOptionValue("if")).intValue());
+			}
+			if (cmd.hasOption("while")) {
+				params.set(WhileLanguageGenerator.INDENT_WHILE,
+						((Number) cmd.getParsedOptionValue("while")).intValue());
+			}
+			if (cmd.hasOption("do")) {
+				params.set(WhileLanguageGenerator.INDENT_DO, ((Number) cmd.getParsedOptionValue("do")).intValue());
+			}
+			if (cmd.hasOption("for")) {
+				params.set(WhileLanguageGenerator.INDENT_FOR, ((Number) cmd.getParsedOptionValue("for")).intValue());
+			}
+			if (cmd.hasOption("foreach")) {
+				params.set(WhileLanguageGenerator.INDENT_FOREACH,
+						((Integer) cmd.getParsedOptionValue("foreach")).intValue());
+			}
+			if (cmd.hasOption("o")) {
+				outputFile = cmd.getOptionValue('o');
+			}
+
+		} catch (MissingOptionException e) {
+			/* Vérifie si l'option -help est présente */
+			boolean h = false;
+			try {
+				Options helpOptions = new Options();
+				helpOptions.addOption("help", "help", false,
+						"Gives a detailed list of the options the user can use for the whc command.");
+				CommandLineParser parser = new PosixParser();
+				CommandLine line = parser.parse(helpOptions, args);
+				if (line.hasOption("h"))
+					h = true;
+			} catch (Exception ex) {
+			}
+			if (!h)
+				System.err.println(e.getMessage());
+			/* Affichage de l'aide. */
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp(args[0], options);
+			System.exit(1);
+		} catch (MissingArgumentException e) {
+			System.err.println(e.getMessage());
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp(args[0], options);
+			System.exit(1);
+		} catch (ParseException e) {
+			System.err.println("Error while parsing the command line: " + e.getMessage());
+			System.exit(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		main.runGenerator(args[0], outputFile, params);
+		// TODO décomenté et passer en paramètre la map et input et output
+		// main.runGenerator(args[1], outputFile, indentations);
 	}
 
 	@Inject
@@ -55,12 +164,12 @@ public class Main {
 	@Inject
 	private WhileLanguageGenerator generator;
 
-	@Inject 
+	@Inject
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String input, String output, Map<String, Integer> indentations) {
+	protected void runGenerator(String input, String output, List<Integer> indentations) {
 		// Load the resource
-		System.out.println(input);
+		System.out.println("parsing " + input + "...");
 		ResourceSet set = resourceSetProvider.get();
 		Resource resource = set.getResource(URI.createFileURI(input), true);
 
@@ -75,12 +184,12 @@ public class Main {
 
 		// Configure and start the generator
 		fileAccess.setOutputPath("./");
-		//System.out.println(URI.createFileURI(output).path());
-		//fileAccess.setOutputPath(URI.createFileURI(output).path());
+		// System.out.println(URI.createFileURI(output).path());
+		// fileAccess.setOutputPath(URI.createFileURI(output).path());
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		generator.doGenerate(resource, fileAccess, context, output, indentations);
-		
+
 		System.out.println("Pretty printing done");
 	}
 }
