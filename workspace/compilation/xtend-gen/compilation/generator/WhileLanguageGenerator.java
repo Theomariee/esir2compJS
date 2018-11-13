@@ -3,30 +3,24 @@
  */
 package compilation.generator;
 
-<<<<<<< HEAD
 import com.google.common.collect.Iterables;
 import compilation.whileLanguage.Command;
 import compilation.whileLanguage.Commands;
 import compilation.whileLanguage.Definition;
 import compilation.whileLanguage.Function;
 import compilation.whileLanguage.Program;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-=======
-import java.util.ArrayList;
-import java.util.List;
->>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
-<<<<<<< HEAD
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
-=======
->>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
 
 /**
  * Generates code from your model files on save.
@@ -35,20 +29,49 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  */
 @SuppressWarnings("all")
 public class WhileLanguageGenerator extends AbstractGenerator {
-<<<<<<< HEAD
+  public final static int INDENT_ALL = 0;
+  
+  public final static int INDENT_FOR = 1;
+  
+  public final static int INDENT_WHILE = 2;
+  
+  public final static int INDENT_IF = 3;
+  
+  public final static int INDENT_FOREACH = 4;
+  
+  public final static int INDENT_DO = 5;
+  
+  private String indentFor;
+  
+  private String indentWhile;
+  
+  private String indentIf;
+  
+  private String indentForeach;
+  
+  private String indentDo;
+  
+  private int i;
+  
+  private List<Integer> indentations = new ArrayList<Integer>();
+  
   private final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    this.doGenerate(resource, fsa, context, "output.wh", WhileLanguageGenerator.DEFAULT_MAP);
+    WhileLanguageGenerator.init(this.indentations);
+    this.doGenerate(resource, fsa, context, "output", this.indentations);
   }
   
-  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final Map<String, Integer> indentations) {
+  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final List<Integer> indentations) {
+    this.indentations = indentations;
+    this.calcIndent(this.indentations);
+    System.out.println(indentations);
     Iterable<Program> _filter = Iterables.<Program>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), Program.class);
     for (final Program e : _filter) {
       boolean _equals = output.equals("");
       if (_equals) {
-        System.out.print(this.compile(e));
+        System.out.println(this.compile(e));
       } else {
         fsa.generateFile(output, this.compile(e));
       }
@@ -132,37 +155,6 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       }
     }
     return _builder;
-=======
-  public final static int INDENT_ALL = 0;
-  
-  public final static int INDENT_FOR = 1;
-  
-  public final static int INDENT_WHILE = 2;
-  
-  public final static int INDENT_IF = 3;
-  
-  public final static int INDENT_FOREACH = 4;
-  
-  public final static int INDENT_DO = 5;
-  
-  private List<Integer> indentations = new ArrayList<Integer>();
-  
-  private String indentFor;
-  
-  private String indentWhile;
-  
-  private String indentIf;
-  
-  private String indentForeach;
-  
-  private String indentDo;
-  
-  private int i;
-  
-  @Override
-  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    WhileLanguageGenerator.init(this.indentations);
-    this.doGenerate(resource, fsa, context, "", this.indentations);
   }
   
   public static void init(final List<Integer> integers) {
@@ -234,12 +226,5 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       String _indentDo = this.indentDo;
       this.indentDo = (_indentDo + " ");
     }
-  }
-  
-  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final List<Integer> indentations) {
-    this.indentations = indentations;
-    this.calcIndent(this.indentations);
-    System.out.println(indentations);
->>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
   }
 }

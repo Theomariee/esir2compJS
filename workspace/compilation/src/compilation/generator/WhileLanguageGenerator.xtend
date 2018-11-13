@@ -3,16 +3,12 @@
  */
 package compilation.generator
 
-<<<<<<< HEAD
 import compilation.whileLanguage.Definition
 import compilation.whileLanguage.Function
 import compilation.whileLanguage.Program
 import java.util.Map
-=======
-import compilation.whileLanguage.Program
 import java.util.ArrayList
 import java.util.List
->>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -33,22 +29,35 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	public final static int INDENT_IF = 3
 	public final static int INDENT_FOREACH = 4
 	public final static int INDENT_DO = 5
+	
+	//String des indent spécifiques à concaténer.
+	String indentFor;
+	String indentWhile;
+	String indentIf;
+	String indentForeach;
+	String indentDo;
+	
+	int i
+	
 	List<Integer> indentations = new ArrayList<Integer>();
 	
-<<<<<<< HEAD
 	 final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
 	
 	//Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		doGenerate(resource,fsa,context, "output.wh", DEFAULT_MAP)
+		init(indentations)
+		doGenerate(resource,fsa,context, "output", indentations)
 	}
-	
-	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, Map<String, Integer> indentations) {
-        for (e : resource.allContents.toIterable.filter(typeof(Program))){
-            if(output.equals(""))
-				System.out.print(compile(e))
-            else fsa.generateFile(output, e.compile())
-        }
+		
+	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, List<Integer> indentations) {
+		this.indentations = indentations
+		calcIndent(this.indentations)
+		System.out.println(indentations);
+		for (e : resource.allContents.toIterable.filter(typeof(Program))){
+			if(output.equals(""))
+				System.out.println(e.compile())
+			else fsa.generateFile(output, e.compile())
+		}
 	}
 	
 	def compile(Program p)'''
@@ -75,21 +84,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 Ceci est une commande
 	«ENDFOR»
 	'''
-}
-=======
-	//String des indent spécifiques à concaténé.
-	String indentFor;
-	String indentWhile;
-	String indentIf;
-	String indentForeach;
-	String indentDo;
-	
-	int i
-	//Ne sert que dans eclipse, pas dans les commande line
-	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		init(indentations)
-		doGenerate(resource,fsa,context, "", indentations)
-	}
+
+
 	
 	def static init(List<Integer> integers) {
 		integers.add(INDENT_ALL,2)
@@ -125,20 +121,5 @@ Ceci est une commande
 		for(i = 0;i<indentations.get(INDENT_DO);i++)
 			indentDo+=" "	
 	}
-	
-	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, List<Integer> indentations) {
-		this.indentations = indentations
-		calcIndent(this.indentations)
-		System.out.println(indentations);
-		//for (e : resource.allContents.toIterable.filter(typeof(Program))){
-			//if(output.equals(""))
-				//System.out.println(e.compile())
-			//else fsa.generateFile(output, e.compile())
-		}
-		
-	}
-	
-	
-	
+}
 
->>>>>>> f5dc28789b83d9b75484de810c0f74677736ed83
