@@ -1,0 +1,4 @@
+function f:
+	read X %
+		nop
+	% write Y

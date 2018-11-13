@@ -1,0 +1,4 @@
+unction f:
+	read X %
+		nop
+	% write Y
