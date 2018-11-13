@@ -3,8 +3,9 @@
  */
 package compilation.generator
 
-import compilation.whileLanguage.Function
-import java.util.Map
+import compilation.whileLanguage.Program
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -16,27 +17,76 @@ import org.eclipse.xtext.generator.IGeneratorContext
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class WhileLanguageGenerator extends AbstractGenerator {
+	//en fait c'est un enum...
+	public final static int INDENT_ALL = 0
+	public final static int INDENT_FOR = 1
+	public final static int INDENT_WHILE = 2
+	public final static int INDENT_IF = 3
+	public final static int INDENT_FOREACH = 4
+	public final static int INDENT_DO = 5
+	List<Integer> indentations = new ArrayList<Integer>();
 	
+	//String des indent spécifiques à concaténé.
+	String indentFor;
+	String indentWhile;
+	String indentIf;
+	String indentForeach;
+	String indentDo;
+	
+	int i
 	//Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
+		init(indentations)
+		doGenerate(resource,fsa,context, "", indentations)
 	}
-	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, Map<String, Integer> indentations) {
-		if(output.equals(""))
-			System.out.println('Functions : ' + 
-				resource.allContents
-					.filter(Function)
-					.map[name]
-					.join(', '))
-		fsa.generateFile(output, 'Functions : ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
+	
+	def static init(List<Integer> integers) {
+		integers.add(INDENT_ALL,2)
+		integers.add(INDENT_FOR,0)
+		integers.add(INDENT_WHILE,0)
+		integers.add(INDENT_IF,0)
+		integers.add(INDENT_FOREACH,0)
+		integers.add(INDENT_DO,0)
+	}
+	
+	//Calcule les indentations pour chaque structure de controle selon les valeurs d'indentation données
+	def calcIndent(List<Integer> integers) {
+		for(i = 0;i<indentations.get(INDENT_ALL);i++){
+			indentFor+=" "
+			indentWhile+=" "
+			indentIf+=" "
+			indentForeach+=" "
+			indentDo+=" "
+		}
+		if(indentations.get(INDENT_FOR)!=0) indentFor=""
+		for(i = 0;i<indentations.get(INDENT_FOR);i++)
+			indentFor+=" "
+		if(indentations.get(INDENT_WHILE)!=0) indentWhile=""
+		for(i = 0;i<indentations.get(INDENT_WHILE);i++)
+			indentWhile+=" "
+		if(indentations.get(INDENT_IF)!=0) indentIf=""
+		for(i = 0;i<indentations.get(INDENT_IF);i++)
+			indentIf+=" "
+		if(indentations.get(INDENT_FOREACH)!=0) indentForeach=""
+		for(i = 0;i<indentations.get(INDENT_FOREACH);i++)
+			indentForeach+=" "
+		if(indentations.get(INDENT_DO)!=0) indentDo=""
+		for(i = 0;i<indentations.get(INDENT_DO);i++)
+			indentDo+=" "	
+	}
+	
+	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, List<Integer> indentations) {
+		this.indentations = indentations
+		calcIndent(this.indentations)
+		System.out.println(indentations);
+		//for (e : resource.allContents.toIterable.filter(typeof(Program))){
+			//if(output.equals(""))
+				//System.out.println(e.compile())
+			//else fsa.generateFile(output, e.compile())
+		}
 		
 	}
-}
+	
+	
+	
+
