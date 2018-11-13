@@ -3,12 +3,16 @@
  */
 package compilation.generator
 
+import compilation.whileLanguage.Definition
 import compilation.whileLanguage.Function
+import compilation.whileLanguage.Program
 import java.util.Map
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import compilation.whileLanguage.Commands
+import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
@@ -17,26 +21,43 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class WhileLanguageGenerator extends AbstractGenerator {
 	
+	 final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
+	
 	//Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
+		doGenerate(resource,fsa,context, "output.wh", DEFAULT_MAP)
 	}
+	
 	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, Map<String, Integer> indentations) {
-		if(output.equals(""))
-			System.out.println('Functions : ' + 
-				resource.allContents
-					.filter(Function)
-					.map[name]
-					.join(', '))
-		fsa.generateFile(output, 'Functions : ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
-		
+        for (e : resource.allContents.toIterable.filter(typeof(Program))){
+            if(output.equals(""))
+				System.out.print(compile(e))
+            else fsa.generateFile(output, e.compile())
+        }
 	}
+	
+	def compile(Program p)'''
+	«FOR f:p.functions»
+	«f.compile»
+	«ENDFOR»
+	'''
+	
+	def compile(Function f)'''
+	function «f.name» :
+	«f.definition.compile»
+	'''
+	
+	def compile(Definition d)'''
+		read «FOR vr : d.read.variable SEPARATOR','»«vr»«ENDFOR»
+		%
+		  «d.commands.compile»
+		%
+		write «FOR vw : d.write.variable SEPARATOR','»«vw»«ENDFOR»
+	'''
+	
+	def compile(Commands c)'''
+	«FOR command:c.commands»
+Ceci est une commande
+	«ENDFOR»
+	'''
 }

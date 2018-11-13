@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.impl.ProgramImpl#getFunctions <em>Functions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

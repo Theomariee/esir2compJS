@@ -12,12 +12,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.Foreach#getExpr1 <em>Expr1</em>}</li>
  *   <li>{@link compilation.whileLanguage.Foreach#getExpr2 <em>Expr2</em>}</li>
  *   <li>{@link compilation.whileLanguage.Foreach#getCommands <em>Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getForeach()
  * @model

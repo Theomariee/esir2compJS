@@ -3,14 +3,21 @@
  */
 package compilation.generator;
 
-import com.google.common.collect.Iterators;
+import com.google.common.collect.Iterables;
+import compilation.whileLanguage.Command;
+import compilation.whileLanguage.Commands;
+import compilation.whileLanguage.Definition;
 import compilation.whileLanguage.Function;
+import compilation.whileLanguage.Program;
+import java.util.HashMap;
 import java.util.Map;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 /**
@@ -20,31 +27,101 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  */
 @SuppressWarnings("all")
 public class WhileLanguageGenerator extends AbstractGenerator {
+  private final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    final Function1<Function, String> _function = (Function it) -> {
-      return it.getName();
-    };
-    String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
-    String _plus = ("People to greet: " + _join);
-    fsa.generateFile("greetings.txt", _plus);
+    this.doGenerate(resource, fsa, context, "output.wh", WhileLanguageGenerator.DEFAULT_MAP);
   }
   
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final Map<String, Integer> indentations) {
-    boolean _equals = output.equals("");
-    if (_equals) {
-      final Function1<Function, String> _function = (Function it) -> {
-        return it.getName();
-      };
-      String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
-      String _plus = ("Functions : " + _join);
-      System.out.println(_plus);
+    Iterable<Program> _filter = Iterables.<Program>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), Program.class);
+    for (final Program e : _filter) {
+      boolean _equals = output.equals("");
+      if (_equals) {
+        System.out.print(this.compile(e));
+      } else {
+        fsa.generateFile(output, this.compile(e));
+      }
     }
-    final Function1<Function, String> _function_1 = (Function it) -> {
-      return it.getName();
-    };
-    String _join_1 = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function_1), ", ");
-    String _plus_1 = ("Functions : " + _join_1);
-    fsa.generateFile(output, _plus_1);
+  }
+  
+  public CharSequence compile(final Program p) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Function> _functions = p.getFunctions();
+      for(final Function f : _functions) {
+        CharSequence _compile = this.compile(f);
+        _builder.append(_compile);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compile(final Function f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("function ");
+    String _name = f.getName();
+    _builder.append(_name);
+    _builder.append(" :");
+    _builder.newLineIfNotEmpty();
+    CharSequence _compile = this.compile(f.getDefinition());
+    _builder.append(_compile);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Definition d) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("read ");
+    {
+      EList<String> _variable = d.getRead().getVariable();
+      boolean _hasElements = false;
+      for(final String vr : _variable) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(",", "");
+        }
+        _builder.append(vr);
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("%");
+    _builder.newLine();
+    _builder.append("  ");
+    CharSequence _compile = this.compile(d.getCommands());
+    _builder.append(_compile, "  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("%");
+    _builder.newLine();
+    _builder.append("write ");
+    {
+      EList<String> _variable_1 = d.getWrite().getVariable();
+      boolean _hasElements_1 = false;
+      for(final String vw : _variable_1) {
+        if (!_hasElements_1) {
+          _hasElements_1 = true;
+        } else {
+          _builder.appendImmediate(",", "");
+        }
+        _builder.append(vw);
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Commands c) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Command> _commands = c.getCommands();
+      for(final Command command : _commands) {
+        _builder.append("Ceci est une commande");
+        _builder.newLine();
+      }
+    }
+    return _builder;
   }
 }

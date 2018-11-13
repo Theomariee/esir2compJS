@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.impl.ExprSimpleImpl#getValeur <em>Valeur</em>}</li>
  *   <li>{@link compilation.whileLanguage.impl.ExprSimpleImpl#getOpe <em>Ope</em>}</li>
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link compilation.whileLanguage.impl.ExprSimpleImpl#getEx1 <em>Ex1</em>}</li>
  *   <li>{@link compilation.whileLanguage.impl.ExprSimpleImpl#getEx2 <em>Ex2</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

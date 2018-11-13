@@ -14,11 +14,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.Commands#getCommand <em>Command</em>}</li>
  *   <li>{@link compilation.whileLanguage.Commands#getCommands <em>Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getCommands()
  * @model
