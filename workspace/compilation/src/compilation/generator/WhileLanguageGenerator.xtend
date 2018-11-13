@@ -30,6 +30,13 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	public final static int INDENT_FOREACH = 4
 	public final static int INDENT_DO = 5
 	
+	public final static Integer DEFAULT_ALL = 2
+	public final static Integer DEFAULT_FOR = 0
+	public final static Integer DEFAULT_WHILE = 0
+	public final static Integer DEFAULT_IF = 0
+	public final static Integer DEFAULT_FOREACH = 0
+	public final static Integer DEFAULT_DO = 0
+	
 	//String des indent spécifiques à concaténer.
 	String indentFor;
 	String indentWhile;
@@ -88,12 +95,12 @@ Ceci est une commande
 
 	
 	def static init(List<Integer> integers) {
-		integers.add(INDENT_ALL,2)
-		integers.add(INDENT_FOR,0)
-		integers.add(INDENT_WHILE,0)
-		integers.add(INDENT_IF,0)
-		integers.add(INDENT_FOREACH,0)
-		integers.add(INDENT_DO,0)
+		integers.add(INDENT_ALL,DEFAULT_ALL)
+		integers.add(INDENT_FOR,DEFAULT_FOR)
+		integers.add(INDENT_WHILE,DEFAULT_WHILE)
+		integers.add(INDENT_IF,DEFAULT_IF)
+		integers.add(INDENT_FOREACH,DEFAULT_FOREACH)
+		integers.add(INDENT_DO,DEFAULT_DO)
 	}
 	
 	//Calcule les indentations pour chaque structure de controle selon les valeurs d'indentation données

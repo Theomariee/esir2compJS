@@ -59,22 +59,14 @@ public class Main {
 
 		/* Étape 1 : Définition des options. */
 		Options options = new Options();
-		Option o = OptionBuilder.withArgName("FILE").hasArg()
-				.withDescription("Creates an output file with the name given has an argument.").withLongOpt("output")
-				.create('o');
-		Option all = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
-				.withDescription("Number of spaces chosen for the general indentation.").withLongOpt("allindent")
-				.create("all");
-		Option iF = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
-				.withDescription("Number of spaces chosen for the indenting of the if blocks.").withLongOpt("ifindent")
-				.create("if");
-		Option whilE = OptionBuilder.withArgName("INT").hasArg().withType(Number.class)
-				.withDescription("Number of spaces chosen for the indenting of the while blocks.")
-				.withLongOpt("whileindent").create("while");
-		Option help = new Option("help", "Gives a detailed list of the options the user can use for the whpp command.");
-		Option dO = new Option("", "");
-		Option foR = new Option("", "");
-		Option foreach = new Option("", "");
+        Option o = OptionBuilder.withArgName("FILE").hasArg().withDescription("Creates an output file with the name given has an argument.").withLongOpt("output").create('o');
+        Option all = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the general indentation for blocks.").withLongOpt("allindent").create("all");
+        Option iF = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the if blocks.").withLongOpt("ifindent").create("if") ;
+        Option whilE = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the while blocks.").withLongOpt("whileindent").create("while");
+        Option help = new Option("help", "Gives a detailed list of the options the user can use for the whc command.");
+        Option dO = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the while blocks.").withLongOpt("doindent").create("do");
+        Option foR = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the for blocks.").withLongOpt("doindent").create("for");
+        Option foreach = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the foreach blocks.").withLongOpt("doindent").create("foreach");
 		/* On les ajoute à notre groupe d'options. */
 		options.addOption(o);
 		options.addOption(all);
@@ -93,7 +85,7 @@ public class Main {
 			if (cmd.hasOption("help")) {
 				HelpFormatter formatter = new HelpFormatter();
 				formatter.printHelp(args[0], options);
-				System.exit(1);
+				//System.exit(1);
 			}
 			if (cmd.hasOption("all")) {
 				params.set(WhileLanguageGenerator.INDENT_ALL, ((Number) cmd.getParsedOptionValue("all")).intValue());
@@ -117,7 +109,28 @@ public class Main {
 			}
 			if (cmd.hasOption("o")) {
 				outputFile = cmd.getOptionValue('o');
-			}
+			}     
+            if(cmd.hasOption("all")){
+            	params.set(WhileLanguageGenerator.INDENT_ALL, Integer.parseInt(cmd.getOptionValue("all", WhileLanguageGenerator.DEFAULT_ALL.toString())));
+            }
+            if(cmd.hasOption("if")){
+            	params.set(WhileLanguageGenerator.INDENT_IF,Integer.parseInt(cmd.getOptionValue("if", WhileLanguageGenerator.DEFAULT_IF.toString())));
+            }
+            if(cmd.hasOption("while")){
+            	params.set(WhileLanguageGenerator.INDENT_WHILE, Integer.parseInt(cmd.getOptionValue("while", WhileLanguageGenerator.DEFAULT_WHILE.toString())));
+            }
+            if(cmd.hasOption("do")){
+            	params.set(WhileLanguageGenerator.INDENT_WHILE, Integer.parseInt(cmd.getOptionValue("do", WhileLanguageGenerator.DEFAULT_DO.toString())));
+            }
+            if(cmd.hasOption("for")){
+            	params.set(WhileLanguageGenerator.INDENT_FOR, Integer.parseInt(cmd.getOptionValue("for", WhileLanguageGenerator.DEFAULT_FOR.toString())));
+            }
+            if(cmd.hasOption("foreach")){
+            	params.set(WhileLanguageGenerator.INDENT_FOREACH, Integer.parseInt(cmd.getOptionValue("foreach", WhileLanguageGenerator.DEFAULT_FOREACH.toString())));
+            }
+            if(cmd.hasOption("o")){
+                outputFile = cmd.getOptionValue("o", args[1].replaceFirst(".wh", ".whpp"));    
+            }
 
 		} catch (MissingOptionException e) {
 			/* Vérifie si l'option -help est présente */
