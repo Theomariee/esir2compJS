@@ -3,10 +3,7 @@
  */
 package compilation.generator;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Provider;
-import compilation.WhileLanguageStandaloneSetup;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,28 +11,37 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.generator.GeneratorContext;
-import org.eclipse.xtext.generator.GeneratorDelegate;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Provider;
+
+import compilation.WhileLanguageStandaloneSetup;
+
 public class Main {
 
 	public static void main(String[] args) {
-		/* TODO : gerer ici le parsing des options
-		Initialiser la map avec comme clé des "nom de variables" et en valeur la valueur de l'indentation
-		Les noms de variable devront etre créer en final static pour les retrouver dans le generator
-		*/
 		
-	
-		if (args.length == 0) {
+		if (args.length < 1) {
 			System.err.println("Aborting: no path to EMF resource provided!");
 			return;
 		}
 		Injector injector = new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
+		
+		/* TODO : gerer ici le parsing des options
+		 * Les valeurs sont à passer via une Map<String, Integer> 
+		 * pour les indentations et via String output pour le fichier de sortie du -o.
+		 * Definir les clés de la map en "final static indent<Struct>" (indentIf, indentWhile, etc...)
+		*/
+		String output = "";
+		
+		main.runGenerator(args[0], output, new HashMap<String, Integer>());
 		//TODO décomenté et passer en paramètre la map et input et output
 		//main.runGenerator(input, output, indentations);
 	}
@@ -54,6 +60,7 @@ public class Main {
 
 	protected void runGenerator(String input, String output, Map<String, Integer> indentations) {
 		// Load the resource
+		System.out.println(input);
 		ResourceSet set = resourceSetProvider.get();
 		Resource resource = set.getResource(URI.createFileURI(input), true);
 
@@ -67,8 +74,9 @@ public class Main {
 		}
 
 		// Configure and start the generator
-		//fileAccess.setOutputPath("./");
-		fileAccess.setOutputPath(URI.createFileURI(output).path());
+		fileAccess.setOutputPath("./");
+		//System.out.println(URI.createFileURI(output).path());
+		//fileAccess.setOutputPath(URI.createFileURI(output).path());
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		generator.doGenerate(resource, fileAccess, context, output, indentations);

@@ -31,11 +31,20 @@ public class WhileLanguageGenerator extends AbstractGenerator {
   }
   
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final Map<String, Integer> indentations) {
-    final Function1<Function, String> _function = (Function it) -> {
+    boolean _equals = output.equals("");
+    if (_equals) {
+      final Function1<Function, String> _function = (Function it) -> {
+        return it.getName();
+      };
+      String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
+      String _plus = ("Functions : " + _join);
+      System.out.println(_plus);
+    }
+    final Function1<Function, String> _function_1 = (Function it) -> {
       return it.getName();
     };
-    String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
-    String _plus = ("People to greet: " + _join);
-    fsa.generateFile(output, _plus);
+    String _join_1 = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function_1), ", ");
+    String _plus_1 = ("Functions : " + _join_1);
+    fsa.generateFile(output, _plus_1);
   }
 }

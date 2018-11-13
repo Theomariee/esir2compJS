@@ -26,7 +26,13 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				.join(', '))
 	}
 	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, Map<String, Integer> indentations) {
-		fsa.generateFile(output, 'People to greet: ' + 
+		if(output.equals(""))
+			System.out.println('Functions : ' + 
+				resource.allContents
+					.filter(Function)
+					.map[name]
+					.join(', '))
+		fsa.generateFile(output, 'Functions : ' + 
 			resource.allContents
 				.filter(Function)
 				.map[name]
