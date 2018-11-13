@@ -3,18 +3,26 @@
  */
 package compilation.generator
 
+
+import compilation.whileLanguage.Foreach
+import compilation.whileLanguage.If
+import compilation.whileLanguage.For
+import compilation.whileLanguage.While
+import compilation.whileLanguage.Affectation
+import compilation.whileLanguage.Nop
+import compilation.whileLanguage.Command
+import compilation.whileLanguage.Commands
 import compilation.whileLanguage.Definition
 import compilation.whileLanguage.Function
 import compilation.whileLanguage.Program
-import java.util.Map
 import java.util.ArrayList
+import java.util.HashMap
 import java.util.List
+import java.util.Map
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import compilation.whileLanguage.Commands
-import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
@@ -28,27 +36,23 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	public final static int INDENT_WHILE = 2
 	public final static int INDENT_IF = 3
 	public final static int INDENT_FOREACH = 4
-	public final static int INDENT_DO = 5
 	
 	public final static Integer DEFAULT_ALL = 2
 	public final static Integer DEFAULT_FOR = 0
 	public final static Integer DEFAULT_WHILE = 0
 	public final static Integer DEFAULT_IF = 0
 	public final static Integer DEFAULT_FOREACH = 0
-	public final static Integer DEFAULT_DO = 0
 	
 	//String des indent spécifiques à concaténer.
+	String indentAll;
 	String indentFor;
 	String indentWhile;
 	String indentIf;
 	String indentForeach;
-	String indentDo;
 	
 	int i
 	
 	List<Integer> indentations = new ArrayList<Integer>();
-	
-	 final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
 	
 	//Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -81,14 +85,14 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(Definition d)'''
 		read «FOR vr : d.read.variable SEPARATOR','»«vr»«ENDFOR»
 		%
-		  «d.commands.compile»
+			«d.commands.compile»
 		%
 		write «FOR vw : d.write.variable SEPARATOR','»«vw»«ENDFOR»
 	'''
 	
 	def compile(Commands c)'''
 	«FOR command:c.commands»
-Ceci est une commande
+	«command.toString»
 	«ENDFOR»
 	'''
 
@@ -100,17 +104,16 @@ Ceci est une commande
 		integers.add(INDENT_WHILE,DEFAULT_WHILE)
 		integers.add(INDENT_IF,DEFAULT_IF)
 		integers.add(INDENT_FOREACH,DEFAULT_FOREACH)
-		integers.add(INDENT_DO,DEFAULT_DO)
 	}
 	
 	//Calcule les indentations pour chaque structure de controle selon les valeurs d'indentation données
 	def calcIndent(List<Integer> integers) {
 		for(i = 0;i<indentations.get(INDENT_ALL);i++){
+			indentAll+=" "
 			indentFor+=" "
 			indentWhile+=" "
 			indentIf+=" "
 			indentForeach+=" "
-			indentDo+=" "
 		}
 		if(indentations.get(INDENT_FOR)!=0) indentFor=""
 		for(i = 0;i<indentations.get(INDENT_FOR);i++)
@@ -123,10 +126,7 @@ Ceci est une commande
 			indentIf+=" "
 		if(indentations.get(INDENT_FOREACH)!=0) indentForeach=""
 		for(i = 0;i<indentations.get(INDENT_FOREACH);i++)
-			indentForeach+=" "
-		if(indentations.get(INDENT_DO)!=0) indentDo=""
-		for(i = 0;i<indentations.get(INDENT_DO);i++)
-			indentDo+=" "	
+			indentForeach+=" "	
 	}
 }
 

@@ -40,7 +40,7 @@ Nop:
 ;
 
 Commands:
-	command=Command (';' commands+=Command)*
+	commands+=Command (';' commands+=Command)*
 ;
 
 Command:
