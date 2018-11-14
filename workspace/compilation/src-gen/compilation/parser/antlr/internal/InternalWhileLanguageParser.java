@@ -1387,12 +1387,12 @@ public class InternalWhileLanguageParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCommands"
-    // InternalWhileLanguage.g:525:1: ruleCommands returns [EObject current=null] : ( ( (lv_command_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* ) ;
+    // InternalWhileLanguage.g:525:1: ruleCommands returns [EObject current=null] : ( ( (lv_commands_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* ) ;
     public final EObject ruleCommands() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        EObject lv_command_0_0 = null;
+        EObject lv_commands_0_0 = null;
 
         EObject lv_commands_2_0 = null;
 
@@ -1401,25 +1401,25 @@ public class InternalWhileLanguageParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalWhileLanguage.g:531:2: ( ( ( (lv_command_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* ) )
-            // InternalWhileLanguage.g:532:2: ( ( (lv_command_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* )
+            // InternalWhileLanguage.g:531:2: ( ( ( (lv_commands_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* ) )
+            // InternalWhileLanguage.g:532:2: ( ( (lv_commands_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* )
             {
-            // InternalWhileLanguage.g:532:2: ( ( (lv_command_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* )
-            // InternalWhileLanguage.g:533:3: ( (lv_command_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )*
+            // InternalWhileLanguage.g:532:2: ( ( (lv_commands_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )* )
+            // InternalWhileLanguage.g:533:3: ( (lv_commands_0_0= ruleCommand ) ) (otherlv_1= ';' ( (lv_commands_2_0= ruleCommand ) ) )*
             {
-            // InternalWhileLanguage.g:533:3: ( (lv_command_0_0= ruleCommand ) )
-            // InternalWhileLanguage.g:534:4: (lv_command_0_0= ruleCommand )
+            // InternalWhileLanguage.g:533:3: ( (lv_commands_0_0= ruleCommand ) )
+            // InternalWhileLanguage.g:534:4: (lv_commands_0_0= ruleCommand )
             {
-            // InternalWhileLanguage.g:534:4: (lv_command_0_0= ruleCommand )
-            // InternalWhileLanguage.g:535:5: lv_command_0_0= ruleCommand
+            // InternalWhileLanguage.g:534:4: (lv_commands_0_0= ruleCommand )
+            // InternalWhileLanguage.g:535:5: lv_commands_0_0= ruleCommand
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getCommandsAccess().getCommandCommandParserRuleCall_0_0());
+              					newCompositeNode(grammarAccess.getCommandsAccess().getCommandsCommandParserRuleCall_0_0());
               				
             }
             pushFollow(FOLLOW_14);
-            lv_command_0_0=ruleCommand();
+            lv_commands_0_0=ruleCommand();
 
             state._fsp--;
             if (state.failed) return current;
@@ -1428,10 +1428,10 @@ public class InternalWhileLanguageParser extends AbstractInternalAntlrParser {
               					if (current==null) {
               						current = createModelElementForParent(grammarAccess.getCommandsRule());
               					}
-              					set(
+              					add(
               						current,
-              						"command",
-              						lv_command_0_0,
+              						"commands",
+              						lv_commands_0_0,
               						"compilation.WhileLanguage.Command");
               					afterParserOrEnumRuleCall();
               				

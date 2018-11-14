@@ -4593,26 +4593,26 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__Commands__Group__0__Impl"
-    // InternalWhileLanguage.g:1362:1: rule__Commands__Group__0__Impl : ( ( rule__Commands__CommandAssignment_0 ) ) ;
+    // InternalWhileLanguage.g:1362:1: rule__Commands__Group__0__Impl : ( ( rule__Commands__CommandsAssignment_0 ) ) ;
     public final void rule__Commands__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalWhileLanguage.g:1366:1: ( ( ( rule__Commands__CommandAssignment_0 ) ) )
-            // InternalWhileLanguage.g:1367:1: ( ( rule__Commands__CommandAssignment_0 ) )
+            // InternalWhileLanguage.g:1366:1: ( ( ( rule__Commands__CommandsAssignment_0 ) ) )
+            // InternalWhileLanguage.g:1367:1: ( ( rule__Commands__CommandsAssignment_0 ) )
             {
-            // InternalWhileLanguage.g:1367:1: ( ( rule__Commands__CommandAssignment_0 ) )
-            // InternalWhileLanguage.g:1368:2: ( rule__Commands__CommandAssignment_0 )
+            // InternalWhileLanguage.g:1367:1: ( ( rule__Commands__CommandsAssignment_0 ) )
+            // InternalWhileLanguage.g:1368:2: ( rule__Commands__CommandsAssignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCommandsAccess().getCommandAssignment_0()); 
+               before(grammarAccess.getCommandsAccess().getCommandsAssignment_0()); 
             }
-            // InternalWhileLanguage.g:1369:2: ( rule__Commands__CommandAssignment_0 )
-            // InternalWhileLanguage.g:1369:3: rule__Commands__CommandAssignment_0
+            // InternalWhileLanguage.g:1369:2: ( rule__Commands__CommandsAssignment_0 )
+            // InternalWhileLanguage.g:1369:3: rule__Commands__CommandsAssignment_0
             {
             pushFollow(FOLLOW_2);
-            rule__Commands__CommandAssignment_0();
+            rule__Commands__CommandsAssignment_0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4620,7 +4620,7 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCommandsAccess().getCommandAssignment_0()); 
+               after(grammarAccess.getCommandsAccess().getCommandsAssignment_0()); 
             }
 
             }
@@ -10230,9 +10230,9 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__Nop__NopAssignment"
 
 
-    // $ANTLR start "rule__Commands__CommandAssignment_0"
-    // InternalWhileLanguage.g:3199:1: rule__Commands__CommandAssignment_0 : ( ruleCommand ) ;
-    public final void rule__Commands__CommandAssignment_0() throws RecognitionException {
+    // $ANTLR start "rule__Commands__CommandsAssignment_0"
+    // InternalWhileLanguage.g:3199:1: rule__Commands__CommandsAssignment_0 : ( ruleCommand ) ;
+    public final void rule__Commands__CommandsAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -10244,7 +10244,7 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
             // InternalWhileLanguage.g:3205:3: ruleCommand
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCommandsAccess().getCommandCommandParserRuleCall_0_0()); 
+               before(grammarAccess.getCommandsAccess().getCommandsCommandParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleCommand();
@@ -10252,7 +10252,7 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCommandsAccess().getCommandCommandParserRuleCall_0_0()); 
+               after(grammarAccess.getCommandsAccess().getCommandsCommandParserRuleCall_0_0()); 
             }
 
             }
@@ -10272,7 +10272,7 @@ public class InternalWhileLanguageParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__Commands__CommandAssignment_0"
+    // $ANTLR end "rule__Commands__CommandsAssignment_0"
 
 
     // $ANTLR start "rule__Commands__CommandsAssignment_1_1"

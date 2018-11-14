@@ -32,7 +32,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute WhileLanguage.ecore#//Nop/nop"/>
     </genClasses>
     <genClasses ecoreClass="WhileLanguage.ecore#//Commands">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference WhileLanguage.ecore#//Commands/command"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference WhileLanguage.ecore#//Commands/commands"/>
     </genClasses>
     <genClasses ecoreClass="WhileLanguage.ecore#//Command">

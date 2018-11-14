@@ -136,7 +136,7 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 	 *     Commands returns Commands
 	 *
 	 * Constraint:
-	 *     (command=Command commands+=Command*)
+	 *     (commands+=Command commands+=Command*)
 	 */
 	protected void sequence_Commands(ISerializationContext context, Commands semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

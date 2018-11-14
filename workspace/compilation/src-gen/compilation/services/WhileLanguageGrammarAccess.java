@@ -278,25 +278,25 @@ public class WhileLanguageGrammarAccess extends AbstractGrammarElementFinder {
 	public class CommandsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "compilation.WhileLanguage.Commands");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cCommandAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cCommandCommandParserRuleCall_0_0 = (RuleCall)cCommandAssignment_0.eContents().get(0);
+		private final Assignment cCommandsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cCommandsCommandParserRuleCall_0_0 = (RuleCall)cCommandsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cSemicolonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cCommandsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cCommandsCommandParserRuleCall_1_1_0 = (RuleCall)cCommandsAssignment_1_1.eContents().get(0);
 		
 		//Commands:
-		//	command=Command (';' commands+=Command)*;
+		//	commands+=Command (';' commands+=Command)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//command=Command (';' commands+=Command)*
+		//commands+=Command (';' commands+=Command)*
 		public Group getGroup() { return cGroup; }
 		
-		//command=Command
-		public Assignment getCommandAssignment_0() { return cCommandAssignment_0; }
+		//commands+=Command
+		public Assignment getCommandsAssignment_0() { return cCommandsAssignment_0; }
 		
 		//Command
-		public RuleCall getCommandCommandParserRuleCall_0_0() { return cCommandCommandParserRuleCall_0_0; }
+		public RuleCall getCommandsCommandParserRuleCall_0_0() { return cCommandsCommandParserRuleCall_0_0; }
 		
 		//(';' commands+=Command)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -1007,7 +1007,7 @@ public class WhileLanguageGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Commands:
-	//	command=Command (';' commands+=Command)*;
+	//	commands+=Command (';' commands+=Command)*;
 	public CommandsElements getCommandsAccess() {
 		return pCommands;
 	}

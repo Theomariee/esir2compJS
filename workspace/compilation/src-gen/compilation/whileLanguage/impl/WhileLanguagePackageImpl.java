@@ -407,19 +407,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCommands_Command()
-  {
-    return (EReference)commandsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getCommands_Commands()
   {
-    return (EReference)commandsEClass.getEStructuralFeatures().get(1);
+    return (EReference)commandsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -768,7 +758,6 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     createEAttribute(nopEClass, NOP__NOP);
 
     commandsEClass = createEClass(COMMANDS);
-    createEReference(commandsEClass, COMMANDS__COMMAND);
     createEReference(commandsEClass, COMMANDS__COMMANDS);
 
     commandEClass = createEClass(COMMAND);
@@ -866,7 +855,6 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     initEAttribute(getNop_Nop(), ecorePackage.getEString(), "nop", null, 0, 1, Nop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(commandsEClass, Commands.class, "Commands", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCommands_Command(), this.getCommand(), null, "command", null, 0, 1, Commands.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCommands_Commands(), this.getCommand(), null, "commands", null, 0, -1, Commands.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(commandEClass, Command.class, "Command", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
