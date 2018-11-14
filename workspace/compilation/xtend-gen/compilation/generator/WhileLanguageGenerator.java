@@ -3,15 +3,19 @@
  */
 package compilation.generator;
 
-import com.google.common.collect.Iterators;
+import compilation.whileLanguage.Affectation;
+import compilation.whileLanguage.Command;
+import compilation.whileLanguage.Commands;
+import compilation.whileLanguage.Definition;
+import compilation.whileLanguage.For;
+import compilation.whileLanguage.Foreach;
 import compilation.whileLanguage.Function;
-import java.util.Map;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.generator.AbstractGenerator;
-import org.eclipse.xtext.generator.IFileSystemAccess2;
-import org.eclipse.xtext.generator.IGeneratorContext;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import compilation.whileLanguage.If;
+import compilation.whileLanguage.Program;
+import compilation.whileLanguage.While;
+import java.util.ArrayList;
+import java.util.List;
+import org.eclipse.xtend2.lib.StringConcatenation;
 
 /**
  * Generates code from your model files on save.
@@ -19,32 +23,196 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 @SuppressWarnings("all")
-public class WhileLanguageGenerator extends AbstractGenerator {
+public class WhileLanguageGenerator /* implements AbstractGenerator  */{
+  public final static int INDENT_ALL = 0;
+  
+  public final static int INDENT_FOR = 1;
+  
+  public final static int INDENT_WHILE = 2;
+  
+  public final static int INDENT_IF = 3;
+  
+  public final static int INDENT_FOREACH = 4;
+  
+  public final static Integer DEFAULT_ALL = Integer.valueOf(2);
+  
+  public final static Integer DEFAULT_FOR = Integer.valueOf((-1));
+  
+  public final static Integer DEFAULT_WHILE = Integer.valueOf((-1));
+  
+  public final static Integer DEFAULT_IF = Integer.valueOf((-1));
+  
+  public final static Integer DEFAULT_FOREACH = Integer.valueOf((-1));
+  
+  private String indentAll = "";
+  
+  private String indentFor = "";
+  
+  private String indentWhile = "";
+  
+  private String indentIf = "";
+  
+  private String indentForeach = "";
+  
+  private int i;
+  
+  private List<Integer> indentations = new ArrayList<Integer>();
+  
   @Override
-  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    final Function1<Function, String> _function = (Function it) -> {
-      return it.getName();
-    };
-    String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
-    String _plus = ("People to greet: " + _join);
-    fsa.generateFile("greetings.txt", _plus);
+  public void doGenerate(final /* Resource */Object resource, final /* IFileSystemAccess2 */Object fsa, final /* IGeneratorContext */Object context) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method doGenerate(Resource, IFileSystemAccess2, IGeneratorContext, String, List<Integer>) from the type WhileLanguageGenerator refers to the missing type Resource");
   }
   
-  public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final Map<String, Integer> indentations) {
-    boolean _equals = output.equals("");
-    if (_equals) {
-      final Function1<Function, String> _function = (Function it) -> {
-        return it.getName();
-      };
-      String _join = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function), ", ");
-      String _plus = ("Functions : " + _join);
-      System.out.println(_plus);
+  public void doGenerate(final /* Resource */Object resource, final /* IFileSystemAccess2 */Object fsa, final /* IGeneratorContext */Object context, final String output, final List<Integer> indentations) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nallContents cannot be resolved"
+      + "\ntoIterable cannot be resolved"
+      + "\nfilter cannot be resolved"
+      + "\ncompile cannot be resolved"
+      + "\ngenerateFile cannot be resolved"
+      + "\ncompile cannot be resolved");
+  }
+  
+  public CharSequence compile(final Program p) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field functions is undefined for the type Program"
+      + "\ncompile cannot be resolved");
+  }
+  
+  public CharSequence compile(final Function f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("function ");
+    String _name = f.getName();
+    _builder.append(_name);
+    _builder.append(" :");
+    _builder.newLineIfNotEmpty();
+    CharSequence _compile = this.compile(f.getDefinition());
+    _builder.append(_compile);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Definition d) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field variable is undefined for the type Read"
+      + "\nThe method or field variable is undefined for the type Write");
+  }
+  
+  public CharSequence compile(final Commands c, final String indent) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field commands is undefined for the type Commands"
+      + "\ncompile cannot be resolved");
+  }
+  
+  public CharSequence compile(final Command c) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command"
+      + "\nThe method or field command is undefined for the type Command");
+  }
+  
+  public CharSequence compile(final If i) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("if");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Affectation a) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("aff");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compile(final While w) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("while");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compile(final For f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("for");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Foreach f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("foreach");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public static void init(final List<Integer> integers) {
+    integers.add(WhileLanguageGenerator.INDENT_ALL, WhileLanguageGenerator.DEFAULT_ALL);
+    integers.add(WhileLanguageGenerator.INDENT_FOR, WhileLanguageGenerator.DEFAULT_FOR);
+    integers.add(WhileLanguageGenerator.INDENT_WHILE, WhileLanguageGenerator.DEFAULT_WHILE);
+    integers.add(WhileLanguageGenerator.INDENT_IF, WhileLanguageGenerator.DEFAULT_IF);
+    integers.add(WhileLanguageGenerator.INDENT_FOREACH, WhileLanguageGenerator.DEFAULT_FOREACH);
+  }
+  
+  public void calcIndent(final List<Integer> integers) {
+    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_ALL)).intValue()); this.i++) {
+      {
+        String _indentAll = this.indentAll;
+        this.indentAll = (_indentAll + " ");
+        String _indentFor = this.indentFor;
+        this.indentFor = (_indentFor + " ");
+        String _indentWhile = this.indentWhile;
+        this.indentWhile = (_indentWhile + " ");
+        String _indentIf = this.indentIf;
+        this.indentIf = (_indentIf + " ");
+        String _indentForeach = this.indentForeach;
+        this.indentForeach = (_indentForeach + " ");
+      }
     }
-    final Function1<Function, String> _function_1 = (Function it) -> {
-      return it.getName();
-    };
-    String _join_1 = IteratorExtensions.join(IteratorExtensions.<Function, String>map(Iterators.<Function>filter(resource.getAllContents(), Function.class), _function_1), ", ");
-    String _plus_1 = ("Functions : " + _join_1);
-    fsa.generateFile(output, _plus_1);
+    Integer _get = this.indentations.get(WhileLanguageGenerator.INDENT_FOR);
+    boolean _notEquals = ((_get).intValue() != (-1));
+    if (_notEquals) {
+      this.indentFor = "";
+    }
+    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOR)).intValue()); this.i++) {
+      String _indentFor = this.indentFor;
+      this.indentFor = (_indentFor + " ");
+    }
+    Integer _get_1 = this.indentations.get(WhileLanguageGenerator.INDENT_WHILE);
+    boolean _notEquals_1 = ((_get_1).intValue() != (-1));
+    if (_notEquals_1) {
+      this.indentWhile = "";
+    }
+    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_WHILE)).intValue()); this.i++) {
+      String _indentWhile = this.indentWhile;
+      this.indentWhile = (_indentWhile + " ");
+    }
+    Integer _get_2 = this.indentations.get(WhileLanguageGenerator.INDENT_IF);
+    boolean _notEquals_2 = ((_get_2).intValue() != (-1));
+    if (_notEquals_2) {
+      this.indentIf = "";
+    }
+    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_IF)).intValue()); this.i++) {
+      String _indentIf = this.indentIf;
+      this.indentIf = (_indentIf + " ");
+    }
+    Integer _get_3 = this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH);
+    boolean _notEquals_3 = ((_get_3).intValue() != (-1));
+    if (_notEquals_3) {
+      this.indentForeach = "";
+    }
+    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH)).intValue()); this.i++) {
+      String _indentForeach = this.indentForeach;
+      this.indentForeach = (_indentForeach + " ");
+    }
   }
 }

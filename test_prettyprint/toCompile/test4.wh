@@ -1,8 +1,8 @@
 function f :
-	read X %
-		Y := nil;
-		while X do
-			A := (hd X);
-			X := (tl X)
-		od
+			read X %
+				Y := nil;
+				while X do
+					A := (hd X);
+					X := (tl X)
+od
 	% write Y

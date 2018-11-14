@@ -300,22 +300,13 @@ public interface WhileLanguagePackage extends EPackage
   int COMMANDS = 7;
 
   /**
-   * The feature id for the '<em><b>Command</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMANDS__COMMAND = 0;
-
-  /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMMANDS__COMMANDS = 1;
+  int COMMANDS__COMMANDS = 0;
 
   /**
    * The number of structural features of the '<em>Commands</em>' class.
@@ -324,7 +315,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMMANDS_FEATURE_COUNT = 2;
+  int COMMANDS_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link compilation.whileLanguage.impl.CommandImpl <em>Command</em>}' class.
@@ -870,17 +861,6 @@ public interface WhileLanguagePackage extends EPackage
   EClass getCommands();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Commands#getCommand <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Command</em>'.
-   * @see compilation.whileLanguage.Commands#getCommand()
-   * @see #getCommands()
-   * @generated
-   */
-  EReference getCommands_Command();
-
-  /**
    * Returns the meta object for the containment reference list '{@link compilation.whileLanguage.Commands#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1392,14 +1372,6 @@ public interface WhileLanguagePackage extends EPackage
      * @generated
      */
     EClass COMMANDS = eINSTANCE.getCommands();
-
-    /**
-     * The meta object literal for the '<em><b>Command</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMANDS__COMMAND = eINSTANCE.getCommands_Command();
 
     /**
      * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.

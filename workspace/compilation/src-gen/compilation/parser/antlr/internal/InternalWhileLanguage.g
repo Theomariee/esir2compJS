@@ -533,17 +533,17 @@ ruleCommands returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getCommandsAccess().getCommandCommandParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getCommandsAccess().getCommandsCommandParserRuleCall_0_0());
 				}
-				lv_command_0_0=ruleCommand
+				lv_commands_0_0=ruleCommand
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getCommandsRule());
 					}
-					set(
+					add(
 						$current,
-						"command",
-						lv_command_0_0,
+						"commands",
+						lv_commands_0_0,
 						"compilation.WhileLanguage.Command");
 					afterParserOrEnumRuleCall();
 				}

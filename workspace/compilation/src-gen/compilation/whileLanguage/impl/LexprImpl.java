@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.impl.LexprImpl#getExpr <em>Expr</em>}</li>
  *   <li>{@link compilation.whileLanguage.impl.LexprImpl#getLexpr <em>Lexpr</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

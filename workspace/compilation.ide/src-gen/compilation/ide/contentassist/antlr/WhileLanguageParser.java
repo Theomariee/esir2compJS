@@ -73,7 +73,7 @@ public class WhileLanguageParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAffectationAccess().getValeursAssignment_3(), "rule__Affectation__ValeursAssignment_3");
 			builder.put(grammarAccess.getAffectationAccess().getValeursAssignment_4_1(), "rule__Affectation__ValeursAssignment_4_1");
 			builder.put(grammarAccess.getNopAccess().getNopAssignment(), "rule__Nop__NopAssignment");
-			builder.put(grammarAccess.getCommandsAccess().getCommandAssignment_0(), "rule__Commands__CommandAssignment_0");
+			builder.put(grammarAccess.getCommandsAccess().getCommandsAssignment_0(), "rule__Commands__CommandsAssignment_0");
 			builder.put(grammarAccess.getCommandsAccess().getCommandsAssignment_1_1(), "rule__Commands__CommandsAssignment_1_1");
 			builder.put(grammarAccess.getCommandAccess().getCommandAssignment_0(), "rule__Command__CommandAssignment_0");
 			builder.put(grammarAccess.getCommandAccess().getCommandAssignment_1(), "rule__Command__CommandAssignment_1");

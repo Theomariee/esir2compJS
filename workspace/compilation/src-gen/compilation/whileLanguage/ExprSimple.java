@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.ExprSimple#getValeur <em>Valeur</em>}</li>
  *   <li>{@link compilation.whileLanguage.ExprSimple#getOpe <em>Ope</em>}</li>
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link compilation.whileLanguage.ExprSimple#getEx1 <em>Ex1</em>}</li>
  *   <li>{@link compilation.whileLanguage.ExprSimple#getEx2 <em>Ex2</em>}</li>
  * </ul>
- * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getExprSimple()
  * @model

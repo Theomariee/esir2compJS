@@ -11,6 +11,7 @@ import compilation.WhileLanguageStandaloneSetupGenerated;
 @SuppressWarnings("all")
 public class WhileLanguageStandaloneSetup extends WhileLanguageStandaloneSetupGenerated {
   public static void doSetup() {
-    new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method createInjectorAndDoEMFRegistration() is undefined for the type WhileLanguageStandaloneSetup");
   }
 }

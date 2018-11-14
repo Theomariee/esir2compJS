@@ -1,4 +1,6 @@
-function f :
-	read X %
-		Y := X
-	% write Y
+function f:
+read X
+%
+  Y := X
+%
+write Y

@@ -9,7 +9,6 @@ import compilation.whileLanguage.WhileLanguagePackage;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -29,26 +27,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- *   <li>{@link compilation.whileLanguage.impl.CommandsImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link compilation.whileLanguage.impl.CommandsImpl#getCommands <em>Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class CommandsImpl extends MinimalEObjectImpl.Container implements Commands
 {
-  /**
-   * The cached value of the '{@link #getCommand() <em>Command</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCommand()
-   * @generated
-   * @ordered
-   */
-  protected Command command;
-
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -85,54 +72,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
    * <!-- end-user-doc -->
    * @generated
    */
-  public Command getCommand()
-  {
-    return command;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCommand(Command newCommand, NotificationChain msgs)
-  {
-    Command oldCommand = command;
-    command = newCommand;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.COMMANDS__COMMAND, oldCommand, newCommand);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCommand(Command newCommand)
-  {
-    if (newCommand != command)
-    {
-      NotificationChain msgs = null;
-      if (command != null)
-        msgs = ((InternalEObject)command).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.COMMANDS__COMMAND, null, msgs);
-      if (newCommand != null)
-        msgs = ((InternalEObject)newCommand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.COMMANDS__COMMAND, null, msgs);
-      msgs = basicSetCommand(newCommand, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.COMMANDS__COMMAND, newCommand, newCommand));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Command> getCommands()
   {
     if (commands == null)
@@ -152,8 +91,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.COMMANDS__COMMAND:
-        return basicSetCommand(null, msgs);
       case WhileLanguagePackage.COMMANDS__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
@@ -170,8 +107,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.COMMANDS__COMMAND:
-        return getCommand();
       case WhileLanguagePackage.COMMANDS__COMMANDS:
         return getCommands();
     }
@@ -189,9 +124,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.COMMANDS__COMMAND:
-        setCommand((Command)newValue);
-        return;
       case WhileLanguagePackage.COMMANDS__COMMANDS:
         getCommands().clear();
         getCommands().addAll((Collection<? extends Command>)newValue);
@@ -210,9 +142,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.COMMANDS__COMMAND:
-        setCommand((Command)null);
-        return;
       case WhileLanguagePackage.COMMANDS__COMMANDS:
         getCommands().clear();
         return;
@@ -230,8 +159,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.COMMANDS__COMMAND:
-        return command != null;
       case WhileLanguagePackage.COMMANDS__COMMANDS:
         return commands != null && !commands.isEmpty();
     }

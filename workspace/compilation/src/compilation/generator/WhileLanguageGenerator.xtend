@@ -3,7 +3,21 @@
  */
 package compilation.generator
 
+
+import compilation.whileLanguage.Foreach
+import compilation.whileLanguage.If
+import compilation.whileLanguage.For
+import compilation.whileLanguage.While
+import compilation.whileLanguage.Affectation
+import compilation.whileLanguage.Nop
+import compilation.whileLanguage.Command
+import compilation.whileLanguage.Commands
+import compilation.whileLanguage.Definition
 import compilation.whileLanguage.Function
+import compilation.whileLanguage.Program
+import java.util.ArrayList
+import java.util.HashMap
+import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -16,27 +30,138 @@ import org.eclipse.xtext.generator.IGeneratorContext
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class WhileLanguageGenerator extends AbstractGenerator {
+	//en fait c'est un enum...
+	public final static int INDENT_ALL = 0
+	public final static int INDENT_FOR = 1
+	public final static int INDENT_WHILE = 2
+	public final static int INDENT_IF = 3
+	public final static int INDENT_FOREACH = 4
+	
+	public final static Integer DEFAULT_ALL = 2
+	public final static Integer DEFAULT_FOR = -1
+	public final static Integer DEFAULT_WHILE = -1
+	public final static Integer DEFAULT_IF = -1
+	public final static Integer DEFAULT_FOREACH = -1 
+	
+	//String des indent spécifiques à concaténer.
+	String indentAll = "";
+	String indentFor = "";
+	String indentWhile = "";
+	String indentIf = "";
+	String indentForeach = "";
+	
+	int i
+	
+	List<Integer> indentations = new ArrayList<Integer>();
 	
 	//Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
+		init(indentations)
+		doGenerate(resource,fsa,context, "output", indentations)
 	}
-	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, Map<String, Integer> indentations) {
-		if(output.equals(""))
-			System.out.println('Functions : ' + 
-				resource.allContents
-					.filter(Function)
-					.map[name]
-					.join(', '))
-		fsa.generateFile(output, 'Functions : ' + 
-			resource.allContents
-				.filter(Function)
-				.map[name]
-				.join(', '))
 		
+	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, List<Integer> indentations) {
+		this.indentations = indentations
+		calcIndent(this.indentations)
+		System.out.println(indentations);
+		for (e : resource.allContents.toIterable.filter(typeof(Program))){
+			if(output.equals(""))
+				System.out.println(e.compile())
+			else fsa.generateFile(output, e.compile())
+		}
+	}
+	
+	def compile(Program p)'''
+	«FOR f:p.functions»
+	«f.compile»
+	«ENDFOR»
+	'''
+	
+	def compile(Function f)'''
+	function «f.name» :
+	«f.definition.compile»
+	'''
+	
+	def compile(Definition d)'''
+		read «FOR vr : d.read.variable SEPARATOR','»«vr»«ENDFOR»
+		%
+		«d.commands.compile(indentAll)»
+		%
+		write «FOR vw : d.write.variable SEPARATOR','»«vw»«ENDFOR»
+	'''
+	
+	def compile(Commands c, String indent)'''
+	«FOR command:c.commands SEPARATOR " ;"»
+	«indent+command.compile»
+	«ENDFOR»
+	'''
+
+	def compile(Command c)'''
+	«IF c.command instanceof Nop»
+	nop
+	«ELSEIF c.command instanceof If»
+	«(c.command as If).compile»
+	«ELSEIF c.command instanceof Affectation»
+	«(c.command as Affectation).compile»
+	«ELSEIF c.command instanceof While»
+	«(c.command as While).compile»
+	«ELSEIF c.command instanceof For»
+	«(c.command as For).compile»
+	«ELSEIF c.command instanceof Foreach»
+	«(c.command as Foreach).compile»
+	«ENDIF»
+	'''
+	
+	def compile(If i)'''
+	if
+	'''
+	
+	def compile(Affectation a)'''
+	aff
+	'''
+	
+	def compile(While w)'''
+	while
+	'''
+	
+	def compile(For f)'''
+	for
+	'''
+	
+	def compile(Foreach f)'''
+	foreach
+	'''
+	
+	
+	def static init(List<Integer> integers) {
+		integers.add(INDENT_ALL,DEFAULT_ALL)
+		integers.add(INDENT_FOR,DEFAULT_FOR)
+		integers.add(INDENT_WHILE,DEFAULT_WHILE)
+		integers.add(INDENT_IF,DEFAULT_IF)
+		integers.add(INDENT_FOREACH,DEFAULT_FOREACH)
+	}
+	
+	//Calcule les indentations pour chaque structure de controle selon les valeurs d'indentation données
+	def calcIndent(List<Integer> integers) {
+		for(i = 0;i<indentations.get(INDENT_ALL);i++){
+			indentAll+=" "
+			indentFor+=" "
+			indentWhile+=" "
+			indentIf+=" "
+			indentForeach+=" "
+		}
+		if(indentations.get(INDENT_FOR)!=-1) indentFor=""
+		for(i = 0;i<indentations.get(INDENT_FOR);i++)
+			indentFor+=" "
+		if(indentations.get(INDENT_WHILE)!=-1) indentWhile=""
+		for(i = 0;i<indentations.get(INDENT_WHILE);i++)
+			indentWhile+=" "
+		if(indentations.get(INDENT_IF)!=-1) indentIf=""
+		for(i = 0;i<indentations.get(INDENT_IF);i++)
+			indentIf+=" "
+		if(indentations.get(INDENT_FOREACH)!=-1) indentForeach=""
+		for(i = 0;i<indentations.get(INDENT_FOREACH);i++)
+			indentForeach+=" "	
 	}
 }
+

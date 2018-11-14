@@ -3,54 +3,37 @@
  */
 package compilation.formatting2;
 
-import com.google.inject.Inject;
 import compilation.services.WhileLanguageGrammarAccess;
-import compilation.whileLanguage.Definition;
 import compilation.whileLanguage.Function;
 import compilation.whileLanguage.Program;
 import java.util.Arrays;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.formatting2.AbstractFormatter2;
-import org.eclipse.xtext.formatting2.IFormattableDocument;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.Extension;
 
 @SuppressWarnings("all")
-public class WhileLanguageFormatter extends AbstractFormatter2 {
-  @Inject
-  @Extension
+public class WhileLanguageFormatter /* implements AbstractFormatter2  */{
+  /* @Inject */@Extension
   private WhileLanguageGrammarAccess _whileLanguageGrammarAccess;
   
-  protected void _format(final Program program, @Extension final IFormattableDocument document) {
-    EList<Function> _functions = program.getFunctions();
-    for (final Function function : _functions) {
-      document.<Function>format(function);
-    }
+  protected void _format(final Program program, @Extension final /* IFormattableDocument */Object document) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field functions is undefined for the type Program"
+      + "\nformat cannot be resolved");
   }
   
-  protected void _format(final Function function, @Extension final IFormattableDocument document) {
-    document.<Definition>format(function.getDefinition());
+  protected void _format(final Function function, @Extension final /* IFormattableDocument */Object document) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method format(Object, IFormattableDocument) is not applicable for the arguments (Definition)"
+      + "\nThe method format(Object, IFormattableDocument) from the type WhileLanguageFormatter refers to the missing type IFormattableDocument");
   }
   
   public void format(final Object function, final IFormattableDocument document) {
-    if (function instanceof XtextResource) {
-      _format((XtextResource)function, document);
-      return;
-    } else if (function instanceof Function) {
+    if (function instanceof Function
+         && document != null) {
       _format((Function)function, document);
       return;
-    } else if (function instanceof Program) {
+    } else if (function instanceof Program
+         && document != null) {
       _format((Program)function, document);
-      return;
-    } else if (function instanceof EObject) {
-      _format((EObject)function, document);
-      return;
-    } else if (function == null) {
-      _format((Void)null, document);
-      return;
-    } else if (function != null) {
-      _format(function, document);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
