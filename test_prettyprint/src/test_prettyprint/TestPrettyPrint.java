@@ -1,5 +1,6 @@
 package test_prettyprint;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -74,4 +75,12 @@ class TestPrettyPrint {
 	void test7() throws IOException {
 		testFile("7");
 	}
+	//test 8 : le fichier ne doit pas être créé car il n'est pas correct syntaxiquement
+	@Test
+	void test8() throws IOException {
+		assertFalse("Expected file shouldn't exist", new File(compiledDirectory + "test8.wh").exists());
+	}
+	//test 9 : 10 lignes du 1er fichier = 3* le premier fichier
+	//test 10 : 100 lignes du 1er fichier
+	//test 11 : 1000 lignes du 1er fichier
 }
