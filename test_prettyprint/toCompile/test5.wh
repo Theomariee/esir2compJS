@@ -1,0 +1,13 @@
+function f :
+	read X %
+		Y := nil;
+		
+		
+		
+		
+		while X   do
+			A := (hd X );
+			Y := ( cons A Y);
+			X := ( tl X )
+		od
+	% write Y
