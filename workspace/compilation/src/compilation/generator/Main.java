@@ -77,7 +77,7 @@ public class Main {
 			if (cmd.hasOption("help")) {
 				HelpFormatter formatter = new HelpFormatter();
 				formatter.printHelp(args[0], options);
-				//System.exit(1);
+				System.exit(1);
 			}   
             if(cmd.hasOption("all")){
             	params.set(WhileLanguageGenerator.INDENT_ALL, Integer.parseInt(cmd.getOptionValue("all", WhileLanguageGenerator.DEFAULT_ALL.toString())));
@@ -95,7 +95,7 @@ public class Main {
             	params.set(WhileLanguageGenerator.INDENT_FOREACH, Integer.parseInt(cmd.getOptionValue("foreach", WhileLanguageGenerator.DEFAULT_FOREACH.toString())));
             }
             if(cmd.hasOption("o")){
-                outputFile = cmd.getOptionValue("o", args[1].replaceFirst(".wh", ".whpp"));    
+                outputFile = cmd.getOptionValue("o", "");    
             }
 
 		} catch (MissingOptionException e) {

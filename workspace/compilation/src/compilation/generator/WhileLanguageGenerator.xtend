@@ -38,17 +38,17 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	public final static int INDENT_FOREACH = 4
 	
 	public final static Integer DEFAULT_ALL = 2
-	public final static Integer DEFAULT_FOR = 0
-	public final static Integer DEFAULT_WHILE = 0
-	public final static Integer DEFAULT_IF = 0
-	public final static Integer DEFAULT_FOREACH = 0
+	public final static Integer DEFAULT_FOR = -1
+	public final static Integer DEFAULT_WHILE = -1
+	public final static Integer DEFAULT_IF = -1
+	public final static Integer DEFAULT_FOREACH = -1 
 	
 	//String des indent spécifiques à concaténer.
-	String indentAll;
-	String indentFor;
-	String indentWhile;
-	String indentIf;
-	String indentForeach;
+	String indentAll = "";
+	String indentFor = "";
+	String indentWhile = "";
+	String indentIf = "";
+	String indentForeach = "";
 	
 	int i
 	
@@ -85,18 +85,53 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(Definition d)'''
 		read «FOR vr : d.read.variable SEPARATOR','»«vr»«ENDFOR»
 		%
-			«d.commands.compile»
+		«d.commands.compile(indentAll)»
 		%
 		write «FOR vw : d.write.variable SEPARATOR','»«vw»«ENDFOR»
 	'''
 	
-	def compile(Commands c)'''
-	«FOR command:c.commands»
-	«command.toString»
+	def compile(Commands c, String indent)'''
+	«FOR command:c.commands SEPARATOR " ;"»
+	«indent+command.compile»
 	«ENDFOR»
 	'''
 
-
+	def compile(Command c)'''
+	«IF c.command instanceof Nop»
+	nop
+	«ELSEIF c.command instanceof If»
+	«(c.command as If).compile»
+	«ELSEIF c.command instanceof Affectation»
+	«(c.command as Affectation).compile»
+	«ELSEIF c.command instanceof While»
+	«(c.command as While).compile»
+	«ELSEIF c.command instanceof For»
+	«(c.command as For).compile»
+	«ELSEIF c.command instanceof Foreach»
+	«(c.command as Foreach).compile»
+	«ENDIF»
+	'''
+	
+	def compile(If i)'''
+	if
+	'''
+	
+	def compile(Affectation a)'''
+	aff
+	'''
+	
+	def compile(While w)'''
+	while
+	'''
+	
+	def compile(For f)'''
+	for
+	'''
+	
+	def compile(Foreach f)'''
+	foreach
+	'''
+	
 	
 	def static init(List<Integer> integers) {
 		integers.add(INDENT_ALL,DEFAULT_ALL)
@@ -115,16 +150,16 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			indentIf+=" "
 			indentForeach+=" "
 		}
-		if(indentations.get(INDENT_FOR)!=0) indentFor=""
+		if(indentations.get(INDENT_FOR)!=-1) indentFor=""
 		for(i = 0;i<indentations.get(INDENT_FOR);i++)
 			indentFor+=" "
-		if(indentations.get(INDENT_WHILE)!=0) indentWhile=""
+		if(indentations.get(INDENT_WHILE)!=-1) indentWhile=""
 		for(i = 0;i<indentations.get(INDENT_WHILE);i++)
 			indentWhile+=" "
-		if(indentations.get(INDENT_IF)!=0) indentIf=""
+		if(indentations.get(INDENT_IF)!=-1) indentIf=""
 		for(i = 0;i<indentations.get(INDENT_IF);i++)
 			indentIf+=" "
-		if(indentations.get(INDENT_FOREACH)!=0) indentForeach=""
+		if(indentations.get(INDENT_FOREACH)!=-1) indentForeach=""
 		for(i = 0;i<indentations.get(INDENT_FOREACH);i++)
 			indentForeach+=" "	
 	}
