@@ -10,6 +10,6 @@ read X
     else
       Y := Y
     fi
-    od
+  od
 %
 write Y
