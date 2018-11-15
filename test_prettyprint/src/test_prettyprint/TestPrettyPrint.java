@@ -125,7 +125,8 @@ public class TestPrettyPrint {
 		assertTrue("compilationTime(test11) Ëœ 100*compilationTime(test9)",Math.abs(value11-value9*100)<100);
 	}
 	
-	public static void main(String[] args) throws Exception {                    
-	       JUnitCore.main(TestPrettyPrint.class.getName());            
+	public static void main(String[] args) throws Exception {
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+	        JUnitCore.main(TestPrettyPrint.class.getName());            
 	}
 }
