@@ -3,7 +3,7 @@ function f :
 		Y := nil;
 		while     X do
 			Y    := (cons (hd X) Y);
-			X := (tl X)
+			X := (tl X) ;
 			if X =? nil then
 				Y := X
 			else

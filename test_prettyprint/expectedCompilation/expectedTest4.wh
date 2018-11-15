@@ -1,9 +1,9 @@
-function f:
+function f :
 read X
 %
-  Y := nil;
+  Y := nil ;
   while X do
-    A := (hd X);
+    A := (hd X) ;
     X := (tl X)
   od
 %
