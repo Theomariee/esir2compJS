@@ -1,5 +1,9 @@
 #!/bin/bash
 #bash script to compile each file from toCompile directory to compiled directory
+
+#Empty the output folder before running the generation of files
+rm -rf compiled/*
+
 for filename in `ls toCompile`
 do
 	echo $filename
