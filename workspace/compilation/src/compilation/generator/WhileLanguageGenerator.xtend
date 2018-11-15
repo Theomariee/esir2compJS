@@ -63,7 +63,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		List<Integer> indentations) {
 		this.indentations = indentations
 		calcIndent(this.indentations)
-		System.out.println(indentations);
+		//System.out.println(indentations);
 		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
 			if (output.equals(""))
 				System.out.println(e.compile())
@@ -142,7 +142,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	'''
 
 	def compile(Expr e) 
-	'''«IF e.valeur !== null»«e.valeur.toString()»«ELSEIF e.ope.toString.equals('and') || e.ope.toString.equals('or') || e.ope.toString.equals('=?')»(«e.ex1.compile» «e.ope.toString()» «e.ex2.compile»)«ELSEIF e.ope.toString.equals('list') || e.ope.toString.equals('cons')»(«e.ope.toString()» «(e.lexpr as Lexpr).compile»)«ELSE»«System.out.println("test"+e.ope.toString())»(«e.ope.toString()» «(e.expr as Expr).compile»)«ENDIF»'''
+	'''«IF e.valeur !== null»«e.valeur.toString()»«ELSEIF e.ope.toString.equals('and') || e.ope.toString.equals('or') || e.ope.toString.equals('=?')»(«e.ex1.compile» «e.ope.toString()» «e.ex2.compile»)«ELSEIF e.ope.toString.equals('list') || e.ope.toString.equals('cons')»(«e.ope.toString()» «(e.lexpr as Lexpr).compile»)«ELSE»(«e.ope.toString()» «(e.expr as Expr).compile»)«ENDIF»'''
 
 	def compile(Lexpr l)
 	'''«FOR expr : l.exprs SEPARATOR " "»«expr.compile»«ENDFOR»'''
