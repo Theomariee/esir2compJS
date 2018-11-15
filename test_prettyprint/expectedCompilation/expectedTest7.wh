@@ -5,7 +5,7 @@ read X
   while X do
     Y := (cons (hd X) Y) ;
     X := (tl X) ;
-    if X =? nil then
+    if (X =? nil) then
       Y := X
     else
       Y := Y
