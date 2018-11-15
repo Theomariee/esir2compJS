@@ -1,16 +1,18 @@
 #!/bin/bash
 #bash script to compile each file from toCompile directory to compiled directory
+
+#Empty the output folder before running the generation of files
+rm -rf compiled/*
+
 for filename in `ls toCompile`
 do
 	echo $filename
-	java -jar ./toCompile/$filename -o ./compiled/$filename
+	./whpp ./toCompile/$filename -o ./compiled/$filename
 done
 
-echo 'Fin du pretty-printing.'
+# #multiplier le fichier 1 x fois pour les tests de linéarité
 
-#multiplier le fichier 1 x fois pour les tests de linéarité
-
-#un fichier de 12 lignes, 3 fois le fichier 1
+# #un fichier de 12 lignes, 3 fois le fichier 1
 # rm ./toCompile/test9.wh
 # for i in `seq 1 3`
 # do
