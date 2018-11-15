@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.JUnitCore;
 
 public class TestPrettyPrint {
-	static String expectedDirectory = "./expectedCompilation/";
-	static String compiledDirectory = "./compiled/";
+	static String expectedDirectory = "../../expectedCompilation/";
+	static String compiledDirectory = "../../compiled/";
 
 	public void testFile(String fileName) throws IOException {
 		String expected = new String(expectedDirectory + "expectedTest" + fileName + ".wh");
