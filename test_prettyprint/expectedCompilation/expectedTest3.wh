@@ -1,0 +1,6 @@
+function f:
+read X
+%
+  Y := (hd X)
+%
+write Y

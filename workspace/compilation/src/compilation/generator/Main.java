@@ -53,21 +53,21 @@ public class Main {
 
 		/* Étape 1 : Définition des options. */
 		Options options = new Options();
-        Option o = OptionBuilder.withArgName("FILE").hasArg().withDescription("Creates an output file with the name given has an argument.").withLongOpt("output").create('o');
-        Option all = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the general indentation for blocks.").withLongOpt("allindent").create("all");
-        Option iF = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the if blocks.").withLongOpt("ifindent").create("if") ;
-        Option whilE = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the while blocks.").withLongOpt("whileindent").create("while");
-        Option help = new Option("help", "Gives a detailed list of the options the user can use for the whc command.");
-        Option foR = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the for blocks.").withLongOpt("forindent").create("for");
-        Option foreach = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the foreach blocks.").withLongOpt("forindent").create("foreach");
+        Option outputOption = OptionBuilder.withArgName("FILE").hasArg().withDescription("Creates an output file with the name given has an argument.").withLongOpt("output").create('o');
+        Option allOption = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the general indentation for blocks.").withLongOpt("allindent").create("all");
+        Option ifOption = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the if blocks.").withLongOpt("ifindent").create("if") ;
+        Option whileOption = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the while blocks.").withLongOpt("whileindent").create("while");
+        Option helpOption = new Option("help", "Gives a detailed list of the options the user can use for the whc command.");
+        Option forOption = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the for blocks.").withLongOpt("forindent").create("for");
+        Option foreachOption = OptionBuilder.withArgName("INT").hasArg().withType(Integer.class).withDescription("Number of spaces chosen for the indentation of the foreach blocks.").withLongOpt("forindent").create("foreach");
 		/* On les ajoute à notre groupe d'options. */
-		options.addOption(o);
-		options.addOption(all);
-		options.addOption(iF);
-		options.addOption(whilE);
-		options.addOption(help);
-		options.addOption(foR);
-		options.addOption(foreach);
+		options.addOption(outputOption);
+		options.addOption(allOption);
+		options.addOption(ifOption);
+		options.addOption(whileOption);
+		options.addOption(helpOption);
+		options.addOption(forOption);
+		options.addOption(foreachOption);
 
 		/* Étape 2 : Analyse de la ligne de commande. */
 		try {
