@@ -3,7 +3,7 @@
 for filename in `ls toCompile`
 do
 	echo $filename
-	java -jar ./toCompile/$filename ./compiled/$filename
+	java -jar ./toCompile/$filename -o ./compiled/$filename
 done
 
 #multiplier le fichier 1 x fois pour les tests de linéarité
