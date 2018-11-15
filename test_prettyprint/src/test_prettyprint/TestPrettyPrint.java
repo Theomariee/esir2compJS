@@ -47,9 +47,9 @@ class TestPrettyPrint {
 		}
 	}
 
-	// tests 1 à 7: les fichiers ont étés créés et le pretty-printer a agit comme
-	// prévu
-	// s'il n'agit pas comme prévu, on montre le pretty-print attendu/le
+	// tests 1 a 7 : les fichiers ont etes crees et le pretty-printer a agit comme
+	// prevu
+	// s'il n'agit pas comme prevu, on montre le pretty-print attendu/le
 	// pretty-print qui a eu lieu
 	@Test
 	void test1() throws IOException {
@@ -86,15 +86,15 @@ class TestPrettyPrint {
 		testFile("7");
 	}
 
-	// test 8 : le fichier ne doit pas être créé car il n'est pas correct
+	// test 8 : le fichier ne doit pas etre cree car il n'est pas correct
 	// syntaxiquement
 	@Test
 	void test8() throws IOException {
 		assertFalse("Expected file shouldn't exist", new File(compiledDirectory + "test8.wh").exists());
 	}
 
-	// test de linéarité : vérification que la compilation des documents 
-	// 3*doc1 et 300*doc1 et 3000*doc1 a un temps d'exécution linéaire
+	// test de linearite : verification que la compilation des documents 
+	// 3*doc1 et 300*doc1 et 3000*doc1 a un temps d'exÃ©cution linÃ©aire
 	@Test
 	void testLinearity() throws IOException {
 		// we check if the compilation happened and if the time was stored
@@ -119,8 +119,8 @@ class TestPrettyPrint {
 		double value11 = Double.parseDouble(br.readLine());
 		br.close();
 		
-		// linearity logic here : compilationTime(test11) ˜ 10*compilationTime(test10) ˜ 100*compilationTime(test11)
-		assertTrue("compilationTime(test11) ˜ 10*compilationTime(test10)",Math.abs(value11-value10*10)<100);
-		assertTrue("compilationTime(test11) ˜ 100*compilationTime(test9)",Math.abs(value11-value9*100)<100);
+		// linearity logic here : compilationTime(test11) Ëœ 10*compilationTime(test10) Ëœ 100*compilationTime(test11)
+		assertTrue("compilationTime(test11) Ëœ 10*compilationTime(test10)",Math.abs(value11-value10*10)<100);
+		assertTrue("compilationTime(test11) Ëœ 100*compilationTime(test9)",Math.abs(value11-value9*100)<100);
 	}
 }
