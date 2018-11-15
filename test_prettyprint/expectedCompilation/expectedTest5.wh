@@ -1,10 +1,10 @@
-function f:
+function f :
 read X
 %
-  Y := nil;
+  Y := nil ;
   while X do
-    A := (hd X);
-    Y := (cons A Y);
+    A := (hd X) ;
+    Y := (cons A Y) ;
     X := (tl X)
   od
 %
