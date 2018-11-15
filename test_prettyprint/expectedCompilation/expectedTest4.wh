@@ -1,7 +1,7 @@
 function f :
 read X
 %
-  Y := nil;
+  Y := nil ;
   while X do
     A := (hd X) ;
     X := (tl X)
