@@ -123,4 +123,9 @@ class TestPrettyPrint {
 		assertTrue("compilationTime(test11) ˜ 10*compilationTime(test10)",Math.abs(value11-value10*10)<100);
 		assertTrue("compilationTime(test11) ˜ 100*compilationTime(test9)",Math.abs(value11-value9*100)<100);
 	}
+	
+		
+	public static void main(String[] args) throws Exception {                    
+	       JUnitCore.main(TestPrettyPrint.class.getName());            
+	}
 }
