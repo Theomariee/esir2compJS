@@ -14,11 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
- *   <li>{@link compilation.whileLanguage.Commands#getCommand <em>Command</em>}</li>
  *   <li>{@link compilation.whileLanguage.Commands#getCommands <em>Commands</em>}</li>
  * </ul>
+ * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getCommands()
  * @model
@@ -26,32 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Commands extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Command</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Command</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Command</em>' containment reference.
-   * @see #setCommand(Command)
-   * @see compilation.whileLanguage.WhileLanguagePackage#getCommands_Command()
-   * @model containment="true"
-   * @generated
-   */
-  Command getCommand();
-
-  /**
-   * Sets the value of the '{@link compilation.whileLanguage.Commands#getCommand <em>Command</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Command</em>' containment reference.
-   * @see #getCommand()
-   * @generated
-   */
-  void setCommand(Command value);
-
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
    * The list contents are of type {@link compilation.whileLanguage.Command}.

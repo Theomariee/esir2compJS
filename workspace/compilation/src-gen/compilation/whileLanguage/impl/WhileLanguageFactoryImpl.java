@@ -79,7 +79,6 @@ public class WhileLanguageFactoryImpl extends EFactoryImpl implements WhileLangu
       case WhileLanguagePackage.FOR: return createFor();
       case WhileLanguagePackage.WHILE: return createWhile();
       case WhileLanguagePackage.EXPR: return createExpr();
-      case WhileLanguagePackage.EXPR_SIMPLE: return createExprSimple();
       case WhileLanguagePackage.LEXPR: return createLexpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -238,17 +237,6 @@ public class WhileLanguageFactoryImpl extends EFactoryImpl implements WhileLangu
   {
     ExprImpl expr = new ExprImpl();
     return expr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExprSimple createExprSimple()
-  {
-    ExprSimpleImpl exprSimple = new ExprSimpleImpl();
-    return exprSimple;
   }
 
   /**

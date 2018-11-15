@@ -10,7 +10,6 @@ import compilation.whileLanguage.Command;
 import compilation.whileLanguage.Commands;
 import compilation.whileLanguage.Definition;
 import compilation.whileLanguage.Expr;
-import compilation.whileLanguage.ExprSimple;
 import compilation.whileLanguage.For;
 import compilation.whileLanguage.Foreach;
 import compilation.whileLanguage.Function;
@@ -61,9 +60,6 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 				return; 
 			case WhileLanguagePackage.EXPR:
 				sequence_Expr(context, (Expr) semanticObject); 
-				return; 
-			case WhileLanguagePackage.EXPR_SIMPLE:
-				sequence_ExprSimple(context, (ExprSimple) semanticObject); 
 				return; 
 			case WhileLanguagePackage.FOR:
 				sequence_For(context, (For) semanticObject); 
@@ -136,7 +132,7 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 	 *     Commands returns Commands
 	 *
 	 * Constraint:
-	 *     (command=Command commands+=Command*)
+	 *     (commands+=Command commands+=Command*)
 	 */
 	protected void sequence_Commands(ISerializationContext context, Commands semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -169,7 +165,7 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     ExprSimple returns ExprSimple
+	 *     Expr returns Expr
 	 *
 	 * Constraint:
 	 *     (
@@ -178,33 +174,15 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 	 *         valeur=SYMBOL | 
 	 *         (ope='cons' lexpr=Lexpr) | 
 	 *         (ope='list' lexpr=Lexpr) | 
+	 *         (ope=SYMBOL lexpr=Lexpr) | 
 	 *         (ope='hd' expr=Expr) | 
 	 *         (ope='tl' expr=Expr) | 
 	 *         (ope='!' expr=Expr) | 
-	 *         (call=SYMBOL lexpr=Lexpr) | 
 	 *         (ex1=Expr (ope='and' | ope='or' | ope='=?') ex2=Expr)
 	 *     )
 	 */
-	protected void sequence_ExprSimple(ISerializationContext context, ExprSimple semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Expr returns Expr
-	 *
-	 * Constraint:
-	 *     exprsimple=ExprSimple
-	 */
 	protected void sequence_Expr(ISerializationContext context, Expr semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, WhileLanguagePackage.Literals.EXPR__EXPRSIMPLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhileLanguagePackage.Literals.EXPR__EXPRSIMPLE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getExprAccess().getExprsimpleExprSimpleParserRuleCall_0(), semanticObject.getExprsimple());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -291,7 +269,7 @@ public class WhileLanguageSemanticSequencer extends AbstractDelegatingSemanticSe
 	 *     Lexpr returns Lexpr
 	 *
 	 * Constraint:
-	 *     (expr=Expr lexpr=Lexpr?)
+	 *     (exprs+=Expr exprs+=Expr*)
 	 */
 	protected void sequence_Lexpr(ISerializationContext context, Lexpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

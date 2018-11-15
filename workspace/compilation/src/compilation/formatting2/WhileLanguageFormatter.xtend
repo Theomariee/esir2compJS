@@ -26,5 +26,5 @@ class WhileLanguageFormatter extends AbstractFormatter2 {
 		function.definition.format
 	}
 	
-	// TODO: implement for Definition, Affectation, Commands, Command, Foreach, If, For, While, Expr, ExprSimple, Lexpr
+	// TODO: implement for Definition, Affectation, Commands, Command, Foreach, If, For, While, Expr, Lexpr
 }

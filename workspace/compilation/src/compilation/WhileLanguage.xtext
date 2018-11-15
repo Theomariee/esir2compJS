@@ -68,23 +68,20 @@ While:
 	('while' expr=Expr 'do' commands=Commands 'od')
 ;
 
-Expr: 
-	exprsimple=ExprSimple
-;	
-	
-ExprSimple:
+Expr:
 	valeur='nil' | valeur=VARIABLE | valeur=SYMBOL |
 	'(' ope='cons' lexpr=Lexpr ')' |
 	'(' ope='list' lexpr=Lexpr ')' |
+	'(' ope=SYMBOL lexpr=Lexpr ')'|
 	'(' ope='hd' expr=Expr ')' |
 	'(' ope='tl' expr=Expr ')' |
 	'(' ope='!' expr=Expr ')' |
-	'(' call=SYMBOL lexpr=Lexpr ')'|
-	'(' ex1 = Expr ope=('and' | 'or' | '=?') ex2=Expr ')'
+	'(' ex1=Expr ope=('and' | 'or' | '=?') ex2=Expr ')'
 ;
 
+
 Lexpr:
-	expr=Expr (lexpr=Lexpr)?
+	exprs+=Expr (exprs+=Expr)*
 ;
 
 

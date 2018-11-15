@@ -8,7 +8,6 @@ import compilation.whileLanguage.Command;
 import compilation.whileLanguage.Commands;
 import compilation.whileLanguage.Definition;
 import compilation.whileLanguage.Expr;
-import compilation.whileLanguage.ExprSimple;
 import compilation.whileLanguage.For;
 import compilation.whileLanguage.Foreach;
 import compilation.whileLanguage.Function;
@@ -134,13 +133,6 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * @generated
    */
   private EClass exprEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass exprSimpleEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -407,19 +399,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCommands_Command()
-  {
-    return (EReference)commandsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getCommands_Commands()
   {
-    return (EReference)commandsEClass.getEStructuralFeatures().get(1);
+    return (EReference)commandsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -597,9 +579,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExpr_Exprsimple()
+  public EAttribute getExpr_Valeur()
   {
-    return (EReference)exprEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)exprEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -607,9 +589,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getExprSimple()
+  public EAttribute getExpr_Ope()
   {
-    return exprSimpleEClass;
+    return (EAttribute)exprEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -617,9 +599,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExprSimple_Valeur()
+  public EReference getExpr_Lexpr()
   {
-    return (EAttribute)exprSimpleEClass.getEStructuralFeatures().get(0);
+    return (EReference)exprEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -627,9 +609,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExprSimple_Ope()
+  public EReference getExpr_Expr()
   {
-    return (EAttribute)exprSimpleEClass.getEStructuralFeatures().get(1);
+    return (EReference)exprEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -637,9 +619,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExprSimple_Lexpr()
+  public EReference getExpr_Ex1()
   {
-    return (EReference)exprSimpleEClass.getEStructuralFeatures().get(2);
+    return (EReference)exprEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -647,39 +629,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExprSimple_Expr()
+  public EReference getExpr_Ex2()
   {
-    return (EReference)exprSimpleEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getExprSimple_Call()
-  {
-    return (EAttribute)exprSimpleEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getExprSimple_Ex1()
-  {
-    return (EReference)exprSimpleEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getExprSimple_Ex2()
-  {
-    return (EReference)exprSimpleEClass.getEStructuralFeatures().get(6);
+    return (EReference)exprEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -697,19 +649,9 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLexpr_Expr()
+  public EReference getLexpr_Exprs()
   {
     return (EReference)lexprEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLexpr_Lexpr()
-  {
-    return (EReference)lexprEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -768,7 +710,6 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     createEAttribute(nopEClass, NOP__NOP);
 
     commandsEClass = createEClass(COMMANDS);
-    createEReference(commandsEClass, COMMANDS__COMMAND);
     createEReference(commandsEClass, COMMANDS__COMMANDS);
 
     commandEClass = createEClass(COMMAND);
@@ -793,20 +734,15 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     createEReference(whileEClass, WHILE__COMMANDS);
 
     exprEClass = createEClass(EXPR);
-    createEReference(exprEClass, EXPR__EXPRSIMPLE);
-
-    exprSimpleEClass = createEClass(EXPR_SIMPLE);
-    createEAttribute(exprSimpleEClass, EXPR_SIMPLE__VALEUR);
-    createEAttribute(exprSimpleEClass, EXPR_SIMPLE__OPE);
-    createEReference(exprSimpleEClass, EXPR_SIMPLE__LEXPR);
-    createEReference(exprSimpleEClass, EXPR_SIMPLE__EXPR);
-    createEAttribute(exprSimpleEClass, EXPR_SIMPLE__CALL);
-    createEReference(exprSimpleEClass, EXPR_SIMPLE__EX1);
-    createEReference(exprSimpleEClass, EXPR_SIMPLE__EX2);
+    createEAttribute(exprEClass, EXPR__VALEUR);
+    createEAttribute(exprEClass, EXPR__OPE);
+    createEReference(exprEClass, EXPR__LEXPR);
+    createEReference(exprEClass, EXPR__EXPR);
+    createEReference(exprEClass, EXPR__EX1);
+    createEReference(exprEClass, EXPR__EX2);
 
     lexprEClass = createEClass(LEXPR);
-    createEReference(lexprEClass, LEXPR__EXPR);
-    createEReference(lexprEClass, LEXPR__LEXPR);
+    createEReference(lexprEClass, LEXPR__EXPRS);
   }
 
   /**
@@ -866,7 +802,6 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     initEAttribute(getNop_Nop(), ecorePackage.getEString(), "nop", null, 0, 1, Nop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(commandsEClass, Commands.class, "Commands", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCommands_Command(), this.getCommand(), null, "command", null, 0, 1, Commands.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCommands_Commands(), this.getCommand(), null, "commands", null, 0, -1, Commands.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(commandEClass, Command.class, "Command", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -891,20 +826,15 @@ public class WhileLanguagePackageImpl extends EPackageImpl implements WhileLangu
     initEReference(getWhile_Commands(), this.getCommands(), null, "commands", null, 0, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprEClass, Expr.class, "Expr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExpr_Exprsimple(), this.getExprSimple(), null, "exprsimple", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(exprSimpleEClass, ExprSimple.class, "ExprSimple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExprSimple_Valeur(), ecorePackage.getEString(), "valeur", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getExprSimple_Ope(), ecorePackage.getEString(), "ope", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExprSimple_Lexpr(), this.getLexpr(), null, "lexpr", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExprSimple_Expr(), this.getExpr(), null, "expr", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getExprSimple_Call(), ecorePackage.getEString(), "call", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExprSimple_Ex1(), this.getExpr(), null, "ex1", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExprSimple_Ex2(), this.getExpr(), null, "ex2", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpr_Valeur(), ecorePackage.getEString(), "valeur", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpr_Ope(), ecorePackage.getEString(), "ope", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_Lexpr(), this.getLexpr(), null, "lexpr", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_Expr(), this.getExpr(), null, "expr", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_Ex1(), this.getExpr(), null, "ex1", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_Ex2(), this.getExpr(), null, "ex2", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(lexprEClass, Lexpr.class, "Lexpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLexpr_Expr(), this.getExpr(), null, "expr", null, 0, 1, Lexpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLexpr_Lexpr(), this.getLexpr(), null, "lexpr", null, 0, 1, Lexpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLexpr_Exprs(), this.getExpr(), null, "exprs", null, 0, -1, Lexpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

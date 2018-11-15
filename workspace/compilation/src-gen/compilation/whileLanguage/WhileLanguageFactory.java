@@ -150,15 +150,6 @@ public interface WhileLanguageFactory extends EFactory
   Expr createExpr();
 
   /**
-   * Returns a new object of class '<em>Expr Simple</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Expr Simple</em>'.
-   * @generated
-   */
-  ExprSimple createExprSimple();
-
-  /**
    * Returns a new object of class '<em>Lexpr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

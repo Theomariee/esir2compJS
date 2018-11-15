@@ -14,11 +14,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.Affectation#getAffectations <em>Affectations</em>}</li>
  *   <li>{@link compilation.whileLanguage.Affectation#getValeurs <em>Valeurs</em>}</li>
  * </ul>
+ * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getAffectation()
  * @model

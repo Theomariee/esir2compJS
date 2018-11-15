@@ -4,15 +4,20 @@
 package compilation.generator;
 
 import com.google.common.collect.Iterables;
+import compilation.whileLanguage.Affectation;
 import compilation.whileLanguage.Command;
 import compilation.whileLanguage.Commands;
-import compilation.whileLanguage.Definition;
+import compilation.whileLanguage.Expr;
+import compilation.whileLanguage.For;
+import compilation.whileLanguage.Foreach;
 import compilation.whileLanguage.Function;
+import compilation.whileLanguage.If;
+import compilation.whileLanguage.Lexpr;
+import compilation.whileLanguage.Nop;
 import compilation.whileLanguage.Program;
+import compilation.whileLanguage.While;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -39,23 +44,29 @@ public class WhileLanguageGenerator extends AbstractGenerator {
   
   public final static int INDENT_FOREACH = 4;
   
-  public final static int INDENT_DO = 5;
+  public final static Integer DEFAULT_ALL = Integer.valueOf(2);
   
-  private String indentFor;
+  public final static Integer DEFAULT_FOR = Integer.valueOf((-1));
   
-  private String indentWhile;
+  public final static Integer DEFAULT_WHILE = Integer.valueOf((-1));
   
-  private String indentIf;
+  public final static Integer DEFAULT_IF = Integer.valueOf((-1));
   
-  private String indentForeach;
+  public final static Integer DEFAULT_FOREACH = Integer.valueOf((-1));
   
-  private String indentDo;
+  private String indentAll = "";
+  
+  private String indentFor = "";
+  
+  private String indentWhile = "";
+  
+  private String indentIf = "";
+  
+  private String indentForeach = "";
   
   private int i;
   
   private List<Integer> indentations = new ArrayList<Integer>();
-  
-  private final static Map<String, Integer> DEFAULT_MAP = new HashMap<String, Integer>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -98,17 +109,9 @@ public class WhileLanguageGenerator extends AbstractGenerator {
     _builder.append(_name);
     _builder.append(" :");
     _builder.newLineIfNotEmpty();
-    CharSequence _compile = this.compile(f.getDefinition());
-    _builder.append(_compile);
-    _builder.newLineIfNotEmpty();
-    return _builder;
-  }
-  
-  public CharSequence compile(final Definition d) {
-    StringConcatenation _builder = new StringConcatenation();
     _builder.append("read ");
     {
-      EList<String> _variable = d.getRead().getVariable();
+      EList<String> _variable = f.getDefinition().getRead().getVariable();
       boolean _hasElements = false;
       for(final String vr : _variable) {
         if (!_hasElements) {
@@ -122,15 +125,14 @@ public class WhileLanguageGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("%");
     _builder.newLine();
-    _builder.append("  ");
-    CharSequence _compile = this.compile(d.getCommands());
-    _builder.append(_compile, "  ");
+    CharSequence _compile = this.compile(f.getDefinition().getCommands(), this.indentAll);
+    _builder.append(_compile);
     _builder.newLineIfNotEmpty();
     _builder.append("%");
     _builder.newLine();
     _builder.append("write ");
     {
-      EList<String> _variable_1 = d.getWrite().getVariable();
+      EList<String> _variable_1 = f.getDefinition().getWrite().getVariable();
       boolean _hasElements_1 = false;
       for(final String vw : _variable_1) {
         if (!_hasElements_1) {
@@ -145,30 +147,269 @@ public class WhileLanguageGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence compile(final Commands c) {
+  public CharSequence compile(final Commands c, final String indent) {
     StringConcatenation _builder = new StringConcatenation();
     {
       EList<Command> _commands = c.getCommands();
+      boolean _hasElements = false;
       for(final Command command : _commands) {
-        _builder.append("Ceci est une commande");
-        _builder.newLine();
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(" ;", "");
+        }
+        _builder.append(indent);
+        CharSequence _compile = this.compile(((Command) command), indent);
+        _builder.append(_compile);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compile(final Command c, final String indent) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EObject _command = c.getCommand();
+      if ((_command instanceof Nop)) {
+        _builder.append("nop");
+        _builder.newLineIfNotEmpty();
+      } else {
+        EObject _command_1 = c.getCommand();
+        if ((_command_1 instanceof If)) {
+          EObject _command_2 = c.getCommand();
+          CharSequence _compile = this.compile(((If) _command_2), indent);
+          _builder.append(_compile);
+          _builder.newLineIfNotEmpty();
+        } else {
+          EObject _command_3 = c.getCommand();
+          if ((_command_3 instanceof Affectation)) {
+            EObject _command_4 = c.getCommand();
+            CharSequence _compile_1 = this.compile(((Affectation) _command_4));
+            _builder.append(_compile_1);
+            _builder.newLineIfNotEmpty();
+          } else {
+            EObject _command_5 = c.getCommand();
+            if ((_command_5 instanceof While)) {
+              EObject _command_6 = c.getCommand();
+              CharSequence _compile_2 = this.compile(((While) _command_6), indent);
+              _builder.append(_compile_2);
+              _builder.newLineIfNotEmpty();
+            } else {
+              EObject _command_7 = c.getCommand();
+              if ((_command_7 instanceof For)) {
+                EObject _command_8 = c.getCommand();
+                CharSequence _compile_3 = this.compile(((For) _command_8), indent);
+                _builder.append(_compile_3);
+                _builder.newLineIfNotEmpty();
+              } else {
+                EObject _command_9 = c.getCommand();
+                if ((_command_9 instanceof Foreach)) {
+                  EObject _command_10 = c.getCommand();
+                  CharSequence _compile_4 = this.compile(((Foreach) _command_10), indent);
+                  _builder.append(_compile_4);
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compile(final While w, final String indent) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("while ");
+    CharSequence _compile = this.compile(w.getExpr());
+    _builder.append(_compile);
+    _builder.append(" do");
+    _builder.newLineIfNotEmpty();
+    Object _compile_1 = this.compile(w.getCommands(), (indent + this.indentWhile));
+    _builder.append(_compile_1);
+    _builder.newLineIfNotEmpty();
+    _builder.append(indent);
+    _builder.append("od");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final If i, final String indent) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("if ");
+    CharSequence _compile = this.compile(i.getExpr());
+    _builder.append(_compile);
+    _builder.append(" then");
+    _builder.newLineIfNotEmpty();
+    Object _compile_1 = this.compile(i.getCommands1(), (indent + this.indentIf));
+    _builder.append(_compile_1);
+    _builder.newLineIfNotEmpty();
+    {
+      Commands _commands2 = i.getCommands2();
+      boolean _tripleNotEquals = (_commands2 != null);
+      if (_tripleNotEquals) {
+        _builder.append(indent);
+        _builder.append("else");
+        _builder.newLineIfNotEmpty();
+        Object _compile_2 = this.compile(i.getCommands2(), (indent + this.indentIf));
+        _builder.append(_compile_2);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append(indent);
+    _builder.append("fi");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Affectation a) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<String> _affectations = a.getAffectations();
+      boolean _hasElements = false;
+      for(final String nom : _affectations) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(",", "");
+        }
+        _builder.append(nom);
+      }
+    }
+    _builder.append(" := ");
+    {
+      EList<Expr> _valeurs = a.getValeurs();
+      boolean _hasElements_1 = false;
+      for(final Expr expr : _valeurs) {
+        if (!_hasElements_1) {
+          _hasElements_1 = true;
+        } else {
+          _builder.appendImmediate(",", "");
+        }
+        CharSequence _compile = this.compile(expr);
+        _builder.append(_compile);
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final For f, final String indent) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("for ");
+    CharSequence _compile = this.compile(f.getExpr());
+    _builder.append(_compile);
+    _builder.append(" do");
+    _builder.newLineIfNotEmpty();
+    Object _compile_1 = this.compile(f.getCommands(), (indent + this.indentFor));
+    _builder.append(_compile_1);
+    _builder.newLineIfNotEmpty();
+    _builder.append(indent);
+    _builder.append("od");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Foreach f, final String indent) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("foreach ");
+    CharSequence _compile = this.compile(f.getExpr1());
+    _builder.append(_compile);
+    _builder.append(" in ");
+    CharSequence _compile_1 = this.compile(f.getExpr2());
+    _builder.append(_compile_1);
+    _builder.append(" do");
+    _builder.newLineIfNotEmpty();
+    Object _compile_2 = this.compile(f.getCommands(), (indent + this.indentForeach));
+    _builder.append(_compile_2);
+    _builder.newLineIfNotEmpty();
+    _builder.append(indent);
+    _builder.append("od");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final Expr e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      String _valeur = e.getValeur();
+      boolean _tripleNotEquals = (_valeur != null);
+      if (_tripleNotEquals) {
+        String _string = e.getValeur().toString();
+        _builder.append(_string);
+      } else {
+        if (((e.getOpe().toString().equals("and") || e.getOpe().toString().equals("or")) || e.getOpe().toString().equals("=?"))) {
+          _builder.append("(");
+          Object _compile = this.compile(e.getEx1());
+          _builder.append(_compile);
+          _builder.append(" ");
+          String _string_1 = e.getOpe().toString();
+          _builder.append(_string_1);
+          _builder.append(" ");
+          Object _compile_1 = this.compile(e.getEx2());
+          _builder.append(_compile_1);
+          _builder.append(")");
+        } else {
+          if ((e.getOpe().toString().equals("list") || e.getOpe().toString().equals("cons"))) {
+            _builder.append("(");
+            String _string_2 = e.getOpe().toString();
+            _builder.append(_string_2);
+            _builder.append(" ");
+            Lexpr _lexpr = e.getLexpr();
+            CharSequence _compile_2 = this.compile(((Lexpr) _lexpr));
+            _builder.append(_compile_2);
+            _builder.append(")");
+          } else {
+            String _string_3 = e.getOpe().toString();
+            String _plus = ("test" + _string_3);
+            System.out.println(_plus);
+            _builder.append("(");
+            String _string_4 = e.getOpe().toString();
+            _builder.append(_string_4);
+            _builder.append(" ");
+            Expr _expr = e.getExpr();
+            Object _compile_3 = this.compile(((Expr) _expr));
+            _builder.append(_compile_3);
+            _builder.append(")");
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compile(final Lexpr l) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Expr> _exprs = l.getExprs();
+      boolean _hasElements = false;
+      for(final Expr expr : _exprs) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(" ", "");
+        }
+        Object _compile = this.compile(expr);
+        _builder.append(_compile);
       }
     }
     return _builder;
   }
   
   public static void init(final List<Integer> integers) {
-    integers.add(WhileLanguageGenerator.INDENT_ALL, Integer.valueOf(2));
-    integers.add(WhileLanguageGenerator.INDENT_FOR, Integer.valueOf(0));
-    integers.add(WhileLanguageGenerator.INDENT_WHILE, Integer.valueOf(0));
-    integers.add(WhileLanguageGenerator.INDENT_IF, Integer.valueOf(0));
-    integers.add(WhileLanguageGenerator.INDENT_FOREACH, Integer.valueOf(0));
-    integers.add(WhileLanguageGenerator.INDENT_DO, Integer.valueOf(0));
+    integers.add(WhileLanguageGenerator.INDENT_ALL, WhileLanguageGenerator.DEFAULT_ALL);
+    integers.add(WhileLanguageGenerator.INDENT_FOR, WhileLanguageGenerator.DEFAULT_FOR);
+    integers.add(WhileLanguageGenerator.INDENT_WHILE, WhileLanguageGenerator.DEFAULT_WHILE);
+    integers.add(WhileLanguageGenerator.INDENT_IF, WhileLanguageGenerator.DEFAULT_IF);
+    integers.add(WhileLanguageGenerator.INDENT_FOREACH, WhileLanguageGenerator.DEFAULT_FOREACH);
   }
   
   public void calcIndent(final List<Integer> integers) {
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_ALL)).intValue()); this.i++) {
       {
+        String _indentAll = this.indentAll;
+        this.indentAll = (_indentAll + " ");
         String _indentFor = this.indentFor;
         this.indentFor = (_indentFor + " ");
         String _indentWhile = this.indentWhile;
@@ -177,13 +418,11 @@ public class WhileLanguageGenerator extends AbstractGenerator {
         this.indentIf = (_indentIf + " ");
         String _indentForeach = this.indentForeach;
         this.indentForeach = (_indentForeach + " ");
-        String _indentDo = this.indentDo;
-        this.indentDo = (_indentDo + " ");
       }
     }
     Integer _get = this.indentations.get(WhileLanguageGenerator.INDENT_FOR);
-    boolean _notEquals = ((_get).intValue() != 0);
-    if (_notEquals) {
+    boolean _greaterThan = ((_get).intValue() > (-1));
+    if (_greaterThan) {
       this.indentFor = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOR)).intValue()); this.i++) {
@@ -191,8 +430,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentFor = (_indentFor + " ");
     }
     Integer _get_1 = this.indentations.get(WhileLanguageGenerator.INDENT_WHILE);
-    boolean _notEquals_1 = ((_get_1).intValue() != 0);
-    if (_notEquals_1) {
+    boolean _greaterThan_1 = ((_get_1).intValue() > (-1));
+    if (_greaterThan_1) {
       this.indentWhile = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_WHILE)).intValue()); this.i++) {
@@ -200,8 +439,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentWhile = (_indentWhile + " ");
     }
     Integer _get_2 = this.indentations.get(WhileLanguageGenerator.INDENT_IF);
-    boolean _notEquals_2 = ((_get_2).intValue() != 0);
-    if (_notEquals_2) {
+    boolean _greaterThan_2 = ((_get_2).intValue() > (-1));
+    if (_greaterThan_2) {
       this.indentIf = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_IF)).intValue()); this.i++) {
@@ -209,22 +448,13 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentIf = (_indentIf + " ");
     }
     Integer _get_3 = this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH);
-    boolean _notEquals_3 = ((_get_3).intValue() != 0);
-    if (_notEquals_3) {
+    boolean _greaterThan_3 = ((_get_3).intValue() > (-1));
+    if (_greaterThan_3) {
       this.indentForeach = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH)).intValue()); this.i++) {
       String _indentForeach = this.indentForeach;
       this.indentForeach = (_indentForeach + " ");
-    }
-    Integer _get_4 = this.indentations.get(WhileLanguageGenerator.INDENT_DO);
-    boolean _notEquals_4 = ((_get_4).intValue() != 0);
-    if (_notEquals_4) {
-      this.indentDo = "";
-    }
-    for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_DO)).intValue()); this.i++) {
-      String _indentDo = this.indentDo;
-      this.indentDo = (_indentDo + " ");
     }
   }
 }

@@ -9,9 +9,11 @@ Workflow {
 	
 	component = XtextGenerator {
 		configuration = {
+			
 			project = StandardProjectConfig {
 				baseName = "compilation"
 				rootPath = rootPath
+				
 				runtimeTest = {
 					enabled = true
 				}
@@ -32,8 +34,10 @@ Workflow {
 		language = StandardLanguage {
 			name = "compilation.WhileLanguage"
 			fileExtensions = "wh"
+			
 			generator = {
 				generateJavaMain = true
+				
 			}
 			serializer = {
 				generateStub = false

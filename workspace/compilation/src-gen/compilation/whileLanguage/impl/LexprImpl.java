@@ -7,14 +7,19 @@ import compilation.whileLanguage.Expr;
 import compilation.whileLanguage.Lexpr;
 import compilation.whileLanguage.WhileLanguagePackage;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,35 +27,24 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
- *   <li>{@link compilation.whileLanguage.impl.LexprImpl#getExpr <em>Expr</em>}</li>
- *   <li>{@link compilation.whileLanguage.impl.LexprImpl#getLexpr <em>Lexpr</em>}</li>
+ *   <li>{@link compilation.whileLanguage.impl.LexprImpl#getExprs <em>Exprs</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
 public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
 {
   /**
-   * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
+   * The cached value of the '{@link #getExprs() <em>Exprs</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExpr()
+   * @see #getExprs()
    * @generated
    * @ordered
    */
-  protected Expr expr;
-
-  /**
-   * The cached value of the '{@link #getLexpr() <em>Lexpr</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLexpr()
-   * @generated
-   * @ordered
-   */
-  protected Lexpr lexpr;
+  protected EList<Expr> exprs;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,95 +72,13 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expr getExpr()
+  public EList<Expr> getExprs()
   {
-    return expr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetExpr(Expr newExpr, NotificationChain msgs)
-  {
-    Expr oldExpr = expr;
-    expr = newExpr;
-    if (eNotificationRequired())
+    if (exprs == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.LEXPR__EXPR, oldExpr, newExpr);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      exprs = new EObjectContainmentEList<Expr>(Expr.class, this, WhileLanguagePackage.LEXPR__EXPRS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExpr(Expr newExpr)
-  {
-    if (newExpr != expr)
-    {
-      NotificationChain msgs = null;
-      if (expr != null)
-        msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.LEXPR__EXPR, null, msgs);
-      if (newExpr != null)
-        msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.LEXPR__EXPR, null, msgs);
-      msgs = basicSetExpr(newExpr, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.LEXPR__EXPR, newExpr, newExpr));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Lexpr getLexpr()
-  {
-    return lexpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetLexpr(Lexpr newLexpr, NotificationChain msgs)
-  {
-    Lexpr oldLexpr = lexpr;
-    lexpr = newLexpr;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.LEXPR__LEXPR, oldLexpr, newLexpr);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setLexpr(Lexpr newLexpr)
-  {
-    if (newLexpr != lexpr)
-    {
-      NotificationChain msgs = null;
-      if (lexpr != null)
-        msgs = ((InternalEObject)lexpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.LEXPR__LEXPR, null, msgs);
-      if (newLexpr != null)
-        msgs = ((InternalEObject)newLexpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhileLanguagePackage.LEXPR__LEXPR, null, msgs);
-      msgs = basicSetLexpr(newLexpr, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhileLanguagePackage.LEXPR__LEXPR, newLexpr, newLexpr));
+    return exprs;
   }
 
   /**
@@ -179,10 +91,8 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.LEXPR__EXPR:
-        return basicSetExpr(null, msgs);
-      case WhileLanguagePackage.LEXPR__LEXPR:
-        return basicSetLexpr(null, msgs);
+      case WhileLanguagePackage.LEXPR__EXPRS:
+        return ((InternalEList<?>)getExprs()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -197,10 +107,8 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.LEXPR__EXPR:
-        return getExpr();
-      case WhileLanguagePackage.LEXPR__LEXPR:
-        return getLexpr();
+      case WhileLanguagePackage.LEXPR__EXPRS:
+        return getExprs();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -210,16 +118,15 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.LEXPR__EXPR:
-        setExpr((Expr)newValue);
-        return;
-      case WhileLanguagePackage.LEXPR__LEXPR:
-        setLexpr((Lexpr)newValue);
+      case WhileLanguagePackage.LEXPR__EXPRS:
+        getExprs().clear();
+        getExprs().addAll((Collection<? extends Expr>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -235,11 +142,8 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.LEXPR__EXPR:
-        setExpr((Expr)null);
-        return;
-      case WhileLanguagePackage.LEXPR__LEXPR:
-        setLexpr((Lexpr)null);
+      case WhileLanguagePackage.LEXPR__EXPRS:
+        getExprs().clear();
         return;
     }
     super.eUnset(featureID);
@@ -255,10 +159,8 @@ public class LexprImpl extends MinimalEObjectImpl.Container implements Lexpr
   {
     switch (featureID)
     {
-      case WhileLanguagePackage.LEXPR__EXPR:
-        return expr != null;
-      case WhileLanguagePackage.LEXPR__LEXPR:
-        return lexpr != null;
+      case WhileLanguagePackage.LEXPR__EXPRS:
+        return exprs != null && !exprs.isEmpty();
     }
     return super.eIsSet(featureID);
   }

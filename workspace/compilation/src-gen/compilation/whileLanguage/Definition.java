@@ -12,12 +12,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link compilation.whileLanguage.Definition#getRead <em>Read</em>}</li>
  *   <li>{@link compilation.whileLanguage.Definition#getCommands <em>Commands</em>}</li>
  *   <li>{@link compilation.whileLanguage.Definition#getWrite <em>Write</em>}</li>
  * </ul>
+ * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getDefinition()
  * @model

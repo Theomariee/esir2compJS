@@ -146,11 +146,6 @@ public class WhileLanguageAdapterFactory extends AdapterFactoryImpl
         return createExprAdapter();
       }
       @Override
-      public Adapter caseExprSimple(ExprSimple object)
-      {
-        return createExprSimpleAdapter();
-      }
-      @Override
       public Adapter caseLexpr(Lexpr object)
       {
         return createLexprAdapter();
@@ -383,21 +378,6 @@ public class WhileLanguageAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link compilation.whileLanguage.ExprSimple <em>Expr Simple</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see compilation.whileLanguage.ExprSimple
-   * @generated
-   */
-  public Adapter createExprSimpleAdapter()
   {
     return null;
   }

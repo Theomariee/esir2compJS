@@ -300,22 +300,13 @@ public interface WhileLanguagePackage extends EPackage
   int COMMANDS = 7;
 
   /**
-   * The feature id for the '<em><b>Command</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMANDS__COMMAND = 0;
-
-  /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMMANDS__COMMANDS = 1;
+  int COMMANDS__COMMANDS = 0;
 
   /**
    * The number of structural features of the '<em>Commands</em>' class.
@@ -324,7 +315,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMMANDS_FEATURE_COUNT = 2;
+  int COMMANDS_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link compilation.whileLanguage.impl.CommandImpl <em>Command</em>}' class.
@@ -531,41 +522,13 @@ public interface WhileLanguagePackage extends EPackage
   int EXPR = 13;
 
   /**
-   * The feature id for the '<em><b>Exprsimple</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPRSIMPLE = 0;
-
-  /**
-   * The number of structural features of the '<em>Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link compilation.whileLanguage.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see compilation.whileLanguage.impl.ExprSimpleImpl
-   * @see compilation.whileLanguage.impl.WhileLanguagePackageImpl#getExprSimple()
-   * @generated
-   */
-  int EXPR_SIMPLE = 14;
-
-  /**
    * The feature id for the '<em><b>Valeur</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__VALEUR = 0;
+  int EXPR__VALEUR = 0;
 
   /**
    * The feature id for the '<em><b>Ope</b></em>' attribute.
@@ -574,7 +537,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__OPE = 1;
+  int EXPR__OPE = 1;
 
   /**
    * The feature id for the '<em><b>Lexpr</b></em>' containment reference.
@@ -583,7 +546,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__LEXPR = 2;
+  int EXPR__LEXPR = 2;
 
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -592,16 +555,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__EXPR = 3;
-
-  /**
-   * The feature id for the '<em><b>Call</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR_SIMPLE__CALL = 4;
+  int EXPR__EXPR = 3;
 
   /**
    * The feature id for the '<em><b>Ex1</b></em>' containment reference.
@@ -610,7 +564,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__EX1 = 5;
+  int EXPR__EX1 = 4;
 
   /**
    * The feature id for the '<em><b>Ex2</b></em>' containment reference.
@@ -619,16 +573,16 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE__EX2 = 6;
+  int EXPR__EX2 = 5;
 
   /**
-   * The number of structural features of the '<em>Expr Simple</em>' class.
+   * The number of structural features of the '<em>Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_SIMPLE_FEATURE_COUNT = 7;
+  int EXPR_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link compilation.whileLanguage.impl.LexprImpl <em>Lexpr</em>}' class.
@@ -638,25 +592,16 @@ public interface WhileLanguagePackage extends EPackage
    * @see compilation.whileLanguage.impl.WhileLanguagePackageImpl#getLexpr()
    * @generated
    */
-  int LEXPR = 15;
+  int LEXPR = 14;
 
   /**
-   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEXPR__EXPR = 0;
-
-  /**
-   * The feature id for the '<em><b>Lexpr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEXPR__LEXPR = 1;
+  int LEXPR__EXPRS = 0;
 
   /**
    * The number of structural features of the '<em>Lexpr</em>' class.
@@ -665,7 +610,7 @@ public interface WhileLanguagePackage extends EPackage
    * @generated
    * @ordered
    */
-  int LEXPR_FEATURE_COUNT = 2;
+  int LEXPR_FEATURE_COUNT = 1;
 
 
   /**
@@ -870,17 +815,6 @@ public interface WhileLanguagePackage extends EPackage
   EClass getCommands();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Commands#getCommand <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Command</em>'.
-   * @see compilation.whileLanguage.Commands#getCommand()
-   * @see #getCommands()
-   * @generated
-   */
-  EReference getCommands_Command();
-
-  /**
    * Returns the meta object for the containment reference list '{@link compilation.whileLanguage.Commands#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1073,102 +1007,70 @@ public interface WhileLanguagePackage extends EPackage
   EClass getExpr();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Expr#getExprsimple <em>Exprsimple</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exprsimple</em>'.
-   * @see compilation.whileLanguage.Expr#getExprsimple()
-   * @see #getExpr()
-   * @generated
-   */
-  EReference getExpr_Exprsimple();
-
-  /**
-   * Returns the meta object for class '{@link compilation.whileLanguage.ExprSimple <em>Expr Simple</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expr Simple</em>'.
-   * @see compilation.whileLanguage.ExprSimple
-   * @generated
-   */
-  EClass getExprSimple();
-
-  /**
-   * Returns the meta object for the attribute '{@link compilation.whileLanguage.ExprSimple#getValeur <em>Valeur</em>}'.
+   * Returns the meta object for the attribute '{@link compilation.whileLanguage.Expr#getValeur <em>Valeur</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Valeur</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getValeur()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getValeur()
+   * @see #getExpr()
    * @generated
    */
-  EAttribute getExprSimple_Valeur();
+  EAttribute getExpr_Valeur();
 
   /**
-   * Returns the meta object for the attribute '{@link compilation.whileLanguage.ExprSimple#getOpe <em>Ope</em>}'.
+   * Returns the meta object for the attribute '{@link compilation.whileLanguage.Expr#getOpe <em>Ope</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Ope</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getOpe()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getOpe()
+   * @see #getExpr()
    * @generated
    */
-  EAttribute getExprSimple_Ope();
+  EAttribute getExpr_Ope();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.ExprSimple#getLexpr <em>Lexpr</em>}'.
+   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Expr#getLexpr <em>Lexpr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Lexpr</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getLexpr()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getLexpr()
+   * @see #getExpr()
    * @generated
    */
-  EReference getExprSimple_Lexpr();
+  EReference getExpr_Lexpr();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.ExprSimple#getExpr <em>Expr</em>}'.
+   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Expr#getExpr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getExpr()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getExpr()
+   * @see #getExpr()
    * @generated
    */
-  EReference getExprSimple_Expr();
+  EReference getExpr_Expr();
 
   /**
-   * Returns the meta object for the attribute '{@link compilation.whileLanguage.ExprSimple#getCall <em>Call</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Call</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getCall()
-   * @see #getExprSimple()
-   * @generated
-   */
-  EAttribute getExprSimple_Call();
-
-  /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.ExprSimple#getEx1 <em>Ex1</em>}'.
+   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Expr#getEx1 <em>Ex1</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Ex1</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getEx1()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getEx1()
+   * @see #getExpr()
    * @generated
    */
-  EReference getExprSimple_Ex1();
+  EReference getExpr_Ex1();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.ExprSimple#getEx2 <em>Ex2</em>}'.
+   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Expr#getEx2 <em>Ex2</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Ex2</em>'.
-   * @see compilation.whileLanguage.ExprSimple#getEx2()
-   * @see #getExprSimple()
+   * @see compilation.whileLanguage.Expr#getEx2()
+   * @see #getExpr()
    * @generated
    */
-  EReference getExprSimple_Ex2();
+  EReference getExpr_Ex2();
 
   /**
    * Returns the meta object for class '{@link compilation.whileLanguage.Lexpr <em>Lexpr</em>}'.
@@ -1181,26 +1083,15 @@ public interface WhileLanguagePackage extends EPackage
   EClass getLexpr();
 
   /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Lexpr#getExpr <em>Expr</em>}'.
+   * Returns the meta object for the containment reference list '{@link compilation.whileLanguage.Lexpr#getExprs <em>Exprs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see compilation.whileLanguage.Lexpr#getExpr()
+   * @return the meta object for the containment reference list '<em>Exprs</em>'.
+   * @see compilation.whileLanguage.Lexpr#getExprs()
    * @see #getLexpr()
    * @generated
    */
-  EReference getLexpr_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link compilation.whileLanguage.Lexpr#getLexpr <em>Lexpr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lexpr</em>'.
-   * @see compilation.whileLanguage.Lexpr#getLexpr()
-   * @see #getLexpr()
-   * @generated
-   */
-  EReference getLexpr_Lexpr();
+  EReference getLexpr_Exprs();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1394,14 +1285,6 @@ public interface WhileLanguagePackage extends EPackage
     EClass COMMANDS = eINSTANCE.getCommands();
 
     /**
-     * The meta object literal for the '<em><b>Command</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMANDS__COMMAND = eINSTANCE.getCommands_Command();
-
-    /**
      * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1558,30 +1441,12 @@ public interface WhileLanguagePackage extends EPackage
     EClass EXPR = eINSTANCE.getExpr();
 
     /**
-     * The meta object literal for the '<em><b>Exprsimple</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPR__EXPRSIMPLE = eINSTANCE.getExpr_Exprsimple();
-
-    /**
-     * The meta object literal for the '{@link compilation.whileLanguage.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see compilation.whileLanguage.impl.ExprSimpleImpl
-     * @see compilation.whileLanguage.impl.WhileLanguagePackageImpl#getExprSimple()
-     * @generated
-     */
-    EClass EXPR_SIMPLE = eINSTANCE.getExprSimple();
-
-    /**
      * The meta object literal for the '<em><b>Valeur</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EXPR_SIMPLE__VALEUR = eINSTANCE.getExprSimple_Valeur();
+    EAttribute EXPR__VALEUR = eINSTANCE.getExpr_Valeur();
 
     /**
      * The meta object literal for the '<em><b>Ope</b></em>' attribute feature.
@@ -1589,7 +1454,7 @@ public interface WhileLanguagePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EXPR_SIMPLE__OPE = eINSTANCE.getExprSimple_Ope();
+    EAttribute EXPR__OPE = eINSTANCE.getExpr_Ope();
 
     /**
      * The meta object literal for the '<em><b>Lexpr</b></em>' containment reference feature.
@@ -1597,7 +1462,7 @@ public interface WhileLanguagePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_SIMPLE__LEXPR = eINSTANCE.getExprSimple_Lexpr();
+    EReference EXPR__LEXPR = eINSTANCE.getExpr_Lexpr();
 
     /**
      * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
@@ -1605,15 +1470,7 @@ public interface WhileLanguagePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_SIMPLE__EXPR = eINSTANCE.getExprSimple_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Call</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPR_SIMPLE__CALL = eINSTANCE.getExprSimple_Call();
+    EReference EXPR__EXPR = eINSTANCE.getExpr_Expr();
 
     /**
      * The meta object literal for the '<em><b>Ex1</b></em>' containment reference feature.
@@ -1621,7 +1478,7 @@ public interface WhileLanguagePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_SIMPLE__EX1 = eINSTANCE.getExprSimple_Ex1();
+    EReference EXPR__EX1 = eINSTANCE.getExpr_Ex1();
 
     /**
      * The meta object literal for the '<em><b>Ex2</b></em>' containment reference feature.
@@ -1629,7 +1486,7 @@ public interface WhileLanguagePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_SIMPLE__EX2 = eINSTANCE.getExprSimple_Ex2();
+    EReference EXPR__EX2 = eINSTANCE.getExpr_Ex2();
 
     /**
      * The meta object literal for the '{@link compilation.whileLanguage.impl.LexprImpl <em>Lexpr</em>}' class.
@@ -1642,20 +1499,12 @@ public interface WhileLanguagePackage extends EPackage
     EClass LEXPR = eINSTANCE.getLexpr();
 
     /**
-     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Exprs</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference LEXPR__EXPR = eINSTANCE.getLexpr_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Lexpr</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LEXPR__LEXPR = eINSTANCE.getLexpr_Lexpr();
+    EReference LEXPR__EXPRS = eINSTANCE.getLexpr_Exprs();
 
   }
 

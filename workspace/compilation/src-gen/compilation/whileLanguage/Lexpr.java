@@ -3,6 +3,8 @@
  */
 package compilation.whileLanguage;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -12,11 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
- *   <li>{@link compilation.whileLanguage.Lexpr#getExpr <em>Expr</em>}</li>
- *   <li>{@link compilation.whileLanguage.Lexpr#getLexpr <em>Lexpr</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Lexpr#getExprs <em>Exprs</em>}</li>
  * </ul>
+ * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getLexpr()
  * @model
@@ -25,55 +26,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface Lexpr extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Expr</b></em>' containment reference.
+   * Returns the value of the '<em><b>Exprs</b></em>' containment reference list.
+   * The list contents are of type {@link compilation.whileLanguage.Expr}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Exprs</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Expr</em>' containment reference.
-   * @see #setExpr(Expr)
-   * @see compilation.whileLanguage.WhileLanguagePackage#getLexpr_Expr()
+   * @return the value of the '<em>Exprs</em>' containment reference list.
+   * @see compilation.whileLanguage.WhileLanguagePackage#getLexpr_Exprs()
    * @model containment="true"
    * @generated
    */
-  Expr getExpr();
-
-  /**
-   * Sets the value of the '{@link compilation.whileLanguage.Lexpr#getExpr <em>Expr</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Expr</em>' containment reference.
-   * @see #getExpr()
-   * @generated
-   */
-  void setExpr(Expr value);
-
-  /**
-   * Returns the value of the '<em><b>Lexpr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Lexpr</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Lexpr</em>' containment reference.
-   * @see #setLexpr(Lexpr)
-   * @see compilation.whileLanguage.WhileLanguagePackage#getLexpr_Lexpr()
-   * @model containment="true"
-   * @generated
-   */
-  Lexpr getLexpr();
-
-  /**
-   * Sets the value of the '{@link compilation.whileLanguage.Lexpr#getLexpr <em>Lexpr</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Lexpr</em>' containment reference.
-   * @see #getLexpr()
-   * @generated
-   */
-  void setLexpr(Lexpr value);
+  EList<Expr> getExprs();
 
 } // Lexpr

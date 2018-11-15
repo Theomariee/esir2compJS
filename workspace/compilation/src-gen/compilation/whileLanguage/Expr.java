@@ -12,10 +12,15 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
- *   <li>{@link compilation.whileLanguage.Expr#getExprsimple <em>Exprsimple</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getValeur <em>Valeur</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getOpe <em>Ope</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getLexpr <em>Lexpr</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getExpr <em>Expr</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getEx1 <em>Ex1</em>}</li>
+ *   <li>{@link compilation.whileLanguage.Expr#getEx2 <em>Ex2</em>}</li>
  * </ul>
+ * </p>
  *
  * @see compilation.whileLanguage.WhileLanguagePackage#getExpr()
  * @model
@@ -24,29 +29,159 @@ import org.eclipse.emf.ecore.EObject;
 public interface Expr extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Exprsimple</b></em>' containment reference.
+   * Returns the value of the '<em><b>Valeur</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exprsimple</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Valeur</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exprsimple</em>' containment reference.
-   * @see #setExprsimple(ExprSimple)
-   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Exprsimple()
+   * @return the value of the '<em>Valeur</em>' attribute.
+   * @see #setValeur(String)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Valeur()
+   * @model
+   * @generated
+   */
+  String getValeur();
+
+  /**
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getValeur <em>Valeur</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Valeur</em>' attribute.
+   * @see #getValeur()
+   * @generated
+   */
+  void setValeur(String value);
+
+  /**
+   * Returns the value of the '<em><b>Ope</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ope</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ope</em>' attribute.
+   * @see #setOpe(String)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Ope()
+   * @model
+   * @generated
+   */
+  String getOpe();
+
+  /**
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getOpe <em>Ope</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ope</em>' attribute.
+   * @see #getOpe()
+   * @generated
+   */
+  void setOpe(String value);
+
+  /**
+   * Returns the value of the '<em><b>Lexpr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Lexpr</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Lexpr</em>' containment reference.
+   * @see #setLexpr(Lexpr)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Lexpr()
    * @model containment="true"
    * @generated
    */
-  ExprSimple getExprsimple();
+  Lexpr getLexpr();
 
   /**
-   * Sets the value of the '{@link compilation.whileLanguage.Expr#getExprsimple <em>Exprsimple</em>}' containment reference.
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getLexpr <em>Lexpr</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Exprsimple</em>' containment reference.
-   * @see #getExprsimple()
+   * @param value the new value of the '<em>Lexpr</em>' containment reference.
+   * @see #getLexpr()
    * @generated
    */
-  void setExprsimple(ExprSimple value);
+  void setLexpr(Lexpr value);
+
+  /**
+   * Returns the value of the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Expr</em>' containment reference.
+   * @see #setExpr(Expr)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Expr()
+   * @model containment="true"
+   * @generated
+   */
+  Expr getExpr();
+
+  /**
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getExpr <em>Expr</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Expr</em>' containment reference.
+   * @see #getExpr()
+   * @generated
+   */
+  void setExpr(Expr value);
+
+  /**
+   * Returns the value of the '<em><b>Ex1</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ex1</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ex1</em>' containment reference.
+   * @see #setEx1(Expr)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Ex1()
+   * @model containment="true"
+   * @generated
+   */
+  Expr getEx1();
+
+  /**
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getEx1 <em>Ex1</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ex1</em>' containment reference.
+   * @see #getEx1()
+   * @generated
+   */
+  void setEx1(Expr value);
+
+  /**
+   * Returns the value of the '<em><b>Ex2</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ex2</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ex2</em>' containment reference.
+   * @see #setEx2(Expr)
+   * @see compilation.whileLanguage.WhileLanguagePackage#getExpr_Ex2()
+   * @model containment="true"
+   * @generated
+   */
+  Expr getEx2();
+
+  /**
+   * Sets the value of the '{@link compilation.whileLanguage.Expr#getEx2 <em>Ex2</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ex2</em>' containment reference.
+   * @see #getEx2()
+   * @generated
+   */
+  void setEx2(Expr value);
 
 } // Expr
