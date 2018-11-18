@@ -3,6 +3,7 @@
  */
 package compilation.generator;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,10 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.MissingArgumentException;
-import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -39,16 +37,16 @@ public class Main {
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws ParseException, FileNotFoundException {
 
-		if (args.length < 1) {
-			System.err.println("Aborting: no path to EMF resource provided!");
-			return;
-		}
+		final String syntax = "whpp <FILE>";
+		
 		List<Integer> params = new ArrayList<Integer>();
 		WhileLanguageGenerator.init(params);
 
 		String outputFile = "";
 		Injector injector = new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
+		
+		HelpFormatter formatter = new HelpFormatter();
 
 
 		/* Étape 1 : Définition des options. */
@@ -68,6 +66,11 @@ public class Main {
 		options.addOption(helpOption);
 		options.addOption(forOption);
 		options.addOption(foreachOption);
+		
+		if(args.length == 0) {
+			System.err.println("Missing file");
+			formatter.printHelp(syntax, options, true);
+		}
 
 		/* Étape 2 : Analyse de la ligne de commande. */
 		try {
@@ -75,10 +78,16 @@ public class Main {
 			CommandLine cmd = parser.parse(options, args);
 			/* Etape 3: Récupération et traitement des résultat. */
 			if (cmd.hasOption("help")) {
-				HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp(args[0], options);
+				System.out.println("NAME\n\twhpp - pretty print a WHILE program\n");
+				System.out.println("SYNOPSIS\n\twhpp [file] [options]\n");
+				System.out.println("DESCRIPTION\n\tTransform a source file written in WHILE language into a pretty printed output.\n"
+						+ "\tThe output is redirected to the standard output or to a file by using the -o option.\n"
+						+ "\tYou can define indentations with -all option (for all blocks) or -<block> (for a specific block).\n");
+				//options
+				formatter.printHelp(syntax, options, true);
+				System.out.println("\nAUTHORS\n\tWritten by Théo MARIE, Nicolas BOURDIN, Corentin DUCHATELET, Marlon KUQI et Corentin LEFRANC");
 				System.exit(1);
-			}   
+			} 
             if(cmd.hasOption("all")){
             	params.set(WhileLanguageGenerator.INDENT_ALL, Integer.parseInt(cmd.getOptionValue("all", WhileLanguageGenerator.DEFAULT_ALL.toString())));
             }
@@ -97,39 +106,22 @@ public class Main {
             if(cmd.hasOption("o")){
                 outputFile = cmd.getOptionValue("o", "");    
             }
+            if(!(new File(args[0]).exists())) {
+            	System.err.println("Unreachable file");
+            	formatter.printHelp(syntax, options, true);
+            	System.exit(1);
+            }
+            main.runGenerator(args[0], outputFile, params);
 
-		} catch (MissingOptionException e) {
-			/* Vérifie si l'option -help est présente */
-			boolean h = false;
-			try {
-				Options helpOptions = new Options();
-				helpOptions.addOption("help", "help", false,
-						"Gives a detailed list of the options the user can use for the whc command.");
-				CommandLineParser parser = new PosixParser();
-				CommandLine line = parser.parse(helpOptions, args);
-				if (line.hasOption("h"))
-					h = true;
-			} catch (Exception ex) {
-			}
-			if (!h)
-				System.err.println(e.getMessage());
-			/* Affichage de l'aide. */
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp(args[0], options);
-			System.exit(1);
-		} catch (MissingArgumentException e) {
-			System.err.println(e.getMessage());
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp(args[0], options);
-			System.exit(1);
 		} catch (ParseException e) {
 			System.err.println("Error while parsing the command line: " + e.getMessage());
+			formatter.printHelp(syntax, options, true);
 			System.exit(1);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
-		main.runGenerator(args[0], outputFile, params);
+		
 	}
 
 	@Inject

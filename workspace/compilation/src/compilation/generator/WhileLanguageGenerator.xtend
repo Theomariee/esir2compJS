@@ -6,7 +6,6 @@ package compilation.generator
 import compilation.whileLanguage.Affectation
 import compilation.whileLanguage.Command
 import compilation.whileLanguage.Commands
-import compilation.whileLanguage.Definition
 import compilation.whileLanguage.Expr
 import compilation.whileLanguage.For
 import compilation.whileLanguage.Foreach
@@ -37,10 +36,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	public final static int INDENT_FOREACH = 4
 
 	public final static Integer DEFAULT_ALL = 2
-	public final static Integer DEFAULT_FOR = -1
-	public final static Integer DEFAULT_WHILE = -1
-	public final static Integer DEFAULT_IF = -1
-	public final static Integer DEFAULT_FOREACH = -1
+	public final static Integer DEFAULT_FOR = Integer.MIN_VALUE
+	public final static Integer DEFAULT_WHILE = Integer.MIN_VALUE
+	public final static Integer DEFAULT_IF = Integer.MIN_VALUE
+	public final static Integer DEFAULT_FOREACH = Integer.MIN_VALUE
 
 	// String des indent spécifiques à concaténer.
 	String indentAll = "";
@@ -142,7 +141,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	'''
 
 	def compile(Expr e) 
-	'''«IF e.valeur !== null»«e.valeur.toString()»«ELSEIF e.ope.toString.equals('and') || e.ope.toString.equals('or') || e.ope.toString.equals('=?')»(«e.ex1.compile» «e.ope.toString()» «e.ex2.compile»)«ELSEIF e.ope.toString.equals('list') || e.ope.toString.equals('cons')»(«e.ope.toString()» «(e.lexpr as Lexpr).compile»)«ELSE»(«e.ope.toString()» «(e.expr as Expr).compile»)«ENDIF»'''
+	'''«IF e.valeur !== null»«e.valeur.toString()»«ELSEIF e.ope.toString().equals('and') || e.ope.toString().equals('or') || e.ope.toString().equals('=?')»(«e.ex1.compile» «e.ope.toString()» «e.ex2.compile»)«ELSEIF e.ope.toString().equals('tl') || e.ope.toString().equals('!') || e.ope.toString().equals('hd')»(«e.ope.toString()» «(e.expr as Expr).compile»)«ELSE»(«e.ope.toString()» «(e.lexpr as Lexpr).compile»)«ENDIF»'''
 
 	def compile(Lexpr l)
 	'''«FOR expr : l.exprs SEPARATOR " "»«expr.compile»«ENDFOR»'''
@@ -164,16 +163,16 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			indentIf += " "
 			indentForeach += " "
 		}
-		if(indentations.get(INDENT_FOR) > -1) indentFor = ""
+		if(indentations.get(INDENT_FOR) != Integer.MIN_VALUE) indentFor = ""
 		for (i = 0; i < indentations.get(INDENT_FOR); i++)
 			indentFor += " "
-		if(indentations.get(INDENT_WHILE) > -1) indentWhile = ""
+		if(indentations.get(INDENT_WHILE) != Integer.MIN_VALUE) indentWhile = ""
 		for (i = 0; i < indentations.get(INDENT_WHILE); i++)
 			indentWhile += " "
-		if(indentations.get(INDENT_IF) > -1) indentIf = ""
+		if(indentations.get(INDENT_IF) != Integer.MIN_VALUE) indentIf = ""
 		for (i = 0; i < indentations.get(INDENT_IF); i++)
 			indentIf += " "
-		if(indentations.get(INDENT_FOREACH) > -1) indentForeach = ""
+		if(indentations.get(INDENT_FOREACH) != Integer.MIN_VALUE) indentForeach = ""
 		for (i = 0; i < indentations.get(INDENT_FOREACH); i++)
 			indentForeach += " "
 	}
