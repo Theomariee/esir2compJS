@@ -27,7 +27,7 @@ public class TestPrettyPrint {
 		assertTrue("Expected file doesn't exist", expectedFile.exists());
 		assertTrue("Compiled file doesn't exist", compiledFile.exists());
 		try {
-			assertTrue("Files are not equal", FileUtils.contentEquals(expectedFile, compiledFile));
+			assertTrue("Files are not equal", FileUtils.contentEqualsIgnoreEOL(expectedFile, compiledFile, "UTF-8"));
 		} catch (AssertionError e) {
 			System.out.println("Fail from " + compiledFile
 					+ ", comparison:\n-------------------------------------------- expected:\n");
