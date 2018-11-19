@@ -89,6 +89,7 @@ public class TestPrettyPrint {
 
 	// test 8 : le fichier ne doit pas etre cree car il n'est pas correct
 	// syntaxiquement
+	@org.junit.Test
 	public void test8() throws IOException {
 		assertFalse("Expected file shouldn't exist", new File(compiledDirectory + "test8.wh").exists());
 	}
