@@ -2,7 +2,8 @@
 #bash script to compile each file from toCompile directory to compiled directory
 
 #Empty the output folder before running the generation of files
-rm -rf compiled/*
+rm compiled -rf 
+mkdir compiled
 rm ./toCompile/test9.wh
 
 for filename in `ls toCompile`
