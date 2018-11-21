@@ -46,13 +46,13 @@ public class WhileLanguageGenerator extends AbstractGenerator {
   
   public final static Integer DEFAULT_ALL = Integer.valueOf(2);
   
-  public final static Integer DEFAULT_FOR = Integer.valueOf((-1));
+  public final static Integer DEFAULT_FOR = Integer.valueOf(Integer.MIN_VALUE);
   
-  public final static Integer DEFAULT_WHILE = Integer.valueOf((-1));
+  public final static Integer DEFAULT_WHILE = Integer.valueOf(Integer.MIN_VALUE);
   
-  public final static Integer DEFAULT_IF = Integer.valueOf((-1));
+  public final static Integer DEFAULT_IF = Integer.valueOf(Integer.MIN_VALUE);
   
-  public final static Integer DEFAULT_FOREACH = Integer.valueOf((-1));
+  public final static Integer DEFAULT_FOREACH = Integer.valueOf(Integer.MIN_VALUE);
   
   private String indentAll = "";
   
@@ -77,7 +77,6 @@ public class WhileLanguageGenerator extends AbstractGenerator {
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context, final String output, final List<Integer> indentations) {
     this.indentations = indentations;
     this.calcIndent(this.indentations);
-    System.out.println(indentations);
     Iterable<Program> _filter = Iterables.<Program>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), Program.class);
     for (final Program e : _filter) {
       boolean _equals = output.equals("");
@@ -351,25 +350,22 @@ public class WhileLanguageGenerator extends AbstractGenerator {
           _builder.append(_compile_1);
           _builder.append(")");
         } else {
-          if ((e.getOpe().toString().equals("list") || e.getOpe().toString().equals("cons"))) {
+          if (((e.getOpe().toString().equals("tl") || e.getOpe().toString().equals("!")) || e.getOpe().toString().equals("hd"))) {
             _builder.append("(");
             String _string_2 = e.getOpe().toString();
             _builder.append(_string_2);
             _builder.append(" ");
-            Lexpr _lexpr = e.getLexpr();
-            CharSequence _compile_2 = this.compile(((Lexpr) _lexpr));
+            Expr _expr = e.getExpr();
+            Object _compile_2 = this.compile(((Expr) _expr));
             _builder.append(_compile_2);
             _builder.append(")");
           } else {
-            String _string_3 = e.getOpe().toString();
-            String _plus = ("test" + _string_3);
-            System.out.println(_plus);
             _builder.append("(");
-            String _string_4 = e.getOpe().toString();
-            _builder.append(_string_4);
+            String _string_3 = e.getOpe().toString();
+            _builder.append(_string_3);
             _builder.append(" ");
-            Expr _expr = e.getExpr();
-            Object _compile_3 = this.compile(((Expr) _expr));
+            Lexpr _lexpr = e.getLexpr();
+            CharSequence _compile_3 = this.compile(((Lexpr) _lexpr));
             _builder.append(_compile_3);
             _builder.append(")");
           }
@@ -421,8 +417,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       }
     }
     Integer _get = this.indentations.get(WhileLanguageGenerator.INDENT_FOR);
-    boolean _greaterThan = ((_get).intValue() > (-1));
-    if (_greaterThan) {
+    boolean _notEquals = ((_get).intValue() != Integer.MIN_VALUE);
+    if (_notEquals) {
       this.indentFor = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOR)).intValue()); this.i++) {
@@ -430,8 +426,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentFor = (_indentFor + " ");
     }
     Integer _get_1 = this.indentations.get(WhileLanguageGenerator.INDENT_WHILE);
-    boolean _greaterThan_1 = ((_get_1).intValue() > (-1));
-    if (_greaterThan_1) {
+    boolean _notEquals_1 = ((_get_1).intValue() != Integer.MIN_VALUE);
+    if (_notEquals_1) {
       this.indentWhile = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_WHILE)).intValue()); this.i++) {
@@ -439,8 +435,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentWhile = (_indentWhile + " ");
     }
     Integer _get_2 = this.indentations.get(WhileLanguageGenerator.INDENT_IF);
-    boolean _greaterThan_2 = ((_get_2).intValue() > (-1));
-    if (_greaterThan_2) {
+    boolean _notEquals_2 = ((_get_2).intValue() != Integer.MIN_VALUE);
+    if (_notEquals_2) {
       this.indentIf = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_IF)).intValue()); this.i++) {
@@ -448,8 +444,8 @@ public class WhileLanguageGenerator extends AbstractGenerator {
       this.indentIf = (_indentIf + " ");
     }
     Integer _get_3 = this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH);
-    boolean _greaterThan_3 = ((_get_3).intValue() > (-1));
-    if (_greaterThan_3) {
+    boolean _notEquals_3 = ((_get_3).intValue() != Integer.MIN_VALUE);
+    if (_notEquals_3) {
       this.indentForeach = "";
     }
     for (this.i = 0; (this.i < (this.indentations.get(WhileLanguageGenerator.INDENT_FOREACH)).intValue()); this.i++) {
