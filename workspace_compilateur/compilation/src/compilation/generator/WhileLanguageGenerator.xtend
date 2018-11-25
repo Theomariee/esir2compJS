@@ -51,10 +51,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	
 	def compile(Program p) {
 		for (f:p.functions){
-			 // TODO : Création dans la table des fonctions
-			// nb d'in et d'out
-			// creation de la map des variable
-			//craetion liste code 3 adresse pour chaque fct
+			 //Création dans la table des fonctions
+			functionTable.addFunction(f.name, f.definition.read.variable.size, f.definition.write.variable.size)
 		}
 		
 		for (f:p.functions){
@@ -95,7 +93,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	}
 	def compile(Nop w){
-		
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("Nop",null,null,null))
 	}
 	def compile(While w){
 		

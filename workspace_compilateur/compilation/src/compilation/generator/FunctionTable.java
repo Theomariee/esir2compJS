@@ -8,7 +8,7 @@ public class FunctionTable {
 	private static int varCounter = 0;
 	
     private String generateNewVariable() {
-    	return "var" + varCounter;
+    	return "var" + varCounter++;
     }
 	
     /** Instance unique pré-initialisée */
@@ -45,7 +45,6 @@ public class FunctionTable {
     	FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
     	if (currentFd != null) {
     		currentFd.addVariable(whileName, generateNewVariable());
-    		varCounter++;
     	}
     	// TODO gestion des erreurs ?
     }
