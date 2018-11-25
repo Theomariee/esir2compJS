@@ -1,0 +1,4 @@
+class WhLib {
+  static nop() {
+  }
+}
