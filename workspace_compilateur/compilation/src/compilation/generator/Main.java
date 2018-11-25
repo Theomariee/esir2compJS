@@ -3,32 +3,97 @@
  */
 package compilation.generator;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Provider;
-import compilation.WhileLanguageStandaloneSetup;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.generator.GeneratorContext;
-import org.eclipse.xtext.generator.GeneratorDelegate;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Provider;
+
+import compilation.WhileLanguageStandaloneSetup;
+
 public class Main {
 
-	public static void main(String[] args) {
-		if (args.length == 0) {
-			System.err.println("Aborting: no path to EMF resource provided!");
-			return;
-		}
+	@SuppressWarnings("static-access")
+	public static void main(String[] args) throws ParseException, FileNotFoundException {
+
+		final String syntax = "whc <FILE>";
+		
+		String outputFile = "";
+		
 		Injector injector = new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
-		main.runGenerator(args[0]);
+		
+		HelpFormatter formatter = new HelpFormatter();
+
+
+		/* Étape 1 : Définition des options. */
+		Options options = new Options();
+        Option outputOption = OptionBuilder.withArgName("FILE").hasArg().withDescription("Creates an output file with the name given has an argument.").withLongOpt("output").create('o');
+        Option helpOption = new Option("help", "Gives a detailed list of the options the user can use for the whc command.");
+		/* On les ajoute à notre groupe d'options. */
+		options.addOption(outputOption);
+		options.addOption(helpOption);
+		
+		if(args.length == 0) {
+			System.err.println("Missing file");
+			formatter.printHelp(syntax, options, true);
+		}
+
+		/* Étape 2 : Analyse de la ligne de commande. */
+		try {
+			CommandLineParser parser = new GnuParser();
+			CommandLine cmd = parser.parse(options, args);
+			/* Etape 3: Récupération et traitement des résultat. */
+			if (cmd.hasOption("help")) {
+				System.out.println("NAME\n\twhpc - Compile a WHILE program\n");
+				System.out.println("SYNOPSIS\n\twhc file [options]\n");
+				System.out.println("DESCRIPTION\n\tCompile a source file written in WHILE language into a executable JSavaScript code.\n"
+						+ "\tThe output is redirected to the standard output or to a file by using the -o option.\n");
+				//options
+				formatter.printHelp(syntax, options, true);
+				System.out.println("\nAUTHORS\n\tWritten by Théo MARIE, Nicolas BOURDIN, Corentin DUCHATELET, Marlon KUQI et Corentin LEFRANC");
+				System.exit(1);
+			}
+            if(cmd.hasOption("o")){
+                outputFile = cmd.getOptionValue("o", "");    
+            }
+            if(!(new File(args[0]).exists())) {
+            	System.err.println("Unreachable file");
+            	formatter.printHelp(syntax, options, true);
+            	System.exit(1);
+            }
+            main.runGenerator(args[0], outputFile);
+
+		} catch (ParseException e) {
+			System.err.println("Error while compile the command line: " + e.getMessage());
+			formatter.printHelp(syntax, options, true);
+			System.exit(1);
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+
+		
 	}
 
 	@Inject
@@ -38,15 +103,16 @@ public class Main {
 	private IResourceValidator validator;
 
 	@Inject
-	private GeneratorDelegate generator;
+	private WhileLanguageGenerator generator;
 
-	@Inject 
+	@Inject
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String string) {
+	protected void runGenerator(String input, String output) {
 		// Load the resource
+		System.out.println("parsing " + input + "...");
 		ResourceSet set = resourceSetProvider.get();
-		Resource resource = set.getResource(URI.createFileURI(string), true);
+		Resource resource = set.getResource(URI.createFileURI(input), true);
 
 		// Validate the resource
 		List<Issue> list = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
@@ -58,11 +124,13 @@ public class Main {
 		}
 
 		// Configure and start the generator
-		fileAccess.setOutputPath("src-gen/");
+		fileAccess.setOutputPath("./");
+		// System.out.println(URI.createFileURI(output).path());
+		// fileAccess.setOutputPath(URI.createFileURI(output).path());
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
-		generator.generate(resource, fileAccess, context);
+		generator.doGenerate(resource, fileAccess, context, output);
 
-		System.out.println("Code generation finished.");
+		System.out.println("Pretty printing done");
 	}
 }

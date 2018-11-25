@@ -3,6 +3,8 @@
  */
 package compilation.generator
 
+import compilation.whileLanguage.Function
+import compilation.whileLanguage.Program
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -16,10 +18,37 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class WhileLanguageGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+	
+		doGenerate(resource, fsa, context, "")
 	}
+
+	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output){
+		//recup table des symboles
+		
+		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
+			e.compile
+			if (output.equals("")){
+				//sortie sur la sortie standard
+			}
+			else
+				fsa.generateFile(output, "sortie dans le .js");
+		}
+	}
+	
+	def compile(Program p) {
+		for (f:p.functions){
+			 // TODO : Création dans la table des fonctions
+			// nb d'in et d'out
+			// creation de la map des variable
+			//craetion liste code 3 adresse pour chaque fct
+		}
+		
+		for (f:p.functions){
+			f.compile
+		}
+	}
+	def compile(Function f) {
+		
+	}
+	
 }

@@ -79,7 +79,7 @@ public class Main {
 			/* Etape 3: Récupération et traitement des résultat. */
 			if (cmd.hasOption("help")) {
 				System.out.println("NAME\n\twhpp - pretty print a WHILE program\n");
-				System.out.println("SYNOPSIS\n\twhpp [file] [options]\n");
+				System.out.println("SYNOPSIS\n\twhpp file [options]\n");
 				System.out.println("DESCRIPTION\n\tTransform a source file written in WHILE language into a pretty printed output.\n"
 						+ "\tThe output is redirected to the standard output or to a file by using the -o option.\n"
 						+ "\tYou can define indentations with -all option (for all blocks) or -<block> (for a specific block).\n");
