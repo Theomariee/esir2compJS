@@ -18,6 +18,13 @@ public class ThreeAddrCode {
 	public String toString() {
 		return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
 	}
-	
+	public String compile() {
+		switch(op) {
+		case "nop" :
+			return "WhLib.nop();";
+		default :
+			return "WhLib.nonImpl();";
+		}
+	}
 	
 }

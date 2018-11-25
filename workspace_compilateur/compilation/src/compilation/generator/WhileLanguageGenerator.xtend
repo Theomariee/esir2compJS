@@ -15,6 +15,7 @@ import compilation.whileLanguage.Program
 import compilation.whileLanguage.Read
 import compilation.whileLanguage.While
 import compilation.whileLanguage.Write
+import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -29,30 +30,32 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	
 	String currentName;
 	FunctionTable functionTable;
+	boolean code = false;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
-		doGenerate(resource, fsa, context, "")
+		doGenerate(resource, fsa, context, "", false)
 	}
 
-	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output){
+	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, boolean codep){
+		code = codep;
 		//recup table des symboles
 		functionTable = FunctionTable.getInstance();
 		
 		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
 			e.compile
 			if (output.equals("")){
-				//sortie sur la sortie standard
+				println(compileToJs)
 			}
 			else
-				fsa.generateFile(output, "sortie dans le .js");
+				fsa.generateFile(output, compileToJs);
 		}
 	}
 	
 	def compile(Program p) {
 		for (f:p.functions){
 			 //Création dans la table des fonctions
-			functionTable.addFunction(f.name, f.definition.read.variable.size, f.definition.write.variable.size)
+			functionTable.addFunction(f.name, f.definition.write.variable.size)
 		}
 		
 		for (f:p.functions){
@@ -64,11 +67,18 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		f.definition.read.compile
 		f.definition.commands.compile
 		f.definition.write.compile
+		if(code){
+			println("Code 3 adresses de "+currentName+" :")
+			for(instruction:functionTable.getInstructions(currentName)){
+				println(instruction.toString())
+			}
+			println("------------------")
+		}
 	}
 	
 	def compile(Read r) {
 		for(v:r.variable){
-			functionTable.addVariable(currentName, v.toString())
+			functionTable.addInput(currentName, v.toString())
 		}
 	}
 	def compile(Commands c) {
@@ -90,7 +100,6 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			(c.command as For).compile
 		else if( c.command instanceof Foreach)
 			(c.command as Foreach).compile
-
 	}
 	def compile(Nop w){
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("Nop",null,null,null))
@@ -118,6 +127,13 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(Write w) {
 		
 	}
-	
-	
+	def compileToJs()'''
+	«FOR f:functionTable.getFunctions()»
+	function «f»(«FOR read : functionTable.getInput(f) SEPARATOR ', '»«functionTable.getVariable(f, read)»«ENDFOR»){
+		«FOR instruction:functionTable.getInstructions(f)»
+			«instruction.compile()»
+		«ENDFOR»
+	}
+	«ENDFOR»
+	'''
 }

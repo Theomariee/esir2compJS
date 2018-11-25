@@ -40,6 +40,7 @@ public class Main {
 		final String syntax = "whc <FILE>";
 		
 		String outputFile = "";
+		boolean code = false;
 		
 		Injector injector = new WhileLanguageStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
@@ -51,9 +52,12 @@ public class Main {
 		Options options = new Options();
         Option outputOption = OptionBuilder.withArgName("FILE").hasArg().withDescription("Creates an output file with the name given has an argument.").withLongOpt("output").create('o');
         Option helpOption = new Option("help", "Gives a detailed list of the options the user can use for the whc command.");
+        Option threeAddr = OptionBuilder.withDescription("Display the \"3 @adresses\" code of the file in the console").withLongOpt("3addr").create('a');
 		/* On les ajoute à notre groupe d'options. */
 		options.addOption(outputOption);
 		options.addOption(helpOption);
+		options.addOption(threeAddr);
+		
 		
 		if(args.length == 0) {
 			System.err.println("Missing file");
@@ -78,12 +82,15 @@ public class Main {
             if(cmd.hasOption("o")){
                 outputFile = cmd.getOptionValue("o", "");    
             }
+            if(cmd.hasOption("a")){
+                code = true;    
+            }
             if(!(new File(args[0]).exists())) {
             	System.err.println("Unreachable file");
             	formatter.printHelp(syntax, options, true);
             	System.exit(1);
             }
-            main.runGenerator(args[0], outputFile);
+            main.runGenerator(args[0], outputFile, code);
 
 		} catch (ParseException e) {
 			System.err.println("Error while compile the command line: " + e.getMessage());
@@ -108,9 +115,9 @@ public class Main {
 	@Inject
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String input, String output) {
+	protected void runGenerator(String input, String output, boolean code) {
 		// Load the resource
-		System.out.println("parsing " + input + "...");
+		System.out.println("compiling " + input + "...");
 		ResourceSet set = resourceSetProvider.get();
 		Resource resource = set.getResource(URI.createFileURI(input), true);
 
@@ -129,8 +136,8 @@ public class Main {
 		// fileAccess.setOutputPath(URI.createFileURI(output).path());
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
-		generator.doGenerate(resource, fileAccess, context, output);
+		generator.doGenerate(resource, fileAccess, context, output, code);
 
-		System.out.println("Pretty printing done");
+		System.out.print("compilation done");
 	}
 }
