@@ -3,8 +3,18 @@
  */
 package compilation.generator
 
+import compilation.whileLanguage.Affectation
+import compilation.whileLanguage.Command
+import compilation.whileLanguage.Commands
+import compilation.whileLanguage.For
+import compilation.whileLanguage.Foreach
 import compilation.whileLanguage.Function
+import compilation.whileLanguage.If
+import compilation.whileLanguage.Nop
 import compilation.whileLanguage.Program
+import compilation.whileLanguage.Read
+import compilation.whileLanguage.While
+import compilation.whileLanguage.Write
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -16,6 +26,9 @@ import org.eclipse.xtext.generator.IGeneratorContext
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class WhileLanguageGenerator extends AbstractGenerator {
+	
+	String currentName;
+	FunctionTable functionTable;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
@@ -24,6 +37,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output){
 		//recup table des symboles
+		functionTable = FunctionTable.getInstance();
 		
 		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
 			e.compile
@@ -48,7 +62,64 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		}
 	}
 	def compile(Function f) {
+		currentName = f.name;
+		f.definition.read.compile
+		f.definition.commands.compile
+		f.definition.write.compile
+	}
+	
+	def compile(Read r) {
+		for(v:r.variable){
+			functionTable.addVariable(currentName, v.toString())
+		}
+	}
+	def compile(Commands c) {
+		for(command :c.commands){
+			command.compile
+		}
 		
 	}
+	def compile(Command c) {
+		if( c.command instanceof Nop)
+		(c.command as Nop).compile
+		else if( c.command instanceof If)
+			(c.command as If).compile
+		else if( c.command instanceof Affectation)
+			(c.command as Affectation).compile
+		else if( c.command instanceof While)
+			(c.command as While).compile
+		else if( c.command instanceof For)
+			(c.command as For).compile
+		else if( c.command instanceof Foreach)
+			(c.command as Foreach).compile
+
+	}
+	def compile(Nop w){
+		
+	}
+	def compile(While w){
+		
+	}
+	
+
+	def compile(If i) {
+		
+	}
+
+	def compile(Affectation a) {
+		
+	}
+
+	def compile(For f) {
+		
+	}
+
+	def compile(Foreach f) {
+	
+	}
+	def compile(Write w) {
+		
+	}
+	
 	
 }

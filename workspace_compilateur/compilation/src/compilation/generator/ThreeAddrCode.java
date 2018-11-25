@@ -2,19 +2,22 @@ package compilation.generator;
 
 public class ThreeAddrCode {
 	String op;
-	String res;
-	String a;
-	String b;
-	public ThreeAddrCode(String op, String res, String a, String b) {
+	String addr1;
+	String addr2;
+	String addr3;
+	
+	public ThreeAddrCode(String op, String addr1, String addr2, String addr3) {
 		super();
 		this.op = op;
-		this.res = res;
-		this.a = a;
-		this.b = b;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+		this.addr3 = addr3;
 	}
+
 	@Override
 	public String toString() {
-		return "<" + op + ", " + res + ", " + a + ", " + b+ ">";
+		return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
 	}
+	
 	
 }

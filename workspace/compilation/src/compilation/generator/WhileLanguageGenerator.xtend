@@ -55,7 +55,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	// Ne sert que dans eclipse, pas dans les commande line
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		init(indentations)
-		doGenerate(resource, fsa, context, "output", indentations)
+		doGenerate(resource, fsa, context, "", indentations)
 	}
 
 	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output,
