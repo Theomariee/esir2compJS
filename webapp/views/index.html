@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WhileToJS</title>
-	<script
+	<title>Compilateur WHILE vers JS</title>
+	<!--<script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script>-->
 
 </head>
 <body>
-	<h1>Test output</h1>
+	<h1> Démonstration compilation WHILE vers JavaScript</h1>
 	<form method="POST">
-		<label for="jar">
-		<input name="jar" id="jar" value="Jar" type="submit" />
+		<label for="whileToCompile">Saisir un programme WHILE à compiler en JS</label>
+		<textarea id="whileToCompile">
+		</textarea>
+		<input name="validateCompile" id="validateCompile" value="Compiler" type="submit" />
+		
+		<label for="jsCompiled">Résultat de la compilation</label> 
+		<textarea disabled id="jsCompiled">
+		</textarea>
 	</form>
 	<div id="output"></div>
 	<script>
