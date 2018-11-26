@@ -125,7 +125,11 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	
 	}
 	def compile(Write w) {
-		
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","out",null,null))	
+		for(v:w.variable){
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("push","out",functionTable.getVariable(currentName,v),null))
+		}
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("ret","out",null,null))
 	}
 	def compileToJs()'''
 	«FOR f:functionTable.getFunctions()»

@@ -22,6 +22,12 @@ public class ThreeAddrCode {
 		switch(this.op) {
 		case "nop" :
 			return "WhLib.nop();";
+		case "ret" :
+			return "return "+addr1+";";
+		case "push":
+			return addr1+".push("+addr2+");";
+		case "array":
+			return "var "+addr1+" = [];";
 		default :
 			return "WhLib.nonImpl();";
 		}
