@@ -11,6 +11,11 @@ public class FunctionDescriptor {
 	private int output;
 	private List<ThreeAddrCode> instructions;
 	private Map<String, String> variables;
+	private int varCounter = 0;
+	
+	public String generateNewVariable() {
+		return "var" + varCounter++;
+	}
 	
 	public FunctionDescriptor(int out) {
 		this.inputs = new ArrayList<String>();
