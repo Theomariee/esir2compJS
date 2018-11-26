@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>Compilateur WHILE vers JS</title>
-	<!--<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>-->
+	<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -13,29 +13,25 @@
 	<form method="POST">
 		<label for="whileToCompile">Saisir un programme WHILE à compiler en JS :</label>
     <br>
-		<textarea id="whileToCompile" style="margin-top: 2%" rows="30" cols="100">
-		</textarea>
+		<textarea id="whileToCompile" style="margin-top: 2%" rows="30" cols="100"></textarea>
+		<textarea disabled id="jsCompiled" style="margin-top: 2%" rows="30" cols="100"></textarea>
     <br>
 		<input name="validateCompile" id="validateCompile" value="Compiler" type="submit" style="margin-bottom: 2%"/>
-		<br>
-    
-		<label for="jsCompiled">Résultat de la compilation :</label> 
-    <br>
-		<textarea disabled id="jsCompiled" style="margin-top: 2%" rows="30" cols="100">
-		</textarea>
     
 	</form>
 	<div id="output"></div>
 	<script>
-		$('#jar').click(function(event){
+		$('#validateCompile').click(function(event){
 			event.preventDefault();
+			var codeWh = $('textarea#whileToCompile').val();
 			$.ajax({
 				url: '/test',
 				type: 'POST',
 				dataType: 'json',
+				data: {whilePrgm: codeWh},
 				success: (data) => {
 					console.log(data);
-					$('#output').html(data.data);
+					$('#jsCompiled').html(data.data);
 				}
 			});
 		});
