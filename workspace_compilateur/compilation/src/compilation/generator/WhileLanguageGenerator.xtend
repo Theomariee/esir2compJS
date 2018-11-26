@@ -102,7 +102,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			(c.command as Foreach).compile
 	}
 	def compile(Nop w){
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("Nop",null,null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nop",null,null,null))
 	}
 	def compile(While w){
 		
@@ -129,7 +129,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 	def compileToJs()'''
 	«FOR f:functionTable.getFunctions()»
-	function «f»(«FOR read : functionTable.getInput(f) SEPARATOR ', '»«functionTable.getVariable(f, read)»«ENDFOR»){
+	function «f»(«FOR read : functionTable.getInput(f) SEPARATOR ', '»BinTree «functionTable.getVariable(f, read)»«ENDFOR»){
 		«FOR instruction:functionTable.getInstructions(f)»
 			«instruction.compile()»
 		«ENDFOR»

@@ -19,7 +19,7 @@ public class ThreeAddrCode {
 		return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
 	}
 	public String compile() {
-		switch(op) {
+		switch(this.op) {
 		case "nop" :
 			return "WhLib.nop();";
 		default :
