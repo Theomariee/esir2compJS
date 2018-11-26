@@ -11,14 +11,19 @@
 <body>
 	<h1> Démonstration compilation WHILE vers JavaScript</h1>
 	<form method="POST">
-		<label for="whileToCompile">Saisir un programme WHILE à compiler en JS</label>
-		<textarea id="whileToCompile">
+		<label for="whileToCompile">Saisir un programme WHILE à compiler en JS :</label>
+    <br>
+		<textarea id="whileToCompile" style="margin-top: 2%" rows="30" cols="100">
 		</textarea>
-		<input name="validateCompile" id="validateCompile" value="Compiler" type="submit" />
-		
-		<label for="jsCompiled">Résultat de la compilation</label> 
-		<textarea disabled id="jsCompiled">
+    <br>
+		<input name="validateCompile" id="validateCompile" value="Compiler" type="submit" style="margin-bottom: 2%"/>
+		<br>
+    
+		<label for="jsCompiled">Résultat de la compilation :</label> 
+    <br>
+		<textarea disabled id="jsCompiled" style="margin-top: 2%" rows="30" cols="100">
 		</textarea>
+    
 	</form>
 	<div id="output"></div>
 	<script>
