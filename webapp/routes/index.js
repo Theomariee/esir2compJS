@@ -26,8 +26,6 @@ router.post('/test', (req, res) => {
 	var exec = require('child_process').exec;
 	exec('java -jar ../livrables/whc1/whc.jar input.wh -o output.js', function (error, stdout, stderr){
 		console.log('Sending jar file output to client');
-		/* File System Object */
-		var fs = require('fs');
 
 		/* Read File */
 		fs.readFile('./output.js', (err, data) => {
