@@ -31,7 +31,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	String currentName;
 	FunctionTable functionTable;
 	boolean code = false;
-	RegisterList registres = new RegisterList("aff");
+	RegisterList registresAff = new RegisterList("aff");
+	RegisterList registresExpr = new RegisterList("expr");
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
@@ -116,6 +117,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(Affectation a) {
 		//TODO : Controle du nombre d'affectation pour l'instant c'est 1 := 1
+		//Mais pb si on utilise des fonction qui retournent plusieurs param : X,Y := (f1 A) //si f1 retourne plusieurs params
 		
 		//TODO : presence de la variable ou pas
 		for(v:a.affectations){
@@ -129,12 +131,12 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			//r = cons nil ?
 			//TO DO : création de variable par push/pop direct
 			
-			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registres.nextReg,null,null))
-			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",registres.push,v.compile,null))
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresAff.nextReg,null,null))
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",registresAff.push,v.compile,null))
 		}
 		for(v:a.affectations){
 			//r = cons nil ?
-			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",functionTable.getVariable(currentName,v),registres.pop(),null))
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",functionTable.getVariable(currentName,v),registresAff.pop(),null))
 		}
 	}
 
@@ -165,12 +167,12 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	//return le nom de la variable
 	//génère du code 3@
 	def String compile(Expr e) {
-		if (e.valeur != null){
+		if (e.valeur !== null){
 			if(e.valeur.equals("nil")){
 				//TODO : génération de registres e<count>
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl","testExpr1",null,null))
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil","testExpr1",null,null))
-				return "testExpr1";
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresExpr.nextReg,null,null))
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil",registresExpr.push,null,null))
+				return registresExpr.pop;
 			}
 			else{
 				//TODO controler la présence de la variable dans la liste des variable,
