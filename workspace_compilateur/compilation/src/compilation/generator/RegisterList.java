@@ -1,7 +1,9 @@
 package compilation.generator;
 
 import java.util.LinkedList;
-
+/*
+ * Une liste FIFO qui permet de générer des variables selon un préfixe donnée
+ */
 public class RegisterList {
 	LinkedList<String> registres = new LinkedList<String>();
 	private int counter = 0;
@@ -21,6 +23,4 @@ public class RegisterList {
 	public String getNextReg() {
 		return prefixe+counter;
 	}
-	
-	
 }

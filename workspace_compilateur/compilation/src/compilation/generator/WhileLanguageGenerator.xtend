@@ -169,7 +169,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def String compile(Expr e) {
 		if (e.valeur !== null){
 			if(e.valeur.equals("nil")){
-				//TODO : génération de registres e<count>
+				// attention c'est du fifo
+				//peut etre à changer en stack si besoin pour les autres Expr...
 				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresExpr.nextReg,null,null))
 				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil",registresExpr.push,null,null))
 				return registresExpr.pop;
@@ -180,6 +181,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				//+différence VARIABLE vs SYMBOLE ??
 				return functionTable.getVariable(currentName,e.valeur);
 			}
+			//TODO :Pour les call, checker le nb de param 
 		}
 	}
 }
