@@ -128,7 +128,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			}
 		}
 		for(v:a.valeurs){
-			//r = cons nil ?
+			//r =  cons nil ?
 			//TO DO : création de variable par push/pop direct
 			
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresAff.nextReg,null,null))
