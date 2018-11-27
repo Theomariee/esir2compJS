@@ -47,7 +47,7 @@
 
             <div class="col-md-6">
               <label for="consoleOutput">Console :</label>
-              <textarea class="form-control" id="consoleOutput" rows="5" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
+              <textarea disabled class="form-control" id="consoleOutput" rows="5" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
             </div>
           </div>
         </form>
@@ -66,13 +66,22 @@
       event.preventDefault();
       var codeWh = $('textarea#whileToCompile').val();
       $.ajax({
-        url: '/test',
+        url: '/compile',
         type: 'POST',
         dataType: 'json',
         data: {whilePrgm: codeWh},
         success: (data) => {
           console.log(data);
-          $('#jsCompiled').html(data.data);
+          $('#consoleOutput').html(data.jarPrints);
+
+          $.ajax({
+          	url: '/output',
+          	type: 'GET',
+        	success: (data) => {
+        		console.log(data);
+        		$('#jsCompiled').html(data.compiledJS);
+        	}
+          })
         }
       });
     });
