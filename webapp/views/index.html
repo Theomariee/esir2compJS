@@ -58,7 +58,7 @@
     </div>
 
     <script>
-      $('#validateCompile').click(function(event){
+      $('#validateCompile').on('click', function(event){
         event.preventDefault();
         var codeWh = $('textarea#whileToCompile').val();
         $.ajax({
