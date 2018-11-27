@@ -1,0 +1,8 @@
+function main:
+read X,Y	
+%
+X,Y:=Y,X;
+Z:=nil;
+Z:=Y
+%	
+write X,Y
