@@ -11,15 +11,12 @@ public class FunctionDescriptor {
 	private int output;
 	private List<ThreeAddrCode> instructions;
 	private Map<String, String> variables;
-	private int varCounter = 0;
 	
-	public String generateNewVariable() {
-		return "var" + varCounter++;
-	}
 	
 	public FunctionDescriptor(int out) {
 		this.inputs = new ArrayList<String>();
 		this.output = out;
+		//Les instruction peuvent peut-être etre triée ? (déclaration d'abord...)
 		this.instructions = new LinkedList<ThreeAddrCode>();
 		this.variables = new HashMap<String, String>();
 	}

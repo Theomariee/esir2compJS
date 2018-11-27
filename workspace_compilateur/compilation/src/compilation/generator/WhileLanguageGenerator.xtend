@@ -6,6 +6,7 @@ package compilation.generator
 import compilation.whileLanguage.Affectation
 import compilation.whileLanguage.Command
 import compilation.whileLanguage.Commands
+import compilation.whileLanguage.Expr
 import compilation.whileLanguage.For
 import compilation.whileLanguage.Foreach
 import compilation.whileLanguage.Function
@@ -15,7 +16,6 @@ import compilation.whileLanguage.Program
 import compilation.whileLanguage.Read
 import compilation.whileLanguage.While
 import compilation.whileLanguage.Write
-import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -31,6 +31,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	String currentName;
 	FunctionTable functionTable;
 	boolean code = false;
+	RegisterList registres = new RegisterList("aff");
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
@@ -114,7 +115,27 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 
 	def compile(Affectation a) {
+		//TODO : Controle du nombre d'affectation pour l'instant c'est 1 := 1
 		
+		//TODO : presence de la variable ou pas
+		for(v:a.affectations){
+			if(!functionTable.varExists(currentName,v)){
+				functionTable.addVariable(currentName,v);
+				//TODO : commande 3@ de création de var
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",functionTable.getVariable(currentName,v),null,null))
+			}
+		}
+		for(v:a.valeurs){
+			//r = cons nil ?
+			//TO DO : création de variable par push/pop direct
+			
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registres.nextReg,null,null))
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",registres.push,v.compile,null))
+		}
+		for(v:a.affectations){
+			//r = cons nil ?
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",functionTable.getVariable(currentName,v),registres.pop(),null))
+		}
 	}
 
 	def compile(For f) {
@@ -140,4 +161,23 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 	«ENDFOR»
 	'''
+	
+	//return le nom de la variable
+	//génère du code 3@
+	def String compile(Expr e) {
+		if (e.valeur != null){
+			if(e.valeur.equals("nil")){
+				//TODO : génération de registres e<count>
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl","testExpr1",null,null))
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil","testExpr1",null,null))
+				return "testExpr1";
+			}
+			else{
+				//TODO controler la présence de la variable dans la liste des variable,
+				//Si elle n'existe pas on fait quoi ?
+				//+différence VARIABLE vs SYMBOLE ??
+				return functionTable.getVariable(currentName,e.valeur);
+			}
+		}
+	}
 }

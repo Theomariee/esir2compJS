@@ -7,11 +7,8 @@ import java.util.Set;
 
 public class FunctionTable {
 
-	private static int varCounter = 0;
+	
 
-	private String generateNewVariable() {
-		return "var" + varCounter++;
-	}
 
 	/** Instance unique pré-initialisée */
 	private static FunctionTable INSTANCE = new FunctionTable();
@@ -48,7 +45,7 @@ public class FunctionTable {
 	public void addVariable(String functionName, String whileName) {
 		FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
 		if (currentFd != null) {
-			currentFd.addVariable(whileName, generateNewVariable());
+			currentFd.addVariable(whileName, "var"+whileName);
 		}
 		// TODO gestion des erreurs ?
 	}
@@ -57,7 +54,7 @@ public class FunctionTable {
 		FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
 		if (currentFd != null) {
 			currentFd.addInput(whileName);
-			currentFd.addVariable(whileName, generateNewVariable());
+			currentFd.addVariable(whileName, "var"+whileName);
 		}
 		// TODO gestion des erreurs ?
 	}
@@ -104,5 +101,12 @@ public class FunctionTable {
 		}
 		return null;
 		// TODO gestion des erreurs ?
+	}
+	public boolean varExists(String functionName, String variable) {
+		FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
+		if (currentFd != null) {
+			return currentFd.getVariables().containsKey(variable);
+		}
+		return false;
 	}
 }

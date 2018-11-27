@@ -28,6 +28,12 @@ public class ThreeAddrCode {
 			return addr1+".push("+addr2+");";
 		case "array":
 			return "var "+addr1+" = [];";
+		case "aff":
+			return addr1+" = "+addr2+";";
+		case "decl":
+			return "var "+addr1+";";
+		case "nil":
+			return addr1+" = WhLib.nil();";
 		default :
 			return "WhLib.nonImpl();";
 		}
