@@ -1,41 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Compilateur WHILE vers JS</title>
-	<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <style>
+    html { margin: 1.5% 1.5% 1.5% 1.5%; }
+  </style>
+
+  <title>Compilateur WHILE vers JS</title>
 </head>
 <body>
-	<h1> Compilateur WHILE vers JavaScript - Sprint 2</h1>
-	<form method="POST">
-		<label for="whileToCompile">Saisir un programme WHILE à compiler en JS :</label>
-    <br>
-		<textarea id="whileToCompile" style="margin-top: 2%" rows="30" cols="100"></textarea>
-		<textarea disabled id="jsCompiled" style="margin-top: 2%" rows="30" cols="100"></textarea>
-    <br>
-		<input name="validateCompile" id="validateCompile" value="Compiler" type="submit" style="margin-bottom: 2%"/>
-    
-	</form>
-	<div id="output"></div>
-	<script>
-		$('#validateCompile').click(function(event){
-			event.preventDefault();
-			var codeWh = $('textarea#whileToCompile').val();
-			$.ajax({
-				url: '/test',
-				type: 'POST',
-				dataType: 'json',
-				data: {whilePrgm: codeWh},
-				success: (data) => {
-					console.log(data);
-					$('#jsCompiled').html(data.data);
-				}
-			});
-		});
-	</script>
+  <div class="container-fluid"> <!-- START div .container -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1> 
+          Compilateur WHILE vers JavaScript
+          <small class="text-muted">Sprint 1</small>
+        </h1>
+      </div>
+    </div> 
 
+    <div class="row my-2">
+      <div class="col-md-12">
+        <form method="POST">
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="whileToCompile">Input :</label>
+              <textarea class="form-control" id="whileToCompile" rows="22" placeholder="Saisir une fonction WHILE à compiler..."></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label for="jsCompiled">Output :</label>
+              <textarea disabled class="form-control" id="jsCompiled" rows="22"></textarea>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 1%">
+            <div class="col-md-6">
+              <button type="submit" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
+                Compiler
+              </button>
+            </div>
+
+            <div class="col-md-6">
+              <label for="consoleOutput">Console :</label>
+              <textarea class="form-control" id="consoleOutput" rows="5" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      $('#validateCompile').click(function(event){
+        event.preventDefault();
+        var codeWh = $('textarea#whileToCompile').val();
+        $.ajax({
+          url: '/test',
+          type: 'POST',
+          dataType: 'json',
+          data: {whilePrgm: codeWh},
+          success: (data) => {
+            console.log(data);
+            $('#jsCompiled').html(data.data);
+          }
+        });
+      });
+    </script>
+
+  </div> <!-- END div .container -->
 </body>
 </html>
