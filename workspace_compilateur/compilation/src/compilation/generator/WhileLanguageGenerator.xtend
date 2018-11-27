@@ -176,7 +176,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				return registresExpr.pop;
 			}
 			else{
-				//TODO controler la présence de la variable dans la liste des variable,
+				//TODO  controler la présence de la variable dans la liste des variable,
 				//Si elle n'existe pas on fait quoi ?
 				//+différence VARIABLE vs SYMBOLE ??
 				return functionTable.getVariable(currentName,e.valeur);
