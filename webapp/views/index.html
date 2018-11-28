@@ -64,6 +64,9 @@
   <script>
     $('#validateCompile').on('click', function(event){
       event.preventDefault();
+      if($('#display3Addr').is(":checked")) {
+        //TODO : appeler le .jar avec l'option -a
+      }
       var codeWh = $('textarea#whileToCompile').val();
       $.ajax({
         url: '/compile',
