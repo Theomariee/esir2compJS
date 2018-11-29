@@ -1,4 +1,5 @@
-class BinTree {
+//voir module.exports pour importer
+class BinTree  {
     constructor(data, leftTree, rightTree) {
         this.data=data;
         if(this.data!="nil")
@@ -23,198 +24,272 @@ class BinTree {
     setRight(rightTree) {
         if(rightTree.getData()!="nil") this.right=rightTree;
     }
-    //return the head of a tree, if it has no left son return null
-    hd(tree) {
-        if(tree.getLeft()!=null) return tree.getLeft();
-        return null;
-    }
-    //return the tail of a tree, if it has no right son return itself
-    tl(tree) {
-        if(tree.getRight()!=null) return tree.getRight();
-        return null;
-    }
+};
 
-    //from an array of things, construct a BinTree of these things
-    cons(params) { // à partir de plusieurs BinTree dans un array, retourne un bintree
-        if(params != null)
-        {
-            var tree = params.shift(); //shift removes from the beginning of the array
-            if(params.length == 0)
-            {
-                return tree;
-            }
-            else
-            {
-                return new BinTree("cons", tree, this.cons(params));
-            }
-        }
-    }
+//return the head of a tree, if it has no left son return null
+function head(tree) {
+    if(tree.getLeft()!=null) return tree.getLeft();
+    return null;
+};
 
-    //from an array of things, create a list BinTree of these things
-    list(params) {
-        if(params != null)
-        {
-            var tree = params.shift(); //shift removes from the beginning of the array
-            if(params.length == 0)
-            {
-                return new BinTree("list", tree, new BinTree("nil",null,null));
-            }
-            else
-            {
-                return new BinTree("list", tree, this.list(params));
-            }
-        }
-    }
+//return the tail of a tree, if it has no right son return itself
+function tail(tree) {
+    if(tree.getRight()!=null) return tree.getRight();
+    return null;
+};
 
-    //TODO
-    //from a given operand, apply it
-    /*evaluate(operand,tree1,tree2) {
-        if (operand==="AND")
-        {
-            if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
-            else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
-        }else if(operand==="OR")
-        {
-            if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
-            else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
-        }else if(operand==="EQ")
-        {
-            if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
-            else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
-        }
-        return null;
-    }*/
-
-    //TODO
-    //Evaluate if two trees are equals
-    evaluateEQ(tree1,tree2)
+//from an array of things, construct a BinTree of these things
+function cons(args) { // à partir de plusieurs BinTree dans un array, retourne un bintree
+    if(args != null)
     {
-        /*
-        if (tree1.getLeft() != null && tree2.getLeft() == null)
+        var tree = args.shift(); //shift removes from the beginning of the array
+        if(args.length == 0)
         {
-            return false;
-        }
-        if (tree1.getLeft() == null && tree2.getLeft() != null)
-        {
-            return false;
-        }
-        if (tree1.getRight() != null && tree2.getRight() == null)
-        {
-            return false;
-        }
-        if (tree1.getRight() == null && tree2.getRight() != null)
-        {
-            return false;
-        }
-        if (tree1.getRight() == null && tree2.getRight() == null && tree1.getLeft() != null)
-        {
-            return tree1.getData() === tree2.getData() && evaluateEQ(tree1.getLeft(), tree2.getLeft());
-        }
-        if (tree1.getLeft() == null && tree2.getLeft() == null && tree1.getRight() != null)
-        {
-            return tree1.getData() === tree2.getData() && evaluateEQ(tree1.getRight(), tree2.getRight());
-        }
-        if (tree1.getLeft() == null && tree1.getRight() == null)
-        {
-            return tree1.getData() === tree2.getData();
-        }
-        if (tree1.getData() === tree2.getData() && evaluateEQ(tree1.getLeft(), tree2.getLeft()) && evaluateEQ(tree1.getRight(), tree2.getRight()))
-        {
-            return true;
-        }
-        return false;
-        */
-        return tree1 == tree2;
-    }
-
-    //Check if a given tree is not nil
-    isTrue(tree)
-    {
-        if (!tree.getData() === "nil") return true;
-        return false;
-    }
-
-    //TOCOMPLETE
-    //Convert string to BinTree
-    //string should be written as "(cons X Y)" or "(list X Y)" or "(nil)" where X and Y are arguments in the same form
-    convertStrToBinTree(str)
-    {
-        var ret = new BinTree(str, null, null);
-        var nb=0;
-
-        //si entier, mauvaise fonction
-        if (Number.isInteger(str))
-        {
-            ret = convertIntToBinTree(str);
-        } //si string, on parse
-        else if(str.charAt(0) === '(')
-        {
-            //c'est une forme while (...)
-            var i = 0;
-            if (str.charAt(i) == '(') //CONS OR LIST
-            {
-                if (str.substring(i+1, 3) === "nil")
-                {
-                    return ret; //Return BinTree("nil",null,null)
-                }
-                else if (str.substring(i+1, 4) === "cons" || str.substring(i+1, 4) === "list")
-                {
-                    var cmd = str.substring(i+1, 4);
-
-                    var args=[];
-
-                    i += getNextOpeningParenthesis(str, i+5); //i+5 = char juste après "cons", recup place prochaine '('
-                    var closing = getIndexClosingParenthesis(str, i); //recup ')' associee
-                    var tree1 = convertStrToBinTree(str.Substring((i), closing - i)); //string contenant tout le premier param du cons
-                    var nextOpening = getNextOpeningParenthesis(str, closing); //recup '(' suivant la ')' du premier param -> ouverture second param
-                    var tree2 = convertStrToBinTree(str.Substring(nextOpening, getIndexClosingParenthesis(str, nextOpening) - (nextOpening))); //string contenant tout le second param
-
-                    args.push(tree1);
-
-                    if (cmd === "cons")
-                    {
-                        ret = cons(args); //creation du BinTree avec les deux param (cons)
-                    }
-                    else if (cmd === "list")
-                    {
-                        ret = list(args); // creation du BinTree avec les deux param (list)
-                    }
-                    else
-                    {
-                       throw "Parsing bug";
-                    }
-                }
-                else
-                {
-                    throw "Parsing bug";
-                }
-            }
+            return tree;
         }
         else
         {
-            //c'est un symbole
-            ret = new BinTree(str, null, null);
+            return new BinTree("cons", tree, cons(args));
         }
-        return ret;
     }
-}
+};
+
+//from an array of things, create a list BinTree of these things
+function list(args) {
+    if(args != null)
+    {
+        var tree = args.shift(); //shift removes from the beginning of the array
+        if(args.length == 0)
+        {
+            return new BinTree("list", tree, new BinTree("nil",null,null));
+        }
+        else
+        {
+            return new BinTree("list", tree, (args));
+        }
+    }
+};
+
+//TODO
+//from a given operand, apply it
+function evaluate(operand,tree1,tree2) {
+    /*if (operand==="AND")
+    { //KAPCASH VERSION RETRANSCRITE
+        if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
+        else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+    }else if(operand==="OR")
+    {
+        if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
+        else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+    }else if(operand==="EQ")
+    {
+        if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
+        else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+    }
+    return null;*/
+};
+
+//TODO
+//Evaluate if two trees are equals
+function evaluateEQ(tree1,tree2)
+{
+    /* KAPCASH VERSION RETRANSCRITE
+    if (tree1.getLeft() != null && tree2.getLeft() == null)
+    {
+        return false;
+    }
+    if (tree1.getLeft() == null && tree2.getLeft() != null)
+    {
+        return false;
+    }
+    if (tree1.getRight() != null && tree2.getRight() == null)
+    {
+        return false;
+    }
+    if (tree1.getRight() == null && tree2.getRight() != null)
+    {
+        return false;
+    }
+    if (tree1.getRight() == null && tree2.getRight() == null && tree1.getLeft() != null)
+    {
+        return tree1.getData() === tree2.getData() && evaluateEQ(tree1.getLeft(), tree2.getLeft());
+    }
+    if (tree1.getLeft() == null && tree2.getLeft() == null && tree1.getRight() != null)
+    {
+        return tree1.getData() === tree2.getData() && evaluateEQ(tree1.getRight(), tree2.getRight());
+    }
+    if (tree1.getLeft() == null && tree1.getRight() == null)
+    {
+        return tree1.getData() === tree2.getData();
+    }
+    if (tree1.getData() === tree2.getData() && evaluateEQ(tree1.getLeft(), tree2.getLeft()) && evaluateEQ(tree1.getRight(), tree2.getRight()))
+    {
+        return true;
+    }
+    return false;
+    */
+    return tree1 == tree2;
+};
+
+//Check if a given tree is not nil
+function isTrue(tree)
+{
+    if (!tree.getData() === "nil") return true;
+    return false;
+};
+
+//Convert string to BinTree
+//string should be written as "(cons X Y)" or "(list X Y)" or "(nil)" where X and Y are arguments in the same form
+function bintreeFromString(str)
+{
+    var res = new BinTree("nil", null, null);
+
+    //if the parameter is an int, wrong function
+    if (Number.isInteger(str))
+    {
+        res = bintreeFromInt(str);
+    } //if it's a string and correctly written, we start parsing to create an adequate bintree
+    else if(str.charAt(0) === '(')
+    {
+        var i = 0;
+        if (str.charAt(i) == '(')
+        {
+            if (str.substring(i+1, i+4) === "nil")
+            {
+                return res;
+            }
+            else if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
+            {
+                var cmd = str.substring(i+1, i+5);
+                console.log(cmd);
+                var args=[];
+
+                var openParenthesis = getOpenParenthesis(str, i+5);
+                console.log("open"+openParenthesis);
+                i = openParenthesis;
+                var closeParenthesis = getCloseParenthesis(str, i);
+                var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
+                console.log("i apres"+i);
+                console.log("closep"+closeParenthesis);
+
+                openParenthesis = getOpenParenthesis(str, closeParenthesis);
+                console.log("hi");
+                closeParenthesis = getCloseParenthesis(str, openParenthesis);
+                var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
+
+                args.push(tree1);
+                args.push(tree2);
+
+                if (cmd === "cons")
+                {
+                    res = cons(args);
+                }
+                else if (cmd === "list")
+                {
+                    res = list(args);
+                }
+                else
+                {
+                throw "Error in creating the tree from the string";
+                }
+            }
+            else
+            {
+                throw "Error in creating the tree from the string";
+            }
+        }
+    }
+    else
+    {
+        //c'est un symbole
+        res = new BinTree(str, null, null);
+    }
+    return res;
+};
+
+//construct a bintree from a given int
+function bintreeFromInt(int)
+{
+    var res = new BinTree("nil", null, null);
+    if (int != 0)
+    {
+        for(i = 0; i < int; i++)
+        {
+            var nil = new BinTree("nil", null, null);
+            res = new BinTree("cons", nil, res);
+        }
+    }
+    return res;
+};
+
+//return an int from a given bintree
+function intFromBintree(tree)
+{
+    var res = 0;
+    if(tree != null)
+    {
+        if(tree.getData() === "cons" || tree.getData === "list")
+        {
+            res++;
+            res += intFromBintree(tree.getLeft());
+            res += intFromBintree(tree.getRight());
+        }
+    }
+    return res;
+};
+
+//Parsing : Find the position of the next '(' parenthesis of a string
+function getOpenParenthesis(str, position)
+{
+    while(str.charAt(position) !== '(')
+    {
+        position++;
+    }
+    return position;
+};
+
+//Parsing : Find the position of the next ')' parenthesis of a string, from a '(' parenthesis
+function getCloseParenthesis(str, position)
+{
+    if(str.charAt(position) !== '(')
+    {
+        return -1;
+    }
+    var nbOpenParenthesis = 1;
+    var found = false;
+    while(!found)
+    {
+        position++;
+        if(str.charAt(position) === ')')
+        {
+            if (nbOpenParenthesis == 1)
+            {
+                found = true;
+            }
+            else
+            {
+                nbOpenParenthesis--;
+            }
+        }
+        else if(str.charAt(position) === '(')
+        {
+            nbOpenParenthesis++;
+        }
+    }
+    return position;
+};
+
 
 var bt = new BinTree("nil",null,null);
 var bt2 = new BinTree("nil",null,null);
-//var bt = new BinTree("hi",new BinTree("nil",null,null),null);
-//console.log(bt.getData(),bt.getLeft(),bt.getRight());
-//console.log(bt.isTrue(bt));
-console.log(bt === bt2);
+//console.log(bt.getData(),bt.getLeft(),bt.getRight()); //should print nilnullnull
+//console.log(bt.isTrue(bt)); //should be false
 
-var params = [1,2,3]
-var constructedTree = bt.cons(params);
-console.log(constructedTree);
+console.log(bintreeFromString("(nil)"))
+console.log(bintreeFromString("(cons(nil)(nil))")) //should print a bin tree with data cons and nil in right and left sons
 
-params = [1,2,3]
-var listTree = bt.list(params);
-console.log(listTree);
-console.log(listTree.right.right);
+console.log(bintreeFromInt(5))
+console.log(intFromBintree(bintreeFromInt(5)))
 
-
-module.exports = BinTree;
+module.exports;
 //const BinTree = require('./BinTree.js') pour inclure puis var bt = new BinTree("nil",null,null);
