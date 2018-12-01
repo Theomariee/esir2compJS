@@ -74,7 +74,7 @@ function list(args) {
 //from a given operand, apply it
 function evaluate(operand,tree1,tree2) {
     /*if (operand==="AND")
-    { //KAPCASH VERSION RETRANSCRITE
+    { //
         if(tree1.getData()==="nil" || tree2.getData()==="nil") return new BinTree("nil",null,null)
         else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
     }else if(operand==="OR")
@@ -93,7 +93,7 @@ function evaluate(operand,tree1,tree2) {
 //Evaluate if two trees are equals
 function evaluateEQ(tree1,tree2)
 {
-    /* KAPCASH VERSION RETRANSCRITE
+    /* 
     if (tree1.getLeft() != null && tree2.getLeft() == null)
     {
         return false;
