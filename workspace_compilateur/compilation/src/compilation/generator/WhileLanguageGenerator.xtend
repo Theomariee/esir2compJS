@@ -10,6 +10,7 @@ import compilation.whileLanguage.Expr
 import compilation.whileLanguage.For
 import compilation.whileLanguage.Foreach
 import compilation.whileLanguage.Function
+import compilation.whileLanguage.Lexpr
 import compilation.whileLanguage.If
 import compilation.whileLanguage.Nop
 import compilation.whileLanguage.Program
@@ -32,7 +33,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	FunctionTable functionTable;
 	boolean code = false;
 	RegisterList registresAff = new RegisterList("aff");
-	RegisterList registresExpr = new RegisterList("expr");
+	RegisterStack registresExpr = new RegisterStack("expr");
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
@@ -66,6 +67,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 	def compile(Function f) {
 		currentName = f.name;
+		//init
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresAff.getPrefixe(),null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","var",null,null))
 		f.definition.read.compile
 		f.definition.commands.compile
 		f.definition.write.compile
@@ -123,15 +128,12 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		for(v:a.affectations){
 			if(!functionTable.varExists(currentName,v)){
 				functionTable.addVariable(currentName,v);
-				//TODO : commande 3@ de création de var
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",functionTable.getVariable(currentName,v),null,null))
 			}
 		}
 		for(v:a.valeurs){
 			//r =  cons nil ?
 			//TO DO : création de variable par push/pop direct
 			
-			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresAff.nextReg,null,null))
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",registresAff.push,v.compile,null))
 		}
 		for(v:a.affectations){
@@ -171,7 +173,6 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			if(e.valeur.equals("nil")){
 				// attention c'est du fifo
 				//peut etre à changer en stack si besoin pour les autres Expr...
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("decl",registresExpr.nextReg,null,null))
 				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil",registresExpr.push,null,null))
 				return registresExpr.pop;
 			}
@@ -181,7 +182,26 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				//+différence VARIABLE vs SYMBOLE ??
 				return functionTable.getVariable(currentName,e.valeur);
 			}
-			//TODO :Pour les call, checker le nb de param 
+			//TODO :Pour les call, checker le nb de param
+		}
+		else if(e.ope.equals("cons")) {
+			var name = registresExpr.push;
+			for(expr : e.lexpr.exprs.reverseView){
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("cons",name,expr.compile,name))
+			}
+			return registresExpr.pop;
+		}
+		else if(e.ope.equals("list")) {
+			var name = registresExpr.push;
+			for(expr : e.lexpr.exprs.reverseView){
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("list",name,expr.compile,name))
+			}
+			return registresExpr.pop;
+		}
+		else if(e.ope.equals("hd") || e.ope.equals("tl") || e.ope.equals("!")) {
+			var name = registresExpr.push;
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode(e.ope,name,e.expr.compile,null))
+			return registresExpr.pop;
 		}
 	}
 }

@@ -1,14 +1,14 @@
 package compilation.generator;
 
-import java.util.LinkedList;
+import java.util.Stack;
 /*
  * Une liste FIFO qui permet de générer des variables selon un préfixe donnée
  */
-public class RegisterList {
-	LinkedList<String> registres = new LinkedList<String>();
+public class RegisterStack {
+	Stack<String> registres = new Stack<String>();
 	private int counter = 0;
 	private String prefixe;
-	public RegisterList(String prefixe) {
+	public RegisterStack(String prefixe) {
 		this.prefixe = prefixe;
 	}
 	
