@@ -1,4 +1,3 @@
-//voir module.exports pour importer
 class BinTree  {
     constructor(data, leftTree, rightTree) {
         this.data=data;
@@ -136,8 +135,8 @@ function evaluateEQ(tree1,tree2)
 //Check if a given tree is not nil
 function isTrue(tree)
 {
-    if (!tree.getData() === "nil") return true;
-    return false;
+    if (tree.getData() === "nil") return false;
+    return true;
 };
 
 //Convert string to BinTree
@@ -278,7 +277,7 @@ function intFromBintree(tree)
 
 
 
-var bt = new BinTree("nil",null,null);
+/*var bt = new BinTree("nil",null,null);
 var bt2 = new BinTree("nil",null,null);
 //console.log(bt.getData(),bt.getLeft(),bt.getRight()); //should print nilnullnull
 console.log(isTrue(bt)); //should be false
@@ -286,14 +285,26 @@ console.log(isTrue(bt)); //should be false
 console.log(bintreeFromString("(cons(nil)(nil))")) //should print a bin tree with data cons and nil in right and left sons
 console.log(bintreeFromString("(list(nil)(nil))"))
 var args=[]
-console.log(list(args))
 args.push(bt)
 args.push(bt2)
 console.log(list(args))
 
 console.log(bintreeFromInt(5))
 console.log(intFromBintree(bintreeFromInt(5)))
-console.log(bintreeFromString("(cons(cons(nil)(nil))(nil))"))
+console.log(bintreeFromString("(cons(cons(nil)(nil))(nil))"))*/
 
 
-module.exports;
+module.exports = {
+    BinTree: BinTree,
+    head: head,
+    tail: tail,
+    cons: cons,
+    list: list,
+    evaluate: evaluate,
+    evaluateEQ: evaluateEQ,
+    isTrue: isTrue,
+    bintreeFromString: bintreeFromString,
+    bintreeFromInt: bintreeFromInt,
+    getCloseParenthesis: getCloseParenthesis,
+    getOpenParenthesis: getOpenParenthesis
+};
