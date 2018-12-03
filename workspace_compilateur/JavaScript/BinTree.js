@@ -42,8 +42,9 @@ function tail(tree) {
 function cons(args) { // à partir de plusieurs BinTree dans un array, retourne un bintree
     if(args != null)
     {
+        if(args.length == 0) return new BinTree("nil",null,null);
         var tree = args.shift(); //shift removes from the beginning of the array
-        if(args.length == 0)
+        if(args.length <= 0)
         {
             return tree;
         }
@@ -58,14 +59,15 @@ function cons(args) { // à partir de plusieurs BinTree dans un array, retourne 
 function list(args) {
     if(args != null)
     {
+        if(args.length == 0) return new BinTree("nil",null,null);
         var tree = args.shift(); //shift removes from the beginning of the array
-        if(args.length == 0)
+        if(args.length <= 0)
         {
             return new BinTree("list", tree, new BinTree("nil",null,null));
         }
         else
         {
-            return new BinTree("list", tree, (args));
+            return new BinTree("list", tree, list(args));
         }
     }
 };
@@ -161,19 +163,14 @@ function bintreeFromString(str)
             else if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
             {
                 var cmd = str.substring(i+1, i+5);
-                console.log(cmd);
                 var args=[];
 
                 var openParenthesis = getOpenParenthesis(str, i+5);
-                console.log("open"+openParenthesis);
                 i = openParenthesis;
                 var closeParenthesis = getCloseParenthesis(str, i);
                 var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
-                console.log("i apres"+i);
-                console.log("closep"+closeParenthesis);
 
                 openParenthesis = getOpenParenthesis(str, closeParenthesis);
-                console.log("hi");
                 closeParenthesis = getCloseParenthesis(str, openParenthesis);
                 var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
 
@@ -201,42 +198,11 @@ function bintreeFromString(str)
     }
     else
     {
-        //c'est un symbole
         res = new BinTree(str, null, null);
     }
     return res;
 };
 
-//construct a bintree from a given int
-function bintreeFromInt(int)
-{
-    var res = new BinTree("nil", null, null);
-    if (int != 0)
-    {
-        for(i = 0; i < int; i++)
-        {
-            var nil = new BinTree("nil", null, null);
-            res = new BinTree("cons", nil, res);
-        }
-    }
-    return res;
-};
-
-//return an int from a given bintree
-function intFromBintree(tree)
-{
-    var res = 0;
-    if(tree != null)
-    {
-        if(tree.getData() === "cons" || tree.getData === "list")
-        {
-            res++;
-            res += intFromBintree(tree.getLeft());
-            res += intFromBintree(tree.getRight());
-        }
-    }
-    return res;
-};
 
 //Parsing : Find the position of the next '(' parenthesis of a string
 function getOpenParenthesis(str, position)
@@ -279,17 +245,55 @@ function getCloseParenthesis(str, position)
     return position;
 };
 
+//construct a bintree from a given int
+function bintreeFromInt(int)
+{
+    var res = new BinTree("nil", null, null);
+    if (int != 0)
+    {
+        for(i = 0; i < int; i++)
+        {
+            var nil = new BinTree("nil", null, null);
+            res = new BinTree("cons", nil, res);
+        }
+    }
+    return res;
+};
+
+//return an int from a given bintree
+function intFromBintree(tree)
+{
+    var res = 0;
+    if(tree != null)
+    {
+        if(tree.getData() === "cons" || tree.getData === "list")
+        {
+            res++;
+            res += intFromBintree(tree.getLeft());
+            res += intFromBintree(tree.getRight());
+        }
+    }
+    return res;
+};
+
+
 
 var bt = new BinTree("nil",null,null);
 var bt2 = new BinTree("nil",null,null);
 //console.log(bt.getData(),bt.getLeft(),bt.getRight()); //should print nilnullnull
-//console.log(bt.isTrue(bt)); //should be false
+console.log(isTrue(bt)); //should be false
 
-console.log(bintreeFromString("(nil)"))
 console.log(bintreeFromString("(cons(nil)(nil))")) //should print a bin tree with data cons and nil in right and left sons
+console.log(bintreeFromString("(list(nil)(nil))"))
+var args=[]
+console.log(list(args))
+args.push(bt)
+args.push(bt2)
+console.log(list(args))
 
 console.log(bintreeFromInt(5))
 console.log(intFromBintree(bintreeFromInt(5)))
+console.log(bintreeFromString("(cons(cons(nil)(nil))(nil))"))
+
 
 module.exports;
-//const BinTree = require('./BinTree.js') pour inclure puis var bt = new BinTree("nil",null,null);
