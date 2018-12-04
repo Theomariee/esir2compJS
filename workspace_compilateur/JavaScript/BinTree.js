@@ -1,7 +1,7 @@
 class BinTree  {
     constructor(data, leftTree, rightTree) {
         this.data=data;
-        if(this.data!="nil")
+        if(!this.data==="nil")
         {
             this.left=leftTree;
             this.right=rightTree;
@@ -45,7 +45,7 @@ function cons(args) { // à partir de plusieurs BinTree dans un array, retourne 
         var tree = args.shift(); //shift removes from the beginning of the array
         if(args.length <= 0)
         {
-            return tree;
+            return tree; // new BinTree(tree, null, null)
         }
         else
         {
