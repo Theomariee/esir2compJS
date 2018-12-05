@@ -44,6 +44,12 @@ public class ThreeAddrCode {
 			return addr1+" = WhLib.tl("+addr2+");";
 		case "!":
 			return addr1+" = WhLib.not("+addr2+");";
+		case "and":
+			return addr1+" = WhLib.and("+addr2+","+addr3+");";
+		case "or":
+			return addr1+" = WhLib.or("+addr2+","+addr3+");";
+		case "=?":
+			return addr1+" = WhLib.eq("+addr2+","+addr3+");";
 		default :
 			return "WhLib.nonImpl();";
 		}

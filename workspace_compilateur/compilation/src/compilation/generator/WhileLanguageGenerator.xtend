@@ -44,7 +44,6 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		code = codep;
 		//recup table des symboles
 		functionTable = FunctionTable.getInstance();
-		
 		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
 			e.compile
 			if (output.equals("")){
@@ -52,26 +51,32 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			}
 			else
 				fsa.generateFile(output, compileToJs);
+				for(f:functionTable.getFunctions){
+					fsa.generateFile(f+".txt", functionTable.getInput(f).toString())
+				}
+				
 		}
 	}
 	
 	def compile(Program p) {
 		for (f:p.functions){
+			currentName = f.name;
 			 //Création dans la table des fonctions
 			functionTable.addFunction(f.name, f.definition.write.variable.size)
+			f.definition.read.compile
 		}
-		
 		for (f:p.functions){
+			currentName = f.name;
 			f.compile
 		}
 	}
 	def compile(Function f) {
-		currentName = f.name;
 		//init
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresAff.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","var",null,null))
-		f.definition.read.compile
+		//Fait au premier passage
+		//f.definition.read.compile
 		f.definition.commands.compile
 		f.definition.write.compile
 		if(code){
@@ -203,5 +208,11 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode(e.ope,name,e.expr.compile,null))
 			return registresExpr.pop;
 		}
+		else if(e.ope.equals("and") || e.ope.equals("or") || e.ope.equals("=?")) {
+			var name = registresExpr.push;
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode(e.ope,name,e.ex1.compile,e.ex2.compile))
+			return registresExpr.pop;
+		}
+		
 	}
 }

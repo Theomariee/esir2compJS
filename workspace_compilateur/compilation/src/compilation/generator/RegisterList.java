@@ -13,7 +13,7 @@ public class RegisterList {
 	}
 	
 	public String push() {
-		registres.add(prefixe+counter);
+		registres.add(prefixe+"["+counter+"]");
 		return prefixe+"["+(counter++)+"]";
 	}
 	

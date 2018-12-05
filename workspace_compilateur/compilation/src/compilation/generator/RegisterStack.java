@@ -13,7 +13,7 @@ public class RegisterStack {
 	}
 	
 	public String push() {
-		registres.add(prefixe+counter);
+		registres.add(prefixe+"["+counter+"]");
 		return prefixe+"["+(counter++)+"]";
 	}
 	

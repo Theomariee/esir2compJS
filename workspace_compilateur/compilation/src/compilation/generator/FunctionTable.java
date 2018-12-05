@@ -54,7 +54,7 @@ public class FunctionTable {
 		FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
 		if (currentFd != null) {
 			currentFd.addInput(whileName);
-			currentFd.addVariable(whileName, "var["+whileName+"]");
+			currentFd.addVariable(whileName, "param"+whileName+"");
 		}
 		// TODO gestion des erreurs ?
 	}
