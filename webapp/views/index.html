@@ -43,6 +43,7 @@
               <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
                 Compiler
               </button>
+              <div id="paramInputs"></div>
             </div>
 
             <div class="col-md-6">
@@ -68,6 +69,7 @@
         //TODO : appeler le .jar avec l'option -a
       }
       var codeWh = $('textarea#whileToCompile').val();
+
       $.ajax({
         url: '/compile',
         type: 'POST',
@@ -79,16 +81,56 @@
           $('#consoleOutput').html(data.jarPrints);
 
           $.ajax({
-          	url: '/output',
-          	type: 'GET',
-        	success: (data) => {
-        		console.log(data);
-        		$('#jsCompiled').html(data.compiledJS);
-        	}
+            url: '/output',
+            type: 'GET',
+        	  success: (data) => {
+        		  console.log(data);
+        		  $('#jsCompiled').html(data.compiledJS);
+        	  }
           });
+
+          $.ajax({
+            url: '/parameters',
+            type: 'GET',
+            success: (data) => {
+              if(data.error){
+                $('#consoleOutput').append(data.error);
+              }else if(data.params){
+                generateInputAreas(data.params);
+              }
+            }
+          });          
         }
       });
     });
+
+    //params should be array of the function parameters
+    function generateInputAreas(params) {
+      $('#paramInputs').html('<h2>Paramètres d\'appel</h2>');
+      for (var i = 0; i < params.length; i++) {
+        var current = params[i];
+        $('#paramInputs').append('<div class="col-md-6">\
+                                  <label for="'+ current +'">'+ current +'</label>\
+                                  <input id="'+ current +'" name="'+ current +'" class="form-control " type="text" placeholder="Valeur pour '+ current +'">\
+                                  </div>');
+      }
+      $('#paramInputs').append('<div class="col-md-6">\
+                                  <button type="button" class="btn btn-primary btn-lg btn-block" name="execute" id="execute">\
+                                    Exécuter avec ces paramètres\
+                                  </button>\
+                                </div>');
+
+
+      // listen for click
+      $('#execute').on('click', function(event){
+        var arrayValues = [];
+        $('input').each(function(index,data) {
+          var value = $(this).val();
+          arrayValues[index] = value;
+        });
+        console.log(arrayValues); 
+      });
+    }
   </script>
 </body>
 </html>
