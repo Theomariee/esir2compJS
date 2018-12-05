@@ -52,7 +52,9 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			else
 				fsa.generateFile(output, compileToJs);
 				for(f:functionTable.getFunctions){
-					fsa.generateFile(f+".txt", functionTable.getInput(f).toString())
+					var inputs = functionTable.getInput(f).toString().substring(1)
+					inputs = inputs.substring(0,inputs.length-1)
+					fsa.generateFile(f+".txt", inputs)
 				}
 				
 		}
