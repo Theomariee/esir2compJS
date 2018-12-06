@@ -23,18 +23,22 @@
       </div>
     </div> 
 
-    <div class="row my-2">
+    <div class="row my-3">
       <div class="col-md-12">
         <form method="POST" id="compilation">
           <div class="form-row">
-            <div class="col-md-6">
-              <label for="whileToCompile">Input :</label>
+            <div class="col-md-3">
+              <label for="whileToCompile" class="h4 text-muted">While à compiler</label>
               <textarea class="form-control" id="whileToCompile" rows="22" placeholder="Saisir une fonction WHILE à compiler..."></textarea>
             </div>
-
-            <div class="col-md-6">
-              <label for="jsCompiled">Output :</label>
+            <div class="col-md-3">
+              <label for="jsCompiled" class="h4 text-muted">JavaScript généré</label>
               <textarea disabled class="form-control" id="jsCompiled" rows="22"></textarea>
+            </div>
+            <div class="col-md-3">
+              <div id="paramInputs">
+                
+              </div>
             </div>
           </div>
 
@@ -43,12 +47,12 @@
               <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
                 Compiler
               </button>
-              <div id="paramInputs"></div>
             </div>
+          </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
               <label for="consoleOutput">Console :</label>
-              <textarea disabled class="form-control" id="consoleOutput" rows="5" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
+              <textarea disabled class="form-control" id="consoleOutput" rows="7" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
             </div>
           </div>
         </form>
@@ -83,10 +87,10 @@
           $.ajax({
             url: '/output',
             type: 'GET',
-        	  success: (data) => {
-        		  console.log(data);
-        		  $('#jsCompiled').html(data.compiledJS);
-        	  }
+            success: (data) => {
+              console.log(data);
+              $('#jsCompiled').html(data.compiledJS);
+            }
           });
 
           $.ajax({
