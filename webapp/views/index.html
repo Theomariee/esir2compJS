@@ -114,7 +114,7 @@
 
     //params should be array of the function parameters
     function generateInputAreas(params) {
-      $('#paramInputs').html('<span for="whileToCompile" class="h4 text-muted">While à compiler</span>');
+      $('#paramInputs').html('<span class="h4 text-muted">Paramètres d\'exécution</span>');
       for (var i = 0; i < params.length; i++) {
         var current = params[i];
         $('#paramInputs').append('<div class="col-md-12">\
@@ -122,8 +122,8 @@
                                   <input id="'+ current +'" name="'+ current +'" class="form-control " type="text" placeholder="Valeur pour '+ current +'">\
                                   </div>');
       }
-      $('#paramInputs').append('<div class="col-md-12 my-1">\
-                                  <button type="button" class="btn btn-primary btn-lg btn-block" name="execute" id="execute">\
+      $('#paramInputs').append('<div class="col-md-12">\
+                                  <button type="button" class="btn btn-primary btn-lg btn-block my-1" name="execute" id="execute">\
                                     Exécuter avec ces paramètres\
                                   </button>\
                                 </div>');
