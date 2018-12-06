@@ -18,6 +18,9 @@ router.get('/', (req, res) => {
 //appelé en ajax, exécute le jar et affiche renvoie ses sorties standard et erreur pour afficher dans la "console" 
 router.post('/compile', (req, res) => {
 	var whilePrgm = req.body.whilePrgm;
+	var debugMode = req.body.debugMode;
+	var debugOption = "";
+	
 	fs.writeFile("temp/input.wh", whilePrgm, function(err) {
 	    if(err) {
 	        return console.log(err);
@@ -30,7 +33,11 @@ router.post('/compile', (req, res) => {
     	fs.unlinkSync('temp/compiled.js'); 
 	}
 	
-	exec('java -jar ../livrables/whc1/whc.jar temp/input.wh -o temp/compiled.js', function (error, stdout, stderr){
+	if(debugMode) {
+	    debugOption = "-a";
+	}
+	
+	exec('java -jar ../livrables/whc1/whc.jar temp/input.wh -o temp/compiled.js' + debugOption, function (error, stdout, stderr){
 		console.log('Sending jar file output to client');	
 		console.log(stdout);
 		console.log(stderr);
