@@ -78,17 +78,5 @@ router.get('/parameters', (req, res) => {
 	}
 });
 
-// router.post('/execute', (req, res) => {
-// 	console.log('from execute');
-// 	var program = req.body.jsCode;
-// 	var params = req.body.parameters;
-
-// 	for (var key in params) {
-// 		console.log(key, params[key]);
-// 	}
-
-// 	// chococo(program, params);
-// });
-
 module.exports = router;
 

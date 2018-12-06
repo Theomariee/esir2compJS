@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-3">
               <div id="paramInputs">
-                
+
               </div>
             </div>
           </div>
@@ -47,6 +47,11 @@
               <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
                 Compiler
               </button>
+            </div>
+            <div class="col-md-3">
+              <div id="execOutput">
+
+              </div>
             </div>
           </div>
 
@@ -143,8 +148,10 @@
 
         // chococo(jsCode, arrayValues);
         var out = test();
+        $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
         out.forEach(function(tree) {
           console.log(JSON.stringify(tree));
+          $('#execOutput').append(JSON.stringify(tree) + '<br>');
         });
       });
     }
