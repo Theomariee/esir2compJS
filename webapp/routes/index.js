@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 router.post('/compile', (req, res) => {
 	var whilePrgm = req.body.whilePrgm;
 	var debugMode = req.body.debugMode;
+	debugMode = (debugMode == 'true');
 	var debugOption = "";
 	
 	fs.writeFile("temp/input.wh", whilePrgm, function(err) {
