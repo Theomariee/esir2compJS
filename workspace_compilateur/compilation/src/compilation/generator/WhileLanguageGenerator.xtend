@@ -165,7 +165,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 	def compileToJs()'''
 	«FOR f:functionTable.getFunctions()»
-	function «f»(«FOR read : functionTable.getInput(f) SEPARATOR ', '»BinTree «functionTable.getVariable(f, read)»«ENDFOR»){
+	function «f»(«FOR read : functionTable.getInput(f) SEPARATOR ', '»«functionTable.getVariable(f, read)»«ENDFOR»){
 		«FOR instruction:functionTable.getInstructions(f)»
 			«instruction.compile()»
 		«ENDFOR»
