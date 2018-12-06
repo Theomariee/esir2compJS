@@ -6,13 +6,6 @@ var exec = require('child_process').exec;
 // render la page
 router.get('/', (req, res) => {
 	res.render('index');
-	if (fs.existsSync('temp/main.txt')) {
-		fs.readFile("temp/main.txt", 'utf-8', function (err, data) {
-		    if (err) throw err;
-		    var test = data.split(',').length;
-		    console.log(test);
-		});
-	}
 });
 
 //appelé en ajax, exécute le jar et affiche renvoie ses sorties standard et erreur pour afficher dans la "console" 
@@ -75,7 +68,7 @@ router.get('/parameters', (req, res) => {
 		    	throw err;
 		    }else{
 		    	// on suppose que le .txt est la forme X,Y,....
-				var params = data.split(',');
+				var params = data.split(', ');
 				res.json({'params': params});
 		    }
 		});
@@ -85,7 +78,17 @@ router.get('/parameters', (req, res) => {
 	}
 });
 
+// router.post('/execute', (req, res) => {
+// 	console.log('from execute');
+// 	var program = req.body.jsCode;
+// 	var params = req.body.parameters;
 
+// 	for (var key in params) {
+// 		console.log(key, params[key]);
+// 	}
+
+// 	// chococo(program, params);
+// });
 
 module.exports = router;
 

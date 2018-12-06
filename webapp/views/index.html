@@ -23,22 +23,18 @@
       </div>
     </div> 
 
-    <div class="row my-3">
+    <div class="row my-2">
       <div class="col-md-12">
         <form method="POST" id="compilation">
           <div class="form-row">
-            <div class="col-md-3">
-              <label for="whileToCompile" class="h4 text-muted">While à compiler</label>
+            <div class="col-md-6">
+              <label for="whileToCompile">Input :</label>
               <textarea class="form-control" id="whileToCompile" rows="22" placeholder="Saisir une fonction WHILE à compiler..."></textarea>
             </div>
-            <div class="col-md-3">
-              <label for="jsCompiled" class="h4 text-muted">JavaScript généré</label>
+
+            <div class="col-md-6">
+              <label for="jsCompiled">Output :</label>
               <textarea disabled class="form-control" id="jsCompiled" rows="22"></textarea>
-            </div>
-            <div class="col-md-3">
-              <div id="paramInputs">
-                
-              </div>
             </div>
           </div>
 
@@ -47,16 +43,12 @@
               <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
                 Compiler
               </button>
+              <div id="paramInputs"></div>
             </div>
-          </div>
 
-            <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
+            <div class="col-md-6">
               <label for="consoleOutput">Console :</label>
-              <textarea disabled class="form-control" id="consoleOutput" rows="8" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
-                <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="showThreeAdressesCode">
-                  <label class="form-check-label" for="showThreeAdressesCode">Afficher le code 3@</label>
-                </div>
+              <textarea disabled class="form-control" id="consoleOutput" rows="5" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
             </div>
           </div>
         </form>
@@ -69,13 +61,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+  <script src="BinTree.js"></script>
+  <script type="WhLib.js"></script>
+
   <!-- catch the submit event and run the .jar file that compiles the input -->
   <script>
     $('#validateCompile').on('click', function(event){
       event.preventDefault();
-      var debugMode = false;
-      if($('#showThreeAdressesCode').is(":checked")) {
-        debugMode = true;
+      if($('#display3Addr').is(":checked")) {
+        //TODO : appeler le .jar avec l'option -a
       }
       var codeWh = $('textarea#whileToCompile').val();
 
@@ -83,7 +77,7 @@
         url: '/compile',
         type: 'POST',
         dataType: 'json',
-        data: {whilePrgm: codeWh, debugMode: debugMode},
+        data: {whilePrgm: codeWh},
         success: (data) => {
           console.log(data);
           console.log(typeof(data.jarPrints));
@@ -92,10 +86,10 @@
           $.ajax({
             url: '/output',
             type: 'GET',
-            success: (data) => {
-              console.log(data);
-              $('#jsCompiled').html(data.compiledJS);
-            }
+        	  success: (data) => {
+        		  console.log(data);
+        		  $('#jsCompiled').html(data.compiledJS);
+        	  }
           });
 
           $.ajax({
@@ -115,16 +109,17 @@
 
     //params should be array of the function parameters
     function generateInputAreas(params) {
-      $('#paramInputs').html('<span class="h4 text-muted">Paramètres d\'exécution</span>');
+      $('#paramInputs').html('<h2>Paramètres d\'appel</h2>');
       for (var i = 0; i < params.length; i++) {
         var current = params[i];
-        $('#paramInputs').append('<div class="col-md-12">\
+        $('#paramInputs').append('<div class="col-md-6">\
                                   <label for="'+ current +'">'+ current +'</label>\
-                                  <input id="'+ current +'" name="'+ current +'" class="form-control " type="text" placeholder="Valeur pour '+ current +'">\
+                                  <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
                                   </div>');
       }
-      $('#paramInputs').append('<div class="col-md-12">\
-                                  <button type="button" class="btn btn-primary btn-lg btn-block my-1" name="execute" id="execute">\
+
+      $('#paramInputs').append('<div class="col-md-6">\
+                                  <button type="button" class="btn btn-primary btn-lg btn-block" name="execute" id="execute">\
                                     Exécuter avec ces paramètres\
                                   </button>\
                                 </div>');
@@ -132,14 +127,91 @@
 
       // listen for click
       $('#execute').on('click', function(event){
-        var arrayValues = [];
-        $('input').each(function(index,data) {
-          var value = $(this).val();
-          arrayValues[index] = value;
+        var jsCode = $('#jsCompiled').val();
+        var arrayValues = {};
+        $('input.parameter').each(function(index,data) {
+          arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
+          console.log(arrayValues);
         });
-        console.log(arrayValues); 
+
+        // chococo(jsCode, arrayValues);
+        test();
+
+        // $.ajax({
+        //   url: '/execute',
+        //   type: 'POST',
+        //   dataType: 'json',
+        //   data: {
+        //     'parameters': arrayValues,
+        //     'jsCode': $('#jsCompiled').val()
+        //   },
+        //   success: (data) => {
+        //     console.log(data);
+        //   }
+        // });
       });
     }
+
+  function chococo(program, params){
+    //take the string that is printed in "output" textarea
+    var compiledString = program;
+
+    //add the includes to it
+    // compiledString = compiledString.concat("\n let WhLib = require('./whlib');");
+    // compiledString = compiledString.concat("\n let bt = require('./bintree');");
+    // compiledString = compiledString.concat("\n let BinTree = bt.BinTree;");
+
+    //take the values in the different boxes if they are all completed
+    //for each value, create a bintree in JS
+    //value example : (cons(nil)(nil)) => refer to bintree.js to understand
+
+    // variables.forEach(function (variableName){  //TODO associatedBoxValue
+    //  compiledString.concat("\n var "+variableName+" = bt.bintreeFromString(\""+associatedBoxValue+"\");"); //initiate the variable in JS to be able to execute the code
+    // });
+
+    for (let name in params) {
+      compiledString = compiledString.concat("\n var "+name+" = bintreeFromString(\""+params[name]+"\");"); //initiate the variable in JS to be able to execute the code
+    }
+
+    //then add a call to the function to execute it with the variables
+    compiledString = compiledString.concat("\n main(");
+
+    // variables.forEach(function (variableName){
+    //  compiledString.concat(variableName+",");
+    // });
+
+    for (let name in params) {
+      compiledString = compiledString.concat(name+",");
+    }
+    compiledString = compiledString.slice(0, -1); //removes last comma
+
+    compiledString = compiledString.concat(");");
+
+    //finally, execute the string
+    console.log(compiledString);
+    eval(compiledString); //execute a javascript from string
+    // console.log(compiledString);
+  }
+
+  function test() {
+  function main(paramX, paramY){
+    var aff = [];
+    var expr = [];
+    var varr = [];
+    expr[0] = cons(paramY, expr[0]);
+    expr[0] = cons(paramX, expr[0]);
+    aff[0] = expr[0];
+    varr[Z] = aff[0];
+    var out = [];
+    out.push(varr[Z]);
+    return out;
+  }
+
+
+   var X = bintreeFromString("5");
+   var Y = bintreeFromString("6");
+   console.log(main(X,Y));
+  }
   </script>
 </body>
 </html>
