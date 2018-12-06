@@ -137,7 +137,7 @@
                                 </div>');
 
 
-      // listen for click
+      // listen for click (put this in another function)
       $('#execute').on('click', function(event){
         var jsCode = $('#jsCompiled').val();
         var arrayValues = {};
@@ -146,7 +146,7 @@
           console.log(arrayValues);
         });
 
-        // chococo(jsCode, arrayValues);
+        // var out = chococo(jsCode, arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
         var out = test();
         $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
         out.forEach(function(tree) {
@@ -178,7 +178,7 @@
     }
 
     //then add a call to the function to execute it with the variables
-    compiledString = compiledString.concat("\n main(");
+    compiledString = compiledString.concat("\n return main(");
 
     // variables.forEach(function (variableName){
     //  compiledString.concat(variableName+",");
