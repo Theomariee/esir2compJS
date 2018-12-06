@@ -34,7 +34,7 @@ router.post('/compile', (req, res) => {
 	}
 	
 	if(debugMode) {
-	    debugOption = "-a";
+	    debugOption = " -a";
 	}
 	
 	exec('java -jar ../livrables/whc1/whc.jar temp/input.wh -o temp/compiled.js' + debugOption, function (error, stdout, stderr){
