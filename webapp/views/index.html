@@ -73,8 +73,9 @@
   <script>
     $('#validateCompile').on('click', function(event){
       event.preventDefault();
-      if($('#display3Addr').is(":checked")) {
-        //TODO : appeler le .jar avec l'option -a
+      var debugMode = false;
+      if($('#showThreeAdressesCode').is(":checked")) {
+        debugMode = true;
       }
       var codeWh = $('textarea#whileToCompile').val();
 
@@ -82,7 +83,7 @@
         url: '/compile',
         type: 'POST',
         dataType: 'json',
-        data: {whilePrgm: codeWh},
+        data: {whilePrgm: codeWh, debugMode: debugMode},
         success: (data) => {
           console.log(data);
           console.log(typeof(data.jarPrints));
