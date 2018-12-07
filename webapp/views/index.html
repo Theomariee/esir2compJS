@@ -127,7 +127,7 @@
         var current = params[i];
         $('#paramInputs').append('<div class="col-md-12">\
                                   <label for="'+ current +'">'+ current +'</label>\
-                                  <input id="'+ current +'" name="'+ current +'" class="form-control " type="text" placeholder="Valeur pour '+ current +'">\
+                                  <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
                                   </div>');
       }
       $('#paramInputs').append('<div class="col-md-12">\
@@ -143,11 +143,11 @@
         var arrayValues = {};
         $('input.parameter').each(function(index,data) {
           arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
-          console.log(arrayValues);
         });
 
-        // var out = chococo(jsCode, arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
-        var out = test();
+        var out = chococo(jsCode, arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
+        console.log(out);
+        // var out = test();
         $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
         out.forEach(function(tree) {
           console.log(JSON.stringify(tree));
@@ -178,7 +178,7 @@
     }
 
     //then add a call to the function to execute it with the variables
-    compiledString = compiledString.concat("\n return main(");
+    compiledString = compiledString.concat("\n var tab = (main(");
 
     // variables.forEach(function (variableName){
     //  compiledString.concat(variableName+",");
@@ -189,12 +189,16 @@
     }
     compiledString = compiledString.slice(0, -1); //removes last comma
 
-    compiledString = compiledString.concat(");");
+    compiledString = compiledString.concat("));\n");
+
+    compiledString = compiledString.concat("\ntab.forEach(function (tree) {alert(JSON.stringify(tree));});");
+
+    console.log(compiledString);
 
     //finally, execute the string
     eval(compiledString); //execute a javascript from string
 
-    // console.log(compiledString);
+    console.log(compiledString);
   }
 
   function test() {
@@ -214,7 +218,7 @@
 
      var X = bintreeFromString("5");
      var Y = bintreeFromString("6");
-     return main(X,Y);
+     alert(main(X,Y));
   }
   </script>
 </body>
