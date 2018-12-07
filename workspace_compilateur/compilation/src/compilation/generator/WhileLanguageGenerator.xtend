@@ -175,6 +175,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	
 	//return le nom de la variable
 	//génère du code 3@
+	//Remplacer par un switch ?
 	def String compile(Expr e) {
 		if (e.valeur !== null){
 			if(e.valeur.equals("nil")){
@@ -183,14 +184,23 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil",registresExpr.push,null,null))
 				return registresExpr.pop;
 			}
-			else{
+		//VARIABLES
+			else {
 				//TODO  controler la présence de la variable dans la liste des variable,
 				//Si elle n'existe pas on fait quoi ?
 				//+différence VARIABLE vs SYMBOLE ??
 				return functionTable.getVariable(currentName,e.valeur);
 			}
-			//TODO :Pour les call, checker le nb de param
 		}
+		//SYMBOLES
+		else if (e.symb !== null){
+			if(!functionTable.varExists(currentName,e.symb)){
+				functionTable.addVariable(currentName,e.symb);
+			}
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("symb",functionTable.getVariable(currentName,e.symb),e.symb,null))
+			return functionTable.getVariable(currentName,e.valeur);
+		}
+		
 		else if(e.ope.equals("cons")) {
 			var name = registresExpr.push;
 			for(expr : e.lexpr.exprs.reverseView){
@@ -215,6 +225,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode(e.ope,name,e.ex1.compile,e.ex2.compile))
 			return registresExpr.pop;
 		}
+		//TODO else --> call
 		
 	}
 }

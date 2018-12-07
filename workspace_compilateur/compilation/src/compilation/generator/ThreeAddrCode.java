@@ -50,6 +50,8 @@ public class ThreeAddrCode {
 			return addr1+" = or("+addr2+","+addr3+");";
 		case "=?":
 			return addr1+" = eq("+addr2+","+addr3+");";
+		case "symb":
+			return addr1+" = symb(\'"+addr2+"\');";
 		default :
 			return "nonImpl();";
 		}

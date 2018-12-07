@@ -69,7 +69,7 @@ While:
 ;
 
 Expr:
-	valeur='nil' | valeur=VARIABLE | valeur=SYMBOL |
+	valeur='nil' | valeur=VARIABLE | symb=SYMBOL |
 	'(' ope='cons' lexpr=Lexpr ')' |
 	'(' ope='list' lexpr=Lexpr ')' |
 	'(' ope=SYMBOL lexpr=Lexpr ')'|
