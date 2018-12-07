@@ -48,6 +48,10 @@
                 Compiler
               </button>
             </div>
+			<div class="col-md-3">
+              <div id="execOutput">
+               </div>
+            </div>
           </div>
 
             <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
@@ -116,7 +120,7 @@
         var current = params[i];
         $('#paramInputs').append('<div class="col-md-12">\
                                   <label for="'+ current +'">'+ current +'</label>\
-                                  <input id="'+ current +'" name="'+ current +'" class="form-control " type="text" placeholder="Valeur pour '+ current +'">\
+                                  <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
                                   </div>');
       }
       $('#paramInputs').append('<div class="col-md-12">\
@@ -124,16 +128,73 @@
                                     Exécuter avec ces paramètres\
                                   </button>\
                                 </div>');
-      // listen for click
+      // listen for click (put this in another function)
       $('#execute').on('click', function(event){
-        var arrayValues = [];
-        $('input').each(function(index,data) {
-          var value = $(this).val();
-          arrayValues[index] = value;
+        var jsCode = $('#jsCompiled').val();
+        var arrayValues = {};
+        $('input.parameter').each(function(index,data) {
+          arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
         });
-        console.log(arrayValues); 
+         var out = chococo(jsCode, arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
+        console.log(out);
+        // var out = test();
+        $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
+        out.forEach(function(tree) {
+          console.log(JSON.stringify(tree));
+          $('#execOutput').append(JSON.stringify(tree) + '<br>');
+        });
       });
     }
+	function chococo(program, params){
+    //take the string that is printed in "output" textarea
+      var compiledString = program;
+     //add the includes to it
+    // compiledString = compiledString.concat("\n let WhLib = require('./whlib');");
+    // compiledString = compiledString.concat("\n let bt = require('./bintree');");
+    // compiledString = compiledString.concat("\n let BinTree = bt.BinTree;");
+     //take the values in the different boxes if they are all completed
+    //for each value, create a bintree in JS
+    //value example : (cons(nil)(nil)) => refer to bintree.js to understand
+     // variables.forEach(function (variableName){  //TODO associatedBoxValue
+    //  compiledString.concat("\n var "+variableName+" = bt.bintreeFromString(\""+associatedBoxValue+"\");"); //initiate the variable in JS to be able to execute the code
+    // });
+      for (let name in params) {
+        compiledString = compiledString.concat("\n var "+name+" = bintreeFromString(\""+params[name]+"\");"); //initiate the variable in JS to be able to execute the code
+      }
+     //then add a call to the function to execute it with the variables
+    compiledString = compiledString.concat("\n var tab = (main(");
+     // variables.forEach(function (variableName){
+    //  compiledString.concat(variableName+",");
+    // });
+      for (let name in params) {
+        compiledString = compiledString.concat(name+",");
+      }
+    compiledString = compiledString.slice(0, -1); //removes last comma
+     compiledString = compiledString.concat("));\n");
+     compiledString = compiledString.concat("\ntab.forEach(function (tree) {alert(JSON.stringify(tree));});");
+     console.log(compiledString);
+     //finally, execute the string
+    eval(compiledString); //execute a javascript from string
+     console.log(compiledString);
+  }
+   function test() {
+    function main(paramX, paramY){
+      var aff = [];
+      var expr = [];
+      var varr = [];
+      aff[0] = paramY;
+      aff[1] = paramX;
+      paramX = aff[0];
+      paramY = aff[1];
+      var out = [];
+      out.push(paramX);
+      out.push(paramY);
+      return out;
+    }
+      var X = bintreeFromString("5");
+     var Y = bintreeFromString("6");
+     alert(main(X,Y));
+  }
   </script>
 </body>
 </html>
