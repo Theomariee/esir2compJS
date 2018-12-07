@@ -1,6 +1,3 @@
-let bt = require('./bintree')
-let BinTree = bt.BinTree;
-
 function nop(){
 }
 
