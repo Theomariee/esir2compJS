@@ -76,7 +76,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		//init
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresAff.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","var",null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","whileVar",null,null))
 		//Fait au premier passage
 		//f.definition.read.compile
 		f.definition.commands.compile
