@@ -1,10 +1,10 @@
-let bt = require('./bintree.js')
+let bt = require('./BinTree.js')
 let BinTree = bt.BinTree;
 var chai = require('chai');
 var assert = chai.assert;
 
 
-describe('test BinTree', function() {
+describe('BinTree Test Session', function() {
   describe('#binTreeFromInt()', function() {
     it('Converts the value 0 to BinTree, should return the following BinTree : nil.', function() {
       assert.isTrue(bt.evaluateEQ(bt.bintreeFromInt(0), new BinTree("nil", null, null)));
@@ -78,39 +78,39 @@ describe('test BinTree', function() {
   });
 
   describe(('#bintreeFromString()'), function(){
-    it(('Should convert symbol to BinTree with symbol as the only node inside the BinTree.'), function(){
+    it(('Should convert a symbol to BinTree with symbol as the only node inside the BinTree.'), function(){
       var t = new BinTree("symbol", null, null);
       assert.isTrue(bt.evaluateEQ(bt.bintreeFromString("symbol"), t));
     });
-    it(('Should convert (cons) to BinTree.'), function(){
+    it(('Should convert the following char sequence : (cons) to a BinTree.'), function(){
       var args = [];
       assert.isTrue(bt.evaluateEQ(bt.cons(args), bt.bintreeFromString("(cons)"))); 
     });
-    it(('Should convert (list) to BinTree.'), function(){
+    it(('Should convert the following char sequence : (list) to a BinTree.'), function(){
       var args = [];
       assert.isTrue(bt.evaluateEQ(bt.list(args), bt.bintreeFromString("(list)"))); 
     });
-    it(('Should convert (list) to BinTree : (cons).'), function(){
+    it(('Should convert the following char sequence : (list) to a BinTree : (cons).'), function(){
       var args = [];
       assert.isTrue(bt.evaluateEQ(bt.list(args), bt.bintreeFromString("(cons)"))); 
     });
-    it(('Should convert (cons) to BinTree : (list).'), function(){
+    it(('Should convert the following char sequence : (cons) to a BinTree : (list).'), function(){
       var args = [];
       assert.isTrue(bt.evaluateEQ(bt.cons(args), bt.bintreeFromString("(list)"))); 
     });
-    it(('Should convert (cons(nil)) to BinTree.'), function(){
+    it(('Should convert the following char sequence : (cons(nil)) to a BinTree.'), function(){
       var t = new BinTree("nil",null,null);
       var args = [];
       args.push(t);
       assert.isTrue(bt.evaluateEQ(bt.cons(args), bt.bintreeFromString("(cons(nil))"))); 
     });
-    it(('Should convert (list(nil)) to BinTree.'), function(){
+    it(('Should convert the following char sequence : (list(nil)) to a BinTree.'), function(){
       var t = new BinTree("nil",null,null);
       var args = [];
       args.push(t);
       assert.isTrue(bt.evaluateEQ(bt.list(args), bt.bintreeFromString("(list(nil))"))); 
     });
-    it(('Should convert (cons(nil)(cons(nil)(nil))) to BinTree.'), function(){
+    it(('Should convert the following char sequence : (cons(nil)(cons(nil)(nil))) to a BinTree.'), function(){
       var t = new BinTree("nil",null,null);
       var t2 = new BinTree("nil",null,null);
       var t3 = new BinTree("nil",null,null);
@@ -120,13 +120,63 @@ describe('test BinTree', function() {
       args2.push(t3); args2.push(bt.cons(args));
       assert.isTrue(bt.evaluateEQ(bt.cons(args2), bt.bintreeFromString("(cons(nil)(cons(nil)(nil)))")));
     });
-    it(('Should convert stringified int to BinTree.'), function(){
+    it(('Should convert a stringified int to a BinTree.'), function(){
       var t = bt.bintreeFromInt(5);
       assert.isTrue(bt.evaluateEQ(bt.bintreeFromString("5"), t));
     });
-    
+});
+
+describe(('#BinTree.ToString()'), function(){
+  it(('Should print the literal expression of the BinTree : (nil)'), function(){
+    var t = new BinTree("nil", null, null);
+
+    assert.equal(t.toString(), "(nil)");
+  });
+  it(('Should print the literal expression of the BinTree : (cons)'), function(){
+    var args = []; 
+
+    assert.equal(bt.list(args).toString(), "(nil)");
+  });
+  it(('Should print the literal expression of the BinTree : (list)'), function(){
+    var args = []; 
+
+    assert.equal(bt.list(args).toString(), "(nil)");
+  });
+  it(('Should print the literal expression of the BinTree : (cons(nil)(nil))'), function(){
+    var t1 = new BinTree("nil", null, null);
+    var t2 = new BinTree("nil", null, null);
+    var args = []; 
+    args.push(t1); args.push(t2);
+
+    assert.equal(bt.cons(args).toString(), "(cons(nil)(nil))");
+  });
+  it(('Should print the literal expression of the BinTree : (list(nil)(list(nil)(list(nil)(nil))))'), function(){
+    var t1 = new BinTree("nil", null, null);
+    var t2 = new BinTree("nil", null, null);
+    var t3 = new BinTree("nil", null, null);
+    var args = []; 
+    args.push(t1); args.push(t2); args.push(t3);
+
+    assert.equal(bt.list(args).toString(), "(list(nil)(list(nil)(list(nil)(nil))))")
+  });
+});
+
+describe(('#binTreeFromString() and #BinTree.ToString()'), function(){
+  it(('Converting (nil) to string and pass it to bintreeFromString.'), function(){
+    var t = new BinTree("nil", null, null);
+    assert.isTrue(bt.evaluateEQ(bt.bintreeFromString(t.toString()), t))
+  });
+  it(('Converting (list(nil)(list(nil)(list(nil)(nil))) to string and pass it to bintreeFromString.'), function(){
+    var t1 = new BinTree("nil", null, null);
+    var t2 = new BinTree("nil", null, null);
+    var t3 = new BinTree("nil", null, null);
+    var args = []; args.push(t1); args.push(t2); args.push(t3);
+
+    var lt = bt.list(args);
+    //assert.isTrue(bt.evaluateEQ(bt.bintreeFromString(lt.toString()), lt))
+    assert.equal(bt.bintreeFromString(lt.toString()).toString(), lt.toString())
+  });
 });
 
 });
-
 
