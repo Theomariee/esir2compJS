@@ -27,23 +27,29 @@ class BinTree  {
     toString() {
         var str = "(";
         str += this.data.toString();
-        if (this.left != null) str += this.left.toString();
-        if (this.right != null)str += this.right.toString();
+        if (this.left != null){
+            str += this.left.toString();
+        } 
+        if (this.right != null){
+            str += this.right.toString();
+        }
         str += ")";
         return str;
     }
 };
-console.log(bintreeFromString("(cons(nil))").toString());
-console.log(bintreeFromString("(cons(cons(nil)(nil))(nil)))").toString());
 //return the head of a tree, if it has no left son return null
 function head(tree) {
-    if(tree.getLeft()!=null) return tree.getLeft();
+    if(tree.getLeft()!=null){
+        return tree.getLeft();
+    }
     return null;
 };
 
 //return the tail of a tree, if it has no right son return itself
 function tail(tree) {
-    if(tree.getRight()!=null) return tree.getRight();
+    if(tree.getRight()!=null){
+        return tree.getRight();
+    }
     return null;
 };
 
@@ -51,7 +57,9 @@ function tail(tree) {
 function cons(args) { // à partir de plusieurs BinTree dans un array, retourne un bintree
     if(args != null)
     {
-        if(args.length == 0) return new BinTree("nil",null,null);
+        if(args.length == 0) {
+            return new BinTree("nil",null,null);
+        }
         var tree = args.shift(); //shift removes from the beginning of the array
         if(args.length <= 0)
         {
@@ -68,7 +76,9 @@ function cons(args) { // à partir de plusieurs BinTree dans un array, retourne 
 function list(args) {
     if(args != null)
     {
-        if(args.length == 0) return new BinTree("nil",null,null);
+        if(args.length == 0){
+            return new BinTree("nil",null,null);
+        }
         var tree = args.shift(); //shift removes from the beginning of the array
         if(args.length <= 0)
         {
@@ -98,11 +108,17 @@ function evaluate(operand,tree1,tree2) {
         if(tree1.getData()==="nil" && tree2.getData()==="nil"){
            return new BinTree("nil",null,null); 
         } 
-        else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+        else{
+            return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+        }
     }else if(operand==="EQ")
     {
-        if(!evaluateEQ(tree1,tree2)) return new BinTree("nil",null,null)
-        else return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+        if(!evaluateEQ(tree1,tree2)){
+            return new BinTree("nil",null,null)
+        }
+        else{
+            return new BinTree("cons",new BinTree("nil",null,null),new BinTree("nil",null,null));
+        }
     }
     return null;
 };
@@ -146,18 +162,19 @@ function bintreeFromString(str)
                 var args=[];
 
                 var openParenthesis = getOpenParenthesis(str, i+5);
-                i = openParenthesis;
-                var closeParenthesis = getCloseParenthesis(str, i);
-                var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
-                args.push(tree1);
-
-                openParenthesis = getOpenParenthesis(str, closeParenthesis);
                 if(openParenthesis != -1){
-                    closeParenthesis = getCloseParenthesis(str, openParenthesis);
-                    var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
-                    args.push(tree2);
+                    i = openParenthesis;
+                    var closeParenthesis = getCloseParenthesis(str, i);
+                    var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
+                    args.push(tree1);
+                
+                    openParenthesis = getOpenParenthesis(str, closeParenthesis);
+                    if(openParenthesis != -1){
+                        closeParenthesis = getCloseParenthesis(str, openParenthesis);
+                        var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
+                        args.push(tree2);
+                    }
                 }
-
                 if (cmd === "cons")
                 {
                     res = cons(args);
@@ -192,7 +209,9 @@ function getOpenParenthesis(str, position)
     {
         position++;
     }
-    if(position > str.length) return -1;
+    if(position > str.length){
+        return -1;
+    }
     return position;
 };
 
