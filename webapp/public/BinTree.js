@@ -203,6 +203,168 @@ function isTrue(tree)
     return tree.getData() !== "nil"
 };
 
+/**
+ * Converts a char sequence representing a BinTree to an actual BinTree object.
+ * !! : The char sequence should be written as "(cons X Y)" or "(list X Y)" or "(nil)" 
+ *      where X and Y are arguments in the same form.
+ * @param {*} str : Char Sequence representing a BinTree.
+ */
+function bintreeFromString(str)
+{
+    var res = new BinTree("nil", null, null);
+
+    //if the parameter is an int, launch function bintreeFromInt.
+    if (Number.isInteger(parseInt(str)))
+    {
+        res = bintreeFromInt(parseInt(str))
+    } 
+    //if it's a string and correctly written, we start parsing to create an adequate BinTree.
+    else if(str.charAt(0) === '(')
+    {
+        var i = 0;
+        if (str.charAt(i) == '(')
+        {
+            if (str.substring(i+1, i+4) === "nil")
+            {
+                return res
+            }
+            else if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
+            {
+                var cmd = str.substring(i+1, i+5);
+                var args=[];
+
+                var openParenthesis = getOpenParenthesis(str, i+5);
+                if(openParenthesis != -1){
+                    i = openParenthesis;
+                    var closeParenthesis = getCloseParenthesis(str, i);
+                    var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
+                    args.push(tree1);
+                
+                    openParenthesis = getOpenParenthesis(str, closeParenthesis);
+                    if(openParenthesis != -1){
+                        closeParenthesis = getCloseParenthesis(str, openParenthesis);
+                        var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
+                        args.push(tree2);
+                    }
+                }
+                if (cmd === "cons")
+                {
+                    res = cons(args)
+                }
+                else if (cmd === "list")
+                {
+                    res = list(args)
+                }
+                else
+                {
+                    throw "Error in creating the tree from the string"
+                }
+            }
+            else
+            {
+                throw "Error in creating the tree from the string"
+            }
+        }
+    }
+    else //we create a symbol
+    {
+        res = new BinTree(str, null, null)
+    }
+    return res
+};
+
+
+/**
+ * Parsing : Finding the position of the next '(' parenthesis of a char sequence representing a BinTree.
+ * @param {*} str : Char Sequence representing a BinTree object.
+ * @param {*} position : Integer representing our position in str.
+ * @returns position of the next '('.
+ */
+function getOpenParenthesis(str, position)
+{
+    while(str.charAt(position) !== '('  && position <= str.length)
+    {
+        position++
+    }
+    if(position > str.length){
+        return -1
+    }
+    return position
+};
+
+/**
+ * Parsing : Finding the position of the next ')' parenthesis of a string, from a '(' parenthesis.
+ * @param {*} str : Char Sequence representing a BinTree object.
+ * @param {*} position : Integer representing the position of the previous opening parenthesis.
+ * @returns position of the closing parenthesis, if there was an opening parenthesis found previously.
+ */
+function getCloseParenthesis(str, position)
+{
+    if(str.charAt(position) !== '(')
+    {
+        return -1
+    }
+    var nbOpenParenthesis = 1;
+    var found = false;
+    while(!found)
+    {
+        position++;
+        if(str.charAt(position) === ')')
+        {
+            if (nbOpenParenthesis == 1)
+            {
+                found = true
+            }
+            else
+            {
+                nbOpenParenthesis--
+            }
+        }
+        else if(str.charAt(position) === '(')
+        {
+            nbOpenParenthesis++
+        }
+    }
+    return position
+};
+/**
+ * Converts a given BinTree object to an Integer.
+ * @param {*} tree : BinTree object. 
+ * @returns Integer representing param tree.
+  */
+function intFromBintree(tree)
+{
+    var res = 0;
+    if(tree != null)
+    {
+        if(tree.getData() === "cons" || tree.getData() === "list")
+        {
+            res++;
+            res += intFromBintree(tree.getLeft());
+            res += intFromBintree(tree.getRight())
+        }
+    }
+    return res
+};
+/**
+ * Constructs a bintree from a given Integer.
+ * @param {*} int : Integer to convert.
+ * @returns BinTree.
+  */
+function bintreeFromInt(int)
+{
+    var res = new BinTree("nil", null, null)
+    if (int != 0)
+    {
+        for(i = 0; i < int; i++)
+        {
+            var nil = new BinTree("nil", null, null);
+            res = new BinTree("cons", nil, res)
+        }
+    }
+    return res
+};
+
 
 /*var bt = new BinTree("nil",null,null);
 var bt2 = new BinTree("nil",null,null);
@@ -218,13 +380,19 @@ console.log(bintreeFromInt(5))
 console.log(intFromBintree(bintreeFromInt(5)))
 console.log(bintreeFromString("(cons(cons(nil)(nil))(nil))"))*/
 
-export {
-    BinTree,
-    head,
-    tail,
-    cons,
-    list,
-    evaluate,
-    evaluateEQ,
-    isTrue
+
+module.exports = {
+    BinTree: BinTree,
+    head: head,
+    tail: tail,
+    cons: cons,
+    list: list,
+    evaluate: evaluate,
+    evaluateEQ: evaluateEQ,
+    isTrue: isTrue,
+    bintreeFromString: bintreeFromString,
+    bintreeFromInt: bintreeFromInt,
+    getCloseParenthesis: getCloseParenthesis,
+    getOpenParenthesis: getOpenParenthesis,
+    intFromBintree : intFromBintree
 };
