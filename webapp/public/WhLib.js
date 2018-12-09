@@ -6,7 +6,7 @@ import {
     list,
     evaluate,
     evaluateEQ,
-    isTrue } as bt from 'BinTree.js';
+    isTrue } as bt from '/BinTree.js';
 
 function nop(){
 }
