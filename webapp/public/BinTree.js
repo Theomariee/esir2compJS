@@ -226,5 +226,5 @@ export {
     list,
     evaluate,
     evaluateEQ,
-    isTrue,
+    isTrue
 };
