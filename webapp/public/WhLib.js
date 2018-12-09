@@ -1,5 +1,4 @@
-let bt = require('./bintree');
-let BinTree = bt.BinTree;
+import * as bt from 'BinTree.js'
 
 function nop(){
 }
@@ -93,7 +92,7 @@ function bintreeFromString(str)
                 }
                 else if (cmd === "list")
                 {
-                    res = list(args);
+                    args.push(new BinTree("nil", null, null));
                 }
                 else
                 {

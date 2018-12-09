@@ -218,19 +218,13 @@ console.log(bintreeFromInt(5))
 console.log(intFromBintree(bintreeFromInt(5)))
 console.log(bintreeFromString("(cons(cons(nil)(nil))(nil))"))*/
 
-
-module.exports = {
-    BinTree: BinTree,
-    head: head,
-    tail: tail,
-    cons: cons,
-    list: list,
-    evaluate: evaluate,
-    evaluateEQ: evaluateEQ,
-    isTrue: isTrue,
-    bintreeFromString: bintreeFromString,
-    bintreeFromInt: bintreeFromInt,
-    getCloseParenthesis: getCloseParenthesis,
-    getOpenParenthesis: getOpenParenthesis,
-    intFromBintree : intFromBintree
+export {
+    BinTree,
+    head,
+    tail,
+    cons,
+    list,
+    evaluate,
+    evaluateEQ,
+    isTrue,
 };
