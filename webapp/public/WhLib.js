@@ -210,16 +210,6 @@ function bintreeFromInt(int)
     }
     return res
 };
-//console.log(nil())
-/*var a = new BinTree("nil",null,null);
-var b = new BinTree("nil",null,null);
-var res = cons(a,b);
-console.log(res);
-a = new BinTree("cons",null,null);
-console.log(res);
-console.log(hd(res));
-console.log(not(b));*/
-console.log(bintreeFromString("(cons(nil)(nil))"));
 
 module.exports = {
     bt: bt,
