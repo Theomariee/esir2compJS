@@ -9,8 +9,6 @@
   <style>
     html { margin: 1.5% 1.5% 1.5% 1.5%; }
   </style>
-	<script type="module" src="./BinTree.js"></script>
-	<script type="module" src="./WhLib.js"></script>
   <title>Compilateur WHILE vers JS</title>
 </head>
 <body>
@@ -89,8 +87,6 @@
         dataType: 'json',
         data: {whilePrgm: codeWh, debugMode: debugMode},
         success: (data) => {
-          console.log(data);
-          console.log(typeof(data.jarPrints));
           $('#consoleOutput').html(data.jarPrints);
           $.ajax({
             url: '/output',
@@ -108,10 +104,10 @@
                 $('#consoleOutput').append(data.error);
               }else if(data.params){
                 generateInputAreas(data.params);
+                listenExecClick();
               }
             }
           });
-		  $.getScript( "../temp/compiled.js")
         }
       });
     });
@@ -130,6 +126,9 @@
                                     Exécuter avec ces paramètres\
                                   </button>\
                                 </div>');
+    }
+
+  function listenExecClick(){
       // listen for click (put this in another function)
       $('#execute').on('click', function(event){
         var jsCode = $('#jsCompiled').val();
@@ -137,15 +136,29 @@
         $('input.parameter').each(function(index,data) {
           arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
         });
-         var out = execfunction(arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
-        console.log(out);
-        $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
-        out.forEach(function(tree) {
-          console.log(JSON.stringify(tree));
-          $('#execOutput').append(JSON.stringify(tree) + '<br>');
+        console.log(arrayValues);
+        $.ajax({
+          url: '/runCompiled',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            code:  jsCode,
+            param: arrayValues
+          },
+          success: (data) => {
+            console.log(data);
+          }
         });
+        // var out = execfunction(arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
+        // console.log(out);
+        // $('#execOutput').html('<h2>Résultat de l\'exécution</h2>');
+        // out.forEach(function(tree) {
+        //   console.log(JSON.stringify(tree));
+        //   $('#execOutput').append(JSON.stringify(tree) + '<br>');
+        // });
       });
-    }
+  }
+
 	function execfunction(params){
 	//Compile the params
 	for (let name in params) {

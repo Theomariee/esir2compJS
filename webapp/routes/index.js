@@ -78,6 +78,15 @@ router.get('/parameters', (req, res) => {
 	}
 });
 
+router.post('/runCompiled', (req, res) => {
+	console.log(req.body);
+	require('../public/whlib');	
+	nop();
+	// eval(req.body.code);	// load main function
+	// console.log(main);
+	// console.log(main(5,6));
+});
+
 
 module.exports = router;
 
