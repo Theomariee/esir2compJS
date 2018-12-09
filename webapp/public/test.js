@@ -1,8 +1,6 @@
 
 let wh = require('./WhLib.js');
-console.log(wh.bintreeFromString.toString());
 let bt =wh.bt;
-console.log(bt);
 let BinTree = bt.BinTree;
 var chai = require('chai');
 var assert = chai.assert;
@@ -75,9 +73,7 @@ describe('BinTree Test Session', function() {
         assert.equal(5, wh.intFromBintree(wh.bintreeFromInt(5)));
     });
     it(('Deconverting and converting BinTree (cons(nil)(cons(nil)(nil))), should return the same BinTree'), function(){
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
         var t = wh.bintreeFromString("(cons(nil)(nil)(nil))");
-        console.log(t);
         assert.isTrue(bt.evaluateEQ(t, wh.bintreeFromInt(wh.intFromBintree(t))));
     });
   });
