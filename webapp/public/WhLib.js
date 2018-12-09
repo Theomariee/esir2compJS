@@ -10,7 +10,9 @@ function nil(){
 function cons(addr2,addr3){
     var args=[];
     args.push(Object.assign(Object.create(Object.getPrototypeOf(addr2)),addr2)); //clone the addr2
-    args.push(Object.assign(Object.create(Object.getPrototypeOf(addr3)),addr3)); //clone the addr3
+	if(addr3 !== null){
+		args.push(Object.assign(Object.create(Object.getPrototypeOf(addr3)),addr3)); //clone the addr3
+	}
     return bt.cons(args); //return the new bintree
 }
 
