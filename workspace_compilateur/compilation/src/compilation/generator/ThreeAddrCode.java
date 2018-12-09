@@ -35,9 +35,6 @@ public class ThreeAddrCode {
 		case "cons":
 			return addr1+" = cons("+addr2+", "+addr3+");"; // return concaténation de addr2(gauche) et addr3(droite) 
 			// Attention à bien différentier si addr3 est un bintree ou pas. Si oui, merger, sinon, retourner addr2 sans concaténation (ca veut dire que c'est l'init)!
-		case "list":
-			return addr1+" = list("+addr2+", "+addr3+");"; // return concaténation de addr2(gauche) et addr3(droite)
-			// Attention à bien différentier si addr3 est un bintree ou pas. Si oui, merger, sinon, retourner addr2 concaténé avec un nil à gauche (ca veut dire que c'est l'init)!
 		case "hd":
 			return addr1+" = hd("+addr2+");";
 		case "tl":

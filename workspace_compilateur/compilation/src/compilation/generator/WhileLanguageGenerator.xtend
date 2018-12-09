@@ -210,8 +210,9 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		}
 		else if(e.ope.equals("list")) {
 			var name = registresExpr.push;
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nil",name,null,null))
 			for(expr : e.lexpr.exprs.reverseView){
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("list",name,expr.compile,name))
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("cons",name,expr.compile,name))
 			}
 			return registresExpr.pop;
 		}
