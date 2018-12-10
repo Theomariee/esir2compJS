@@ -82,7 +82,7 @@
       </div>
 
       <div class="col-md-4" id="outputContainer"> 
-      <label for="outputExec" class="h4 text-muted">Output</label>
+      <label for="outputExec" class="h4 text-muted">Output de l'exécution</label>
         <div id="execOutput">
         </div>
       </div>
@@ -188,15 +188,11 @@
           },
           success: (data) => {
             console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
+            out.forEach(function(tree) {
+            console.log(JSON.stringify(tree));
+            $('#execOutput').append(JSON.stringify(tree) + '<br>');
+          });
           }
-        });
-
-        //var out = execfunction(arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
-        var out = data;
-        console.log(out);
-        out.forEach(function(tree) {
-          console.log(JSON.stringify(tree));
-          $('#execOutput').append(JSON.stringify(tree) + '<br>');
         });
       });
   }
