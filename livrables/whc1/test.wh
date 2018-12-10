@@ -25,3 +25,17 @@ read X, Y
 X := (X =? Y)
 %	
 write X
+
+function echange:
+read X, Y
+%
+X,Y := Y,X
+%	
+write X,Y
+
+function notor:
+read X, Y
+%
+Z := (not(Y or X))
+%	
+write Z
