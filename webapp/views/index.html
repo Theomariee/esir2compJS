@@ -10,7 +10,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/mode/javascript/javascript.js"></script>
   
   <style>
-    html { margin: 0.1% 0.1% 0.1% 0.1%; overflow-x: hidden;}
+    html { 
+      margin: 0.1% 0.1% 0.1% 0.1%; 
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      margin-bottom: 60px; /* Margin bottom by footer height */
+    }
     .CodeMirror {
       border: 1px solid #CFCFCF;
       height: 500px;
@@ -65,22 +73,25 @@
                </div>
             </div>
           </div>
-
-          <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
-            <label for="consoleOutput" class="h4 text-muted">Console</label>
-            <textarea disabled class="form-control" id="consoleOutput" rows="8" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="showThreeAdressesCode">
-                <label class="form-check-label" for="showThreeAdressesCode">Afficher le code 3@</label>
-              </div>
-          </div>
         </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4" id="consoleOutputContainer">
+          <label for="consoleOutput" class="h4 text-muted">Console</label>
+          <textarea disabled class="form-control" id="consoleOutput" rows="15" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
+          
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="showThreeAdressesCode">
+            <label class="form-check-label" for="showThreeAdressesCode">Afficher le code 3@</label>
+          </div>
       </div>
     </div>
   </div> <!-- END div .container-fluid -->
 
   <footer class="footer">
-    <div class="container-fluid offset-md-5">
+    <div class="container-fluid text-center">
       <div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-success btn-lg" name="validateCompile" id="validateCompile">Compiler</button>
         <button type="button" class="btn btn-primary btn-lg disabled" name="execute" id="execute">Exécuter</button>
@@ -104,7 +115,6 @@
           lineNumbers: true,
           lineWrapping: true,
       });
-
 
       $('#validateCompile').on('click', function(event){
         event.preventDefault();
