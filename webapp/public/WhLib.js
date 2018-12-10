@@ -9,9 +9,9 @@ function nil(){
 
 function cons(addr2,addr3){
     var args=[];
-    args.push(Object.assign(Object.create(Object.getPrototypeOf(addr2)),addr2)); //clone the addr2
+    args.push(addr2); //clone the addr2
 	if(addr3 !== null){
-		args.push(Object.assign(Object.create(Object.getPrototypeOf(addr3)),addr3)); //clone the addr3
+		args.push(addr3); //clone the addr3
 	}
     return bt.cons(args); //return the new bintree
 }
@@ -24,11 +24,11 @@ function list(addr2,addr3){
 }
 
 function hd(addr2){
-    return bt.head(Object.assign(Object.create(Object.getPrototypeOf(addr2)),addr2));
+    return bt.head(addr2);
 }
 
 function tl(addr2){
-    return bt.tail(Object.assign(Object.create(Object.getPrototypeOf(addr2)),addr2));
+    return bt.tail(addr2);
 }
 
 function not(addr2){
