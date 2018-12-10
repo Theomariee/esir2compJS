@@ -126,7 +126,7 @@
               success: (data) => {
                 console.log(data);
                 jsEditor.replaceSelection(data.compiledJS);
-                $('#execute').toggle('disabled');
+                $('#execute').toggleClass('disabled');
                 //$('#jsCompiled').html(data.compiledJS);
               }
             });
