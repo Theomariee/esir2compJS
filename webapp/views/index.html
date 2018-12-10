@@ -125,6 +125,8 @@
               type: 'GET',
               success: (data) => {
                 console.log(data);
+                jsEditor.setValue("");
+                jsEditor.clearHistory();
                 jsEditor.replaceSelection(data.compiledJS);
                 $('#execute').toggleClass('disabled');
                 //$('#jsCompiled').html(data.compiledJS);
