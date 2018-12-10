@@ -90,7 +90,7 @@ router.post('/runCompiled', (req, res) => {
 	var compiledString = "";
 
 	for (let name in params) {
-        compiledString = compiledString.concat("var " + name + "=whlib.bintreeFromString(\"" + params[name] + \"");\n");
+        compiledString = compiledString.concat("var " + name + "=whlib.bintreeFromString(\'" + params[name] + \'");\n");
     }
 
     compiledString += "var outputArray = main(";
