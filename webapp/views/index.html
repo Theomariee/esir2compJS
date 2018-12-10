@@ -137,7 +137,7 @@
                 jsEditor.setValue("");
                 jsEditor.clearHistory();
                 jsEditor.replaceSelection(data.compiledJS);
-                $('#execute').toggleClass('disabled');
+                $('#execute').removeClass('disabled');
                 //$('#jsCompiled').html(data.compiledJS);
               }
             });
