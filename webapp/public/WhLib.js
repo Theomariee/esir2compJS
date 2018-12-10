@@ -32,7 +32,12 @@ function tl(addr2){
 }
 
 function not(addr2){
-    return !(bt.isTrue(addr2));
+	if (bt.isTrue(addr2)){
+		return new BinTree("cons", new bt.BinTree("nil",null,null), new bt.BinTree("nil",null,null));
+	}
+	else{
+		return new bt.BinTree("nil",null,null);
+	}
 }
 
 function and(addr2,addr3){
