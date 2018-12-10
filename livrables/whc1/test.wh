@@ -1,8 +1,27 @@
-function main:
-read X,Y	
+function inc:
+read X	
 %
-X,Y:=Y,X;
-Z:=nil;
-Z:=Y
+X := (cons nil X)
 %	
-write X,Y
+write X
+
+function dec:
+read X
+%
+X := (tl X)
+%	
+write X
+
+function equalToA:
+read X
+%
+X := (X =? a)
+%	
+write X 
+
+function areEquals:
+read X, Y
+%
+X := (X =? Y)
+%	
+write X
