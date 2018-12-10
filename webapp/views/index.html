@@ -5,34 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/codemirror.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/codemirror.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/mode/javascript/javascript.js"></script>
   
   <style>
-    html { margin: 1.5% 1.5% 1.5% 1.5%; }
+    html { margin: 0.1% 0.1% 0.1% 0.1%; }
+    .CodeMirror {
+      border: 1px solid #CFCFCF;
+      height: 500px;
+      width: 100%;
+      font-size: 19px;
+    }
   </style>
+
   <title>Compilateur WHILE vers JS</title>
 </head>
+
 <body>
   <div class="container-fluid"> <!-- START div .container -->
-    <div class="row">
+<!--     <div class="row">
       <div class="col-md-12">
         <h1> 
           Compilateur WHILE vers JavaScript
           <small class="text-muted">Sprint 1</small>
         </h1>
       </div>
-    </div> 
+    </div>  -->
 
     <div class="row my-3">
       <div class="col-md-12">
         <form method="POST" id="compilation">
           <div class="form-row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="whileToCompile" class="h4 text-muted">While à compiler</label>
               <textarea class="form-control" id="whileToCompile" rows="22" placeholder="Saisir une fonction WHILE à compiler..."></textarea>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="jsCompiled" class="h4 text-muted">JavaScript généré</label>
-              <textarea disabled class="form-control" id="jsCompiled" rows="22"></textarea>
+              <textarea disabled class="form-control" id="jsCompiled"></textarea>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 18%; height: 93%">
+                Compiler
+              </button>
             </div>
             <div class="col-md-3">
               <div id="paramInputs">
@@ -42,30 +58,24 @@
           </div>
 
           <div class="form-row" style="margin-top: 1%">
-            <div class="col-md-6">
-              <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 3.5%">
-                Compiler
-              </button>
-            </div>
-			<div class="col-md-3">
+            <div class="col-md-3">
               <div id="execOutput">
                </div>
             </div>
           </div>
 
-            <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
-              <label for="consoleOutput">Console :</label>
-              <textarea disabled class="form-control" id="consoleOutput" rows="8" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
-                <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="showThreeAdressesCode">
-                  <label class="form-check-label" for="showThreeAdressesCode">Afficher le code 3@</label>
-                </div>
-            </div>
+          <div class="col-md-6" id="consoleOutputContainer" style="margin-top: 1%;">
+            <label for="consoleOutput" class="h4 text-muted">Console</label>
+            <textarea disabled class="form-control" id="consoleOutput" rows="8" placeholder="Debug" style="background-color: #141414; color: white;"></textarea>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="showThreeAdressesCode">
+                <label class="form-check-label" for="showThreeAdressesCode">Afficher le code 3@</label>
+              </div>
           </div>
         </form>
       </div>
     </div>
-  </div> <!-- END div .container -->
+  </div> <!-- END div .container-fluid -->
 
   <!-- load external libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -74,6 +84,17 @@
 
   <!-- catch the submit event and run the .jar file that compiles the input -->
   <script>
+    window.onload = function () {
+      var whileEditor = CodeMirror.fromTextArea($("#whileToCompile")[0], {
+          lineNumbers: true,
+          lineWrapping: true,
+      });
+      var jsEditor = CodeMirror.fromTextArea($("#jsCompiled")[0], {
+          lineNumbers: true,
+          lineWrapping: true,
+      });
+    };
+
     $('#validateCompile').on('click', function(event){
       event.preventDefault();
       var debugMode = false;
