@@ -188,7 +188,7 @@
           },
           success: (data) => {
             console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
-            $('#execOutput').val('');
+            $('#execOutput').empty();
             var outInt = data.outInt;
             var outString = data.outString;
             for(var i = 0; i < outInt.length; i++) {
