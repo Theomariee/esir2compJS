@@ -93,45 +93,46 @@
           lineNumbers: true,
           lineWrapping: true,
       });
-    };
 
-    $('#validateCompile').on('click', function(event){
-      event.preventDefault();
-      var debugMode = false;
-      if($('#showThreeAdressesCode').is(":checked")) {
-        debugMode = true;
-      }
-      var codeWh = $('textarea#whileToCompile').val();
-      $.ajax({
-        url: '/compile',
-        type: 'POST',
-        dataType: 'json',
-        data: {whilePrgm: codeWh, debugMode: debugMode},
-        success: (data) => {
-          $('#consoleOutput').html(data.jarPrints);
-          $.ajax({
-            url: '/output',
-            type: 'GET',
-            success: (data) => {
-              console.log(data);
-              jsEditor.replaceSelection(data.compiledJS);
-            }
-          });
-          $.ajax({
-            url: '/parameters',
-            type: 'GET',
-            success: (data) => {
-              if(data.error){
-                $('#consoleOutput').append(data.error);
-              }else if(data.params){
-                generateInputAreas(data.params);
-                listenExecClick();
-              }
-            }
-          });
+
+      $('#validateCompile').on('click', function(event){
+        event.preventDefault();
+        var debugMode = false;
+        if($('#showThreeAdressesCode').is(":checked")) {
+          debugMode = true;
         }
+        var codeWh = $('textarea#whileToCompile').val();
+        $.ajax({
+          url: '/compile',
+          type: 'POST',
+          dataType: 'json',
+          data: {whilePrgm: codeWh, debugMode: debugMode},
+          success: (data) => {
+            $('#consoleOutput').html(data.jarPrints);
+            $.ajax({
+              url: '/output',
+              type: 'GET',
+              success: (data) => {
+                console.log(data);
+                jsEditor.replaceSelection(data.compiledJS);
+              }
+            });
+            $.ajax({
+              url: '/parameters',
+              type: 'GET',
+              success: (data) => {
+                if(data.error){
+                  $('#consoleOutput').append(data.error);
+                }else if(data.params){
+                  generateInputAreas(data.params);
+                  listenExecClick();
+                }
+              }
+            });
+          }
+        });
       });
-    });
+    };
     //params should be array of the function parameters
     function generateInputAreas(params) {
       $('#paramInputs').html('<span class="h4 text-muted">Paramètres d\'exécution</span>');
