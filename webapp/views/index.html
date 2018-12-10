@@ -146,7 +146,7 @@
             param: arrayValues
           },
           success: (data) => {
-            console.log(data);
+            console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
           }
         });
         // var out = execfunction(arrayValues);  // A DECOMMENTER ET COMMENTER L'APPEL A TEST
@@ -157,14 +157,6 @@
         //   $('#execOutput').append(JSON.stringify(tree) + '<br>');
         // });
       });
-  }
-
-	function execfunction(params){
-	//Compile the params
-	for (let name in params) {
-        params[name] = bintreeFromString(params[name]);
-      }
-	return main.apply(params)
   }
   </script>
 </body>

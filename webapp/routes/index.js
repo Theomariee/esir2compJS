@@ -3,6 +3,8 @@ const router = express.Router();
 const fs = require('fs');
 var exec = require('child_process').exec;
 
+const whlib = require('../public/whlib');
+
 // render la page
 router.get('/', (req, res) => {
 	res.render('index');
@@ -80,11 +82,37 @@ router.get('/parameters', (req, res) => {
 
 router.post('/runCompiled', (req, res) => {
 	console.log(req.body);
-	require('../public/whlib');	
-	nop();
-	// eval(req.body.code);	// load main function
-	// console.log(main);
-	// console.log(main(5,6));
+
+	var params = req.body.param;
+	
+	eval(req.body.code);	// load main function
+
+	var compiledString = "";
+
+	for (let name in params) {
+        compiledString = compiledString.concat("var " + name + "=whlib.bintreeFromString(" + params[name] + ");\n");
+    }
+
+    compiledString += "var outputArray = main(";
+    for (let name in params) {
+        compiledString = compiledString.concat(name+",");
+    }
+    compiledString = compiledString.slice(0, -1); //removes last comma
+    compiledString += ");";
+
+    console.log(compiledString);
+
+    eval(compiledString);
+
+    console.log(outputArray);
+
+    var result = [];
+
+    outputArray.forEach(function(output){
+    	result.push(output.toString());
+    });
+
+    res.json({'out': result});
 });
 
 

@@ -215,6 +215,17 @@ function bintreeFromInt(int)
 
 module.exports = {
     bt: bt,
+    nop: nop,
+    nil: nil,
+    cons: cons,
+    list: list,
+    hd: hd,
+    tl: tl,
+    not: not,
+    and:  and,
+    or: or,
+    eq: eq,
+    symb: symb,
     bintreeFromString: bintreeFromString,
     intFromBintree: intFromBintree,
     bintreeFromInt: bintreeFromInt,
