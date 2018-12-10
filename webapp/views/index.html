@@ -89,10 +89,10 @@
           lineNumbers: true,
           lineWrapping: true,
       });
-      /*var jsEditor = CodeMirror.fromTextArea($("#jsCompiled")[0], {
+      var jsEditor = CodeMirror.fromTextArea($("#jsCompiled")[0], {
           lineNumbers: true,
           lineWrapping: true,
-      });*/
+      });
 
 
       $('#validateCompile').on('click', function(event){
@@ -114,8 +114,8 @@
               type: 'GET',
               success: (data) => {
                 console.log(data);
-                //jsEditor.replaceSelection(data.compiledJS);
-                $('#jsCompiled').html(data.compiledJS);
+                jsEditor.replaceSelection(data.compiledJS);
+                //$('#jsCompiled').html(data.compiledJS);
               }
             });
             $.ajax({
