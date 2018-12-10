@@ -188,7 +188,7 @@
           },
           success: (data) => {
             console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
-            out.forEach(function(tree) {
+            data.forEach(function(tree) {
             console.log(JSON.stringify(tree));
             $('#execOutput').append(JSON.stringify(tree) + '<br>');
           });
