@@ -193,8 +193,8 @@
             var outString = data.outString;
             for(var i = 0; i < outInt.length; i++) {
               $('#execOutput').append('{<br>');
-              $('#execOutput').append('BinTree : ' + outString[i] + ',<br>');
-              $('#execOutput').append('Int : ' + outInt[i] + '<br>');
+              $('#execOutput').append('\t<strong>BinTree : </strong>' + outString[i] + ',<br>');
+              $('#execOutput').append('\t<strong>Int : </strong>' + outInt[i] + '<br>');
               $('#execOutput').append('}<br>');
             }
           }
