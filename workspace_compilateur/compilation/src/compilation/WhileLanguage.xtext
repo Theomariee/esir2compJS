@@ -75,7 +75,7 @@ Expr:
 	'(' ope=SYMBOL lexpr=Lexpr ')'|
 	'(' ope='hd' expr=Expr ')' |
 	'(' ope='tl' expr=Expr ')' |
-	'(' ope='!' expr=Expr ')' |
+	'(' ope='not' expr=Expr ')' |
 	'(' ex1=Expr ope=('and' | 'or' | '=?') ex2=Expr ')'
 ;
 

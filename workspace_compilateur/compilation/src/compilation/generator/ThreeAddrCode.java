@@ -39,7 +39,7 @@ public class ThreeAddrCode {
 			return addr1+" = whlib.hd("+addr2+");";
 		case "tl":
 			return addr1+" = whlib.tl("+addr2+");";
-		case "!":
+		case "not":
 			return addr1+" = whlib.not("+addr2+");";
 		case "and":
 			return addr1+" = whlib.and("+addr2+","+addr3+");";

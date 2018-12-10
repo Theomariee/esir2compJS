@@ -216,7 +216,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			}
 			return registresExpr.pop;
 		}
-		else if(e.ope.equals("hd") || e.ope.equals("tl") || e.ope.equals("!")) {
+		else if(e.ope.equals("hd") || e.ope.equals("tl") || e.ope.equals("not")) {
 			var name = registresExpr.push;
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode(e.ope,name,e.expr.compile,null))
 			return registresExpr.pop;
