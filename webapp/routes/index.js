@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 var exec = require('child_process').exec;
 
-const whlib = require('../public/whlib');
+const whlib = require('../public/WhLib');
 
 // render la page
 router.get('/', (req, res) => {
