@@ -33,10 +33,10 @@ function tl(addr2){
 
 function not(addr2){
 	if (bt.isTrue(addr2)){
-		return new bt.BinTree("cons", new bt.BinTree("nil",null,null), new bt.BinTree("nil",null,null));
+		return new bt.BinTree("nil",null,null);
 	}
 	else{
-		return new bt.BinTree("nil",null,null);
+		return new bt.BinTree("cons", new bt.BinTree("nil",null,null), new bt.BinTree("nil",null,null));
 	}
 }
 
