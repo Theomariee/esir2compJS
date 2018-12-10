@@ -49,6 +49,9 @@ class BinTree  {
     }
 
     toString() {
+		if(this.data.toString() == 'nil' && this.left == null && this.right == null){
+			return " nil";
+		}
         var str = "(";
         str += this.data.toString();
         if (this.left != null){
