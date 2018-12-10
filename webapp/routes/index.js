@@ -106,13 +106,15 @@ router.post('/runCompiled', (req, res) => {
 
     console.log(outputArray);
 
-    var result = [];
+    var resultString = [];
+    var resultInt = [];
 
     outputArray.forEach(function(output){
-    	result.push(output.toString());
+        resultString.push(output.toString());
+        resultInt.push(whlib.intFromBintree(output));
     });
 
-    res.json({'out': result});
+    res.json({'outString': resultString, 'outInt': resultInt});
 });
 
 
