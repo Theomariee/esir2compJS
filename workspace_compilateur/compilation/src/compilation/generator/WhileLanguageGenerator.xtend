@@ -73,14 +73,17 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		}
 	}
 	def compile(Function f) {
-		//init
+		//prélude
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresAff.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","whileVar",null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","out",null,null))
 		//Fait au premier passage
 		//f.definition.read.compile
 		f.definition.commands.compile
 		f.definition.write.compile
+		//postlude
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("ret","out",null,null))
 		if(code){
 			println("Code 3 adresses de "+currentName+" :")
 			for(instruction:functionTable.getInstructions(currentName)){
@@ -156,12 +159,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(Foreach f) {
 	
 	}
-	def compile(Write w) {
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","out",null,null))	
+	def compile(Write w) {	
 		for(v:w.variable){
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("push","out",functionTable.getVariable(currentName,v),null))
 		}
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("ret","out",null,null))
 	}
 	def compileToJs()'''
 	«FOR f:functionTable.getFunctions()»
@@ -198,7 +199,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				functionTable.addVariable(currentName,e.symb);
 			}
 			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("symb",functionTable.getVariable(currentName,e.symb),e.symb,null))
-			return functionTable.getVariable(currentName,e.valeur);
+			return functionTable.getVariable(currentName,e.symb);
 		}
 		
 		else if(e.ope.equals("cons")) {
