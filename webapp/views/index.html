@@ -82,7 +82,7 @@
       </div>
 
       <div class="col-md-4" id="outputContainer"> 
-      <label for="outputExec" class="h4 text-muted">Output de l'exécu</label>
+      <label for="outputExec" class="h4 text-muted">Output de l'exécution</label>
         <div id="execOutput">
         </div>
       </div>
@@ -188,20 +188,16 @@
           },
           success: (data) => {
             console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
+            $('#execOutput').val('');
             var outInt = data.outInt;
             var outString = data.outString;
             for(var i = 0; i < outInt.length; i++) {
-              $('#execOutput').append(outInt[i] + '<br>');
-              $('#execOutput').append(outString[i] + '<br>');
+              $('#execOutput').append('{<br>');
+              $('#execOutput').append('BinTree : ' + outString[i] + ',<br>');
+              $('#execOutput').append('Int : ' + outInt[i] + '<br>');
+              $('#execOutput').append('}<br>');
             }
           }
-        });
-
-
-        console.log(out);
-        out.forEach(function(tree) {
-          console.log(JSON.stringify(tree));
-          $('#execOutput').append(JSON.stringify(tree) + '<br>');
         });
       });
   }
