@@ -10,12 +10,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/mode/javascript/javascript.js"></script>
   
   <style>
-    html { margin: 0.1% 0.1% 0.1% 0.1%; }
+    html { margin: 0.1% 0.1% 0.1% 0.1%; overflow-x: hidden;}
     .CodeMirror {
       border: 1px solid #CFCFCF;
       height: 500px;
       width: 100%;
       font-size: 19px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      line-height: 60px;
     }
   </style>
 
@@ -45,11 +52,6 @@
               <label for="jsCompiled" class="h4 text-muted">JavaScript généré</label>
               <textarea disabled class="form-control" id="jsCompiled"></textarea>
             </div>
-            <div class="col-md-1">
-              <button type="button" class="btn btn-success btn-lg btn-block" name="validateCompile" id="validateCompile" style="margin-top: 18%; height: 93%">
-                Compiler
-              </button>
-            </div>
             <div class="col-md-3">
               <div id="paramInputs">
                 
@@ -76,6 +78,15 @@
       </div>
     </div>
   </div> <!-- END div .container-fluid -->
+
+  <footer class="footer">
+    <div class="container-fluid offset-md-5">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-success btn-lg" name="validateCompile" id="validateCompile">Compiler</button>
+        <button type="button" class="btn btn-primary btn-lg disabled" name="execute" id="execute">Exécuter</button>
+      </div>
+    </div>
+  </footer>
 
   <!-- load external libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -115,6 +126,7 @@
               success: (data) => {
                 console.log(data);
                 jsEditor.replaceSelection(data.compiledJS);
+                $('#execute').toggle('disabled');
                 //$('#jsCompiled').html(data.compiledJS);
               }
             });
@@ -144,11 +156,6 @@
                                   <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
                                   </div>');
       }
-      $('#paramInputs').append('<div class="col-md-12">\
-                                  <button type="button" class="btn btn-primary btn-lg btn-block my-1" name="execute" id="execute">\
-                                    Exécuter avec ces paramètres\
-                                  </button>\
-                                </div>');
     }
 
   function listenExecClick(){
