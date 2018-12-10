@@ -112,7 +112,7 @@
         if($('#showThreeAdressesCode').is(":checked")) {
           debugMode = true;
         }
-        var codeWh = $('textarea#whileToCompile').val();
+        var codeWh = whileEditor.getValue();
         $.ajax({
           url: '/compile',
           type: 'POST',
