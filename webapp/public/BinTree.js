@@ -100,7 +100,7 @@ function cons(args)
         }
         
         var tree = args.shift(); 
-        if(args.length <= 0)
+        if(args.length == 0)
         {
             return tree
         }
