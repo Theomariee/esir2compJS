@@ -10,7 +10,7 @@ function nil(){
 function cons(addr2,addr3){
     var args=[];
     args.push(addr2); //clone the addr2
-	if(addr3 !== null){
+	if(addr3 != null){
 		args.push(addr3); //clone the addr3
 	}
     return bt.cons(args); //return the new bintree
