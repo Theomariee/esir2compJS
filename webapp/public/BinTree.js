@@ -49,9 +49,6 @@ class BinTree  {
     }
 
     toString() {
-		if(this.data.toString() == 'nil' && this.left == null && this.right == null){
-			return " nil";
-		}
         var str = "(";
         str += this.data.toString();
         if (this.left != null){
@@ -103,7 +100,7 @@ function cons(args)
         }
         
         var tree = args.shift(); 
-        if(args.length == 0)
+        if(args.length <= 0)
         {
             return tree
         }
