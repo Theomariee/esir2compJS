@@ -81,40 +81,51 @@ router.get('/parameters', (req, res) => {
 });
 
 router.post('/runCompiled', (req, res) => {
-	console.log(req.body);
-
-	var params = req.body.param;
+	// console.log(req.body);
+	// read compiled.js
+	if (fs.existsSync('temp/compiled.js')) {
+		fs.readFile("temp/compiled.js", 'utf-8', function (err, data) {
+		    if (err) {
+		    	throw err;
+		    }else{
+				var params = req.body.params;
 	
-	eval(req.body.code);	// load main function
+				eval(data);	// load main function from compiled.js
 
-	var compiledString = "";
+				var compiledString = "";	// for parameters values from the front-end boxes inputs & calling the main function
 
-	for (let name in params) {
-        compiledString = compiledString.concat("var " + name + "=whlib.bintreeFromString('" + params[name] + "');\n");
-    }
+				for (let name in params) {
+			        compiledString = compiledString.concat("var " + name + "=whlib.bintreeFromString('" + params[name] + "');\n");
+			    }
 
-    compiledString += "var outputArray = main(";
-    for (let name in params) {
-        compiledString = compiledString.concat(name+",");
-    }
-    compiledString = compiledString.slice(0, -1); //removes last comma
-    compiledString += ");";
+			    compiledString += "var outputArray = main(";
+			    for (let name in params) {
+			        compiledString = compiledString.concat(name+",");
+			    }
+			    compiledString = compiledString.slice(0, -1); //removes last comma
+			    compiledString += ");";
 
-    console.log(compiledString);
+			    console.log(compiledString);
 
-    eval(compiledString);
+			    eval(compiledString);
 
-    console.log(outputArray);
+			    console.log(outputArray);
 
-    var resultString = [];
-    var resultInt = [];
+			    var resultString = [];
+			    var resultInt = [];
 
-    outputArray.forEach(function(output){
-        resultString.push(output.toString());
-        resultInt.push(whlib.intFromBintree(output));
-    });
+			    outputArray.forEach(function(output){
+			        resultString.push(output.toString());
+			        resultInt.push(whlib.intFromBintree(output));
+			    });
 
-    res.json({'outString': resultString, 'outInt': resultInt});
+			    res.json({'outString': resultString, 'outInt': resultInt});
+		    }
+		});
+	}else{
+		console.log('Can\'t find compiled JS (temp/compiled.js) !');
+		res.json({'error': 'Could not read compiled JS file'});
+	}
 });
 
 

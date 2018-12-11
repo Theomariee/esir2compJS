@@ -128,7 +128,7 @@
           dataType: 'json',
           data: {whilePrgm: codeWh, debugMode: debugMode},
           success: (data) => {
-            $('#consoleOutput').html(data.jarPrints);
+            $('#consoleOutput').html(data.jarPrints + '\n');
             $.ajax({
               url: '/output',
               type: 'GET',
@@ -146,7 +146,7 @@
               type: 'GET',
               success: (data) => {
                 if(data.error){
-                  $('#consoleOutput').append(data.error);
+                  $('#consoleOutput').append(data.error + '\n');
                 }else if(data.params){
                   generateInputAreas(data.params);
                   listenExecClick(jsEditor);
@@ -170,9 +170,7 @@
     }
 
   function listenExecClick(jsEditor){
-      // listen for click (put this in another function)
       $('#execute').on('click', function(event){
-        var jsCode = jsEditor.getValue();
         var arrayValues = {};
         $('input.parameter').each(function(index,data) {
           arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
@@ -183,20 +181,25 @@
           type: 'POST',
           dataType: 'json',
           data: {
-            code:  jsCode,
-            param: arrayValues
+            params: arrayValues
           },
           success: (data) => {
             console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
             $('#execOutput').empty();
-            var outInt = data.outInt;
-            var outString = data.outString;
-            for(var i = 0; i < outInt.length; i++) {
-              $('#execOutput').append('{<br>');
-              $('#execOutput').append('<strong style="padding:0 0 0 20px;">BinTree : </strong>' + outString[i] + '<br>');
-              //$('#execOutput').append('<strong style="padding:0 0 0 20px;">Int : </strong>' + outInt[i] + '<br>');
-              $('#execOutput').append('}<br>');
+            if(data.error){
+              console.log(data.error);
+              $('#consoleOutput').append(data.error + '\n');
+            }else{
+              var outInt = data.outInt;
+              var outString = data.outString;
+              for(var i = 0; i < outInt.length; i++) {
+                $('#execOutput').append('{<br>');
+                $('#execOutput').append('<strong style="padding:0 0 0 20px;">BinTree : </strong>' + outString[i] + '<br>');
+                //$('#execOutput').append('<strong style="padding:0 0 0 20px;">Int : </strong>' + outInt[i] + '<br>');
+                $('#execOutput').append('}<br>');
+              }              
             }
+
           }
         });
       });
