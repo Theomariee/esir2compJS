@@ -77,8 +77,10 @@ function bintreeFromString(str)
         var i = 0;
         if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
         {
-            if (str.charAt(5) == ')')
+           if(str.charAt(str.length - 1) != ')')
             {
+                return "Erreur, pas de parenthèse fermante englobant l'expression entiere."
+            }else if(str.charAt(5) == ')'){
                 return new bt.BinTree("nil", null, null)
             }
             
@@ -86,10 +88,7 @@ function bintreeFromString(str)
             {
                 return "Il faut un espace apres un cons/list. Veuillez reformuler votre BinTree."
             }
-            if(str.charAt(str.length - 1) != ')')
-            {
-                return "Erreur, pas de parenthèse fermante englobant l'expression entiere."
-            }
+            
 
             var cmd = str.substring(i+1, i+5);
             var args=[];
@@ -109,22 +108,29 @@ function bintreeFromString(str)
                     args.push(tree2);
                 }*/
            // }else{
-                var sonBt = "";
-                var closeCons = getCloseParenthesis(str, 0);
+                var binTreeNodeName = "";
+                var countWhiteSpacesBetweenWords = 0;
                 while(i < str.length){
                     if(str.charAt(i) == ' ' || str.charAt(i) == ')'){
-                        if(sonBt !== ""){
-                            args.push(new bt.BinTree(sonBt, null, null));
-                            sonBt = "";
+                        
+                        if(str.charAt(i) == ' '){
+                            if (countWhiteSpacesBetweenWords > 1){
+                                return "Erreur, plus d'un espace entre chaque terme."
+                            }
+                            countWhiteSpacesBetweenWords++;
+                        }
+                        if(binTreeNodeName !== ""){
+                            args.push(new bt.BinTree(binTreeNodeName, null, null));
+                            countWhiteSpacesBetweenWords = 0;
+                            binTreeNodeName = "";
                         }
                         i++;
                         continue;
                     }
-                    sonBt = sonBt + str.charAt(i) + "";
+                    binTreeNodeName = binTreeNodeName + str.charAt(i);
                     i++;
                 }
-                i--;
-                if(str.charAt(i - 1) == ' ')
+                if(str.charAt(i - 2) == ' ')
                 {
                     return "Erreur, un ou plusieurs espace(s) en trop avant la parenthese fermante."
                 }

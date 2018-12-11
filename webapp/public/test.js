@@ -142,17 +142,23 @@ describe('BinTree Test Session', function() {
       assert.isTrue(bt.evaluateEQ(bt.list(args), wh.bintreeFromString("(list nil nil nil)"))); 
     });
     describe(('EXPRESSIONS THAT SHOULD NOT BE CONVERTED'), function() {
-      it(('(cons nil nil )  : Additionnal space(s) before the closing parenthesis.'), function(){
+      it(('(cons nil nil )     : Additionnal space(s) before the closing parenthesis.'), function(){
         var args = [];
         args.push(new BinTree("nil", null, null));
         args.push(new BinTree("nil", null, null));
         assert.isFalse(bt.evaluateEQ(bt.cons(args), wh.bintreeFromString("(cons nil nil )"))); 
       });
-      it(('(cons nil nil    : Missing closing parenthesis.'), function(){
+      it(('(cons nil nil       : Missing closing parenthesis.'), function(){
         var args = [];
         args.push(new BinTree("nil", null, null));
         args.push(new BinTree("nil", null, null));
         assert.isFalse(bt.evaluateEQ(bt.cons(args), wh.bintreeFromString("(cons nil nil"))); 
+      });
+      it(('(cons   nil  nil)   : Additionnal whitespaces between two terms.'), function(){
+        var args = [];
+        args.push(new BinTree("nil", null, null));
+        args.push(new BinTree("nil", null, null));
+        assert.isFalse(bt.evaluateEQ(bt.cons(args), wh.bintreeFromString("(cons  nil  nil"))); 
       });
     });
       
