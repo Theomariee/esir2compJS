@@ -70,53 +70,79 @@ function bintreeFromString(str)
     if (Number.isInteger(parseInt(str)))
     {
         res = bintreeFromInt(parseInt(str));
-    } 
+    }
     //if it's a string and correctly written, we start parsing to create an adequate BinTree.
     else if(str.charAt(0) === '(')
     {
         var i = 0;
-        if (str.charAt(i) == '(')
+        if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
         {
-            if (str.substring(i+1, i+4) === "nil")
+            if (str.charAt(5) == ')')
             {
-                return res;
+                return new bt.BinTree("nil", null, null)
             }
-            else if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
+            
+            if (str.charAt(i+5) != ' ')
             {
-                var cmd = str.substring(i+1, i+5);
-                var args=[];
+                return "Il faut un espace apres un cons/list. Veuillez reformuler votre BinTree."
+            }
+            if(str.charAt(str.length - 1) != ')')
+            {
+                return "Erreur, pas de parenthèse fermante englobant l'expression entiere."
+            }
 
-                var openParenthesis = getOpenParenthesis(str, i+5);
+            var cmd = str.substring(i+1, i+5);
+            var args=[];
+            i = 6; 
+           // var openParenthesis = getOpenParenthesis(str, i);
+            //console.log(openParenthesis);
+            /*if(openParenthesis != -1){
+                i = openParenthesis;
+                var closeParenthesis = getCloseParenthesis(str, i);
+                var tree1 = bintreeFromString(str.substring(i, closeParenthesis));
+                args.push(tree1);
+            
+                openParenthesis = getOpenParenthesis(str, closeParenthesis);
                 if(openParenthesis != -1){
-                    i = openParenthesis;
-                    var closeParenthesis = getCloseParenthesis(str, i);
-                    var tree1 = bintreeFromString(str.substring((i), closeParenthesis));
-                    args.push(tree1);
-                
-                    openParenthesis = getOpenParenthesis(str, closeParenthesis);
-                    if(openParenthesis != -1){
-                        closeParenthesis = getCloseParenthesis(str, openParenthesis);
-                        var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
-                        args.push(tree2);
+                    closeParenthesis = getCloseParenthesis(str, openParenthesis);
+                    var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
+                    args.push(tree2);
+                }*/
+           // }else{
+                var sonBt = "";
+                var closeCons = getCloseParenthesis(str, 0);
+                while(i < str.length){
+                    if(str.charAt(i) == ' ' || str.charAt(i) == ')'){
+                        if(sonBt !== ""){
+                            args.push(new bt.BinTree(sonBt, null, null));
+                            sonBt = "";
+                        }
+                        i++;
+                        continue;
                     }
+                    sonBt = sonBt + str.charAt(i) + "";
+                    i++;
                 }
-                if (cmd === "cons")
+                i--;
+                if(str.charAt(i - 1) == ' ')
                 {
-                    res = bt.cons(args);
+                    return "Erreur, un ou plusieurs espace(s) en trop avant la parenthese fermante."
                 }
-                else if (cmd === "list")
-                {
-                    res = bt.list(args);
-                }
-                else
-                {
-                    throw "Error in creating the tree from the string";
-                }
+            //}
+            if (cmd === "cons")
+            {
+                res = bt.cons(args);
+            }
+            else if (cmd === "list")
+            {
+                res = bt.list(args);
             }
             else
             {
                 throw "Error in creating the tree from the string";
             }
+        }else{
+            throw "Error in creating the tree from the string";
         }
     }
     else //we create a symbol
@@ -193,7 +219,8 @@ function intFromBintree(tree)
         if(tree.getData() === "cons" || tree.getData() === "list")
         {
             res++;
-            res += intFromBintree(tree.getRight());
+            res += intFromBintree(tree.getLeft());
+            res += intFromBintree(tree.getRight())
         }
     }
     return res
@@ -210,8 +237,8 @@ function bintreeFromInt(int)
     {
         for(i = 0; i < int; i++)
         {
-            var nil = new bt.BinTree("nil", null, null);
-            res = new bt.BinTree("cons", nil, res)
+            var tmp = new bt.BinTree("nil", null, null);
+            res = new bt.BinTree("cons", tmp, res) 
         }
     }
     return res
