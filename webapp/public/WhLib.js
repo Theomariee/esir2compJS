@@ -193,7 +193,6 @@ function intFromBintree(tree)
         if(tree.getData() === "cons" || tree.getData() === "list")
         {
             res++;
-            res += intFromBintree(tree.getLeft());
             res += intFromBintree(tree.getRight())
         }
     }
