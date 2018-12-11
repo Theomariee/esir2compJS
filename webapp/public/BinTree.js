@@ -49,7 +49,12 @@ class BinTree  {
     }
 
     toString() {
-        var str = "(";
+        var str = "";
+        if(this.data.toString() === "cons"){
+            str += "(";
+        }else{
+            str += " ";
+        }
         str += this.data.toString();
         if (this.left != null){
             str += this.left.toString();
@@ -57,10 +62,20 @@ class BinTree  {
         if (this.right != null){
             str += this.right.toString();
         }
-        str += ")";
+        if(this.data === "cons"){
+            str += ")";
+        }
         return str
     }
 };
+/*var args = [];
+args.push(new BinTree("nil",null,null));
+args.push(new BinTree("nil",null,null));
+args.push(new BinTree("nil",null,null));
+args.push(new BinTree("nil",null,null));
+var bt = cons(args);
+console.log(bt);
+console.log(bt.toString());*/
 /**
  * @param {*} tree : BinTree object.
  * @returns the head of tree. If its left son equals to null, will return null.
