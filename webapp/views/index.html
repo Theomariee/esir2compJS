@@ -77,10 +77,7 @@
 
 			$('#validateCompile').on('click', function(event){
 			event.preventDefault();
-			var debugMode = false;
-			if($('#showThreeAdressesCode').is(":checked")) {
-			  debugMode = true;
-			}
+			var debugMode = true;
 			var codeWh = whileEditor.getValue();
 			$.ajax({
 			  url: '/compile',
@@ -97,9 +94,7 @@
 			        jsEditor.setValue("");
 			        jsEditor.clearHistory();
 			        jsEditor.replaceSelection(data.compiledJS);
-			        $('#execute').removeClass('disabled');
-			        //$('#jsCompiled').html(data.compiledJS);
-			      }
+			        $('#execute').removeClass('disabled');			      }
 			    });
 			    $.ajax({
 			      url: '/parameters',
