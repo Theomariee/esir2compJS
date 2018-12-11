@@ -1,0 +1,6 @@
+function dec:
+read X
+%
+X := (tl X)
+%	
+write X

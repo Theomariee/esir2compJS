@@ -1,0 +1,6 @@
+function inc:
+read X	
+%
+X := (cons nil X)
+%	
+write X
