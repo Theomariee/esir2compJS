@@ -18,38 +18,40 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<!-- INPUT WHILE -->
-			<div class="offset-lg-2 col-lg-4">
-				<div class="row">
-					<img src="while_logo.png" class="logoLg img-fluid mx-auto d-block" alt="Logo WHILE"/>
+	    <form method="POST" id="compilation">
+			<div class="row">
+				<!-- INPUT WHILE -->
+				<div class="offset-lg-2 col-lg-4">
+					<div class="row">
+						<img src="while_logo.png" class="logoLg img-fluid mx-auto d-block" alt="Logo WHILE"/>
+					</div>
+					<div class="row">
+						<textarea class="form-control" id="whileToCompile" rows="25"></textarea>
+					</div>
+					<div class="row my-4">
+						<button type="button" class="btn btn-outline-secondary btn-lg mx-auto d-block" name="validateCompile" id="validateCompile"><i class="fas fa-cogs"></i>&nbsp;Compiler</button>
+					</div>
 				</div>
-				<div class="row">
-					<textarea class="form-control" id="whileToCompile" rows="25"></textarea>
-				</div>
-				<div class="row my-4">
-					<button type="button" class="btn btn-outline-secondary btn-lg mx-auto d-block" name="validateCompile" id="validateCompile"><i class="fas fa-cogs"></i>&nbsp;Compiler</button>
+				<!-- OUTPUT JAVASCRIPT -->
+				<div class="col-lg-4">
+					<div class="row">
+						<img src="js_logo.png" class="logoLg img-fluid mx-auto d-block" alt="Logo JavaScript"/>
+					</div>
+					<div class="row">
+						<textarea class="form-control" id="jsCompiled" rows="25"></textarea>
+					</div>
+					<div class="row my-4">
+						<button type="button" class="btn btn-outline-secondary btn-lg mx-auto d-block" name="execute" id="execute"><i class="fas fa-play"></i>&nbsp;Exécuter</button>
+					</div>
 				</div>
 			</div>
-			<!-- OUTPUT JAVASCRIPT -->
-			<div class="col-lg-4">
-				<div class="row">
-					<img src="js_logo.png" class="logoLg img-fluid mx-auto d-block" alt="Logo JavaScript"/>
-				</div>
-				<div class="row">
-					<textarea class="form-control" id="jsCompiled" rows="25"></textarea>
-				</div>
-				<div class="row my-4">
-					<button type="button" class="btn btn-outline-secondary btn-lg mx-auto d-block" name="execute" id="execute"><i class="fas fa-play"></i>&nbsp;Exécuter</button>
+			<div class="row my-5">
+				<!-- OUTPUT CONSOLE -->
+				<div class="offset-lg-4 col-lg-4">
+					<textarea disabled class="form-control" id="consoleOutput" rows="12" placeholder="Console output..."></textarea>
 				</div>
 			</div>
-		</div>
-		<div class="row my-5">
-			<!-- OUTPUT CONSOLE -->
-			<div class="offset-lg-4 col-lg-4">
-				<textarea disabled class="form-control" id="consoleOutput" rows="12" placeholder="Console output..."></textarea>
-			</div>
-		</div>
+		</form>
 	</div>
 
 	<!-- jQuery -->
@@ -162,4 +164,3 @@
     </script>
 </body>
 </html>
-
