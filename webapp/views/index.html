@@ -158,6 +158,7 @@
 		    // listen for click (put this in another function)
 		   	$('#execute').on('click', function(event){
 			    var jsCode = jsEditor.getValue();
+			    console.log(jsCode);
 			    var arrayValues = {};
 			    $('input.parameter').each(function(index,data) {
 			        arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
