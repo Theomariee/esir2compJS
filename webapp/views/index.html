@@ -101,6 +101,7 @@
 			var jsEditor = CodeMirror.fromTextArea($("#jsCompiled")[0], {
 			  lineNumbers: true,
 			  lineWrapping: true,
+        readOnly: 'nocursor'
 			});
 
 			$('#validateCompile').on('click', function(event){
