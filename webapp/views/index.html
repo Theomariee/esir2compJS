@@ -177,12 +177,12 @@
 			            var outInt = data.outInt;
 			            var outString = data.outString;
 			            for(var i = 0; i < outInt.length; i++) {
-			            	$('#consoleOutput').append('------------------------------------------------------------------');
-			            	$('#consoleOutput').append('Résultat de l\'exécution :');
-			              	$('#consoleOutput').append('{<br>');
-			              	$('#consoleOutput').append('<strong style="padding:0 0 0 20px;">BinTree : </strong>' + outString[i] + ',<br>');
-			              	$('#consoleOutput').append('<strong style="padding:0 0 0 20px;">Int : </strong>' + outInt[i] + '<br>');
-			              	$('#consoleOutput').append('}<br>');
+			            	$('#consoleOutput').append('------------------------------------------------------------------\n');
+			            	$('#consoleOutput').append('Résultat de l\'exécution :\n');
+			              	$('#consoleOutput').append('{\n');
+			              	$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
+			              	$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
+			              	$('#consoleOutput').append('}\n');
 			            }
 			        }
 			    });
