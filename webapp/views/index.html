@@ -43,9 +43,6 @@
 						<textarea class="form-control" id="jsCompiled" rows="25"></textarea>
 					</div>
 					<div class="row my-4">
-						<button type="button" class="btn btn-primary mx-auto d-block" data-toggle="modal" data-target="#exampleModal">
-						  Launch demo modal
-						</button>
 						<button type="button" class="btn btn-outline-secondary btn-lg mx-auto d-block" name="execute" id="execute"><i class="fas fa-play"></i>&nbsp;Exécuter</button>
 					</div>
 				</div>
@@ -54,6 +51,9 @@
 				<!-- OUTPUT CONSOLE -->
 				<div class="offset-lg-4 col-lg-4">
 					<textarea disabled class="form-control" id="consoleOutput" rows="12" placeholder="Console output..."></textarea>
+					<button type="button" class="btn btn-primary mx-auto d-block my-3 disabled" data-toggle="modal" data-target="#exampleModal" id="execParams">
+						Paramètres
+					</button>
 				</div>
 			</div>
 		</form>
@@ -64,7 +64,7 @@
 	  	<div class="modal-dialog" role="document">
 	    	<div class="modal-content">
 	      	<div class="modal-header">
-	        	<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        	<h5 class="modal-title" id="exampleModalLabel">Donner une valeurs aux paramètres d'appel</h5>
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          	<span aria-hidden="true">&times;</span>
 	        	</button>
@@ -74,8 +74,7 @@
 	            </div>
 	      	</div>
 	      	<div class="modal-footer">
-	        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        	<button type="button" class="btn btn-primary">Save changes</button>
+	        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
 	      	</div>
 	    	</div>
 	  	</div>
@@ -121,7 +120,8 @@
 			        jsEditor.setValue("");
 			        jsEditor.clearHistory();
 			        jsEditor.replaceSelection(data.compiledJS);
-			        $('#execute').removeClass('disabled');			      }
+			        $('#execParams').removeClass('disabled');
+			      }
 			    });
 			    $.ajax({
 			      url: '/parameters',
