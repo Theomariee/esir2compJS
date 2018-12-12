@@ -20,5 +20,6 @@ textarea {
 
 #consoleOutput {
 	background-color: #141414; 
+	font-family: 'Ubuntu', sans-serif;
 	color: white;
 }
