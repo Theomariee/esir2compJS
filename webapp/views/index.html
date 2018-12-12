@@ -142,10 +142,10 @@
 
 	    //params should be array of the function parameters
 	    function generateInputAreas(params) {
-	      	$('#paramInputs').html('<span class="h4 text-muted">Paramètres d\'exécution</span>');
+	      	$('#paramInputs').html('');
 	      	for (var i = 0; i < params.length; i++) {
 	        	var current = params[i];
-	        	$('#paramInputs').append('<div class="col-md-12">\
+	        	$('#paramInputs').append('<div class="col-md-12 my-2">\
 	                                  <label for="'+ current +'">'+ current +'</label>\
 	                                  <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
 	                                  </div>');
@@ -170,15 +170,17 @@
 			            param: arrayValues
 			        },
 			        success: (data) => {
-			            console.log(data);  // voilà l'output théo affiche ça bien stp merci faut faire mieux que la team typescript  /!\
-			            $('#execOutput').empty();
+			            console.log(data);
+			            //$('#execOutput').empty();
 			            var outInt = data.outInt;
 			            var outString = data.outString;
 			            for(var i = 0; i < outInt.length; i++) {
-			              	$('#execOutput').append('{<br>');
-			              	$('#execOutput').append('<strong style="padding:0 0 0 20px;">BinTree : </strong>' + outString[i] + ',<br>');
-			              	$('#execOutput').append('<strong style="padding:0 0 0 20px;">Int : </strong>' + outInt[i] + '<br>');
-			              	$('#execOutput').append('}<br>');
+			            	$('#consoleOutput').append('------------------------------------------------------------------');
+			            	$('#consoleOutput').append('Résultat de l\'exécution :');
+			              	$('#consoleOutput').append('{<br>');
+			              	$('#consoleOutput').append('<strong style="padding:0 0 0 20px;">BinTree : </strong>' + outString[i] + ',<br>');
+			              	$('#consoleOutput').append('<strong style="padding:0 0 0 20px;">Int : </strong>' + outInt[i] + '<br>');
+			              	$('#consoleOutput').append('}<br>');
 			            }
 			        }
 			    });
