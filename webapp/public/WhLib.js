@@ -65,90 +65,74 @@ function symb(addr2){ //here, a symbol is given so we need to return a bintree w
 function bintreeFromString(str)
 {
     var res = new bt.BinTree("nil", null, null);
-
-    //if the parameter is an int, launch function bintreeFromInt.
+    /* if the parameter is an int, launch function bintreeFromInt. */
     if (Number.isInteger(parseInt(str)))
     {
         res = bintreeFromInt(parseInt(str));
     }
-    //if it's a string and correctly written, we start parsing to create an adequate BinTree.
+    /* if it's a string and correctly written, we start parsing to create an adequate BinTree. */
     else if(str.charAt(0) === '(')
     {
         var i = 0;
         if (str.substring(i+1, i+5) === "cons" || str.substring(i+1, i+5) === "list")
         {
-           if(str.charAt(str.length - 1) != ')')
-            {
+            if(str.charAt(str.length - 1) != ')'){
                 return "Erreur, pas de parenthèse fermante englobant l'expression entiere."
             }else if(str.charAt(5) == ')'){
                 return new bt.BinTree("nil", null, null)
             }
-            
+
             if (str.charAt(i+5) != ' ')
             {
                 return "Il faut un espace apres un cons/list. Veuillez reformuler votre BinTree."
             }
-            
-
-            var cmd = str.substring(i+1, i+5);
-            var args=[];
-            i = 6; 
-           // var openParenthesis = getOpenParenthesis(str, i);
-            //console.log(openParenthesis);
-            /*if(openParenthesis != -1){
-                i = openParenthesis;
-                var closeParenthesis = getCloseParenthesis(str, i);
-                var tree1 = bintreeFromString(str.substring(i, closeParenthesis));
-                args.push(tree1);
-            
-                openParenthesis = getOpenParenthesis(str, closeParenthesis);
-                if(openParenthesis != -1){
-                    closeParenthesis = getCloseParenthesis(str, openParenthesis);
-                    var tree2 = bintreeFromString(str.substring(openParenthesis, closeParenthesis));
-                    args.push(tree2);
-                }*/
-           // }else{
-                var binTreeNodeName = "";
-                var countWhiteSpacesBetweenWords = 0;
-                while(i < str.length){
-                    if(str.charAt(i) == ' ' || str.charAt(i) == ')'){
-                        
-                        if(str.charAt(i) == ' '){
-                            if (countWhiteSpacesBetweenWords > 1){
-                                return "Erreur, plus d'un espace entre chaque terme."
-                            }
-                            countWhiteSpacesBetweenWords++;
+            var cmd;
+            if ("cons" === str.substring(i+1, i+5) || "list" === str.substring(i+1, i+5)){
+                cmd = str.substring(i+1, i+5) ;
+            }else{
+                return "Opening Parenthesis found but not followed by a cons nor a list."
+            }
+            var args=[], newNode = "", whitespaces = 0;
+            i = 6;        
+            while(i < str.length){
+                if(str.charAt(i) == ' ' || str.charAt(i) == ')'){       
+                    if(str.charAt(i) == ' ')
+                    {
+                        if (whitespaces > 1)
+                        {
+                            return "Erreur, plus d'un espace entre chaque terme."
                         }
-                        if(binTreeNodeName !== ""){
-                            args.push(new bt.BinTree(binTreeNodeName, null, null));
-                            countWhiteSpacesBetweenWords = 0;
-                            binTreeNodeName = "";
-                        }
-                        i++;
-                        continue;
+                        whitespaces++;
                     }
-                    binTreeNodeName = binTreeNodeName + str.charAt(i);
+                    if(newNode !== "")
+                    {
+                        args.push(new bt.BinTree(newNode, null, null));
+                        whitespaces = 0;
+                        newNode = "";
+                    }
                     i++;
+                    continue;
                 }
-                if(str.charAt(i - 2) == ' ')
+                if(str.charAt(i) == "(") /* Case : one or multiple cons expressions in str */
                 {
-                    return "Erreur, un ou plusieurs espace(s) en trop avant la parenthese fermante."
+                    var closeParenthesis = getCloseParenthesis(str, i);
+                    args.push(bintreeFromString(str.substring(i, closeParenthesis + 1)));
+                    i += str.substring(i, closeParenthesis + 1).length
                 }
-            //}
-            if (cmd === "cons")
-            {
+                else /* no cons expression - only nil or symbols in str */
+                {
+                    newNode = newNode + str.charAt(i)
+                }
+                i++
+            }
+            if(str.charAt(i - 2) == ' '){return "Erreur, un ou plusieurs espace(s) en trop avant la parenthese fermante."}
+            
+            if (cmd === "cons"){
                 res = bt.cons(args);
             }
-            else if (cmd === "list")
-            {
+            if (cmd === "list"){
                 res = bt.list(args);
-            }
-            else
-            {
-                throw "Error in creating the tree from the string";
-            }
-        }else{
-            throw "Error in creating the tree from the string";
+            } 
         }
     }
     else //we create a symbol

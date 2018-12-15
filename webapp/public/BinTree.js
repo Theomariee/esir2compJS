@@ -50,20 +50,31 @@ class BinTree  {
 
     toString() {
         var str = "";
-        if(this.data.toString() === "cons"){
-            str += "(";
+        if(this.data === "cons" || this.data === "list"){
+            str += "(" + this.data.toString() + " ";
         }else{
-            str += " ";
+            str += this.data.toString();
         }
-        str += this.data.toString();
         if (this.left != null){
-            str += this.left.toString();
+            str += this.left.toString() + " ";
         } 
         if (this.right != null){
             str += this.right.toString();
         }
-        if(this.data === "cons"){
+        if(this.data === "cons" || this.data === "list")
+        {
+            if(str.charAt(str.length-1) == " ")
+            {
+                str = str.substring(0, str.length - 1)
+            }
             str += ")";
+        }
+        else
+        {
+            if(str.charAt(str.length-1) == " ")
+            {
+                str = str.substring(0, str.length - 1)
+            }
         }
         return str
     }

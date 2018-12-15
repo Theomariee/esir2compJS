@@ -72,10 +72,10 @@ describe('BinTree Test Session', function() {
     it(('Converting int to Bintree and deconverting it, should return the same int'), function(){
         assert.equal(5, wh.intFromBintree(wh.bintreeFromInt(5)));
     });
-  /*  it(('Deconverting and converting BinTree (cons(nil)(cons(nil)(nil))), should return the same BinTree'), function(){
+    it(('Deconverting and converting BinTree (cons(nil)(cons(nil)(nil))), should return the same BinTree'), function(){
         var t = wh.bintreeFromString("(cons nil nil nil)");
         assert.isTrue(bt.evaluateEQ(t, wh.bintreeFromInt(wh.intFromBintree(t))));
-    });*/
+    });
   });
   
   describe(('#bintreeFromString()'), function(){
@@ -141,6 +141,34 @@ describe('BinTree Test Session', function() {
       args.push(new BinTree("nil", null, null));    
       assert.isTrue(bt.evaluateEQ(bt.list(args), wh.bintreeFromString("(list nil nil nil)"))); 
     });
+    it(('Should convert the following char sequence : (cons nil (cons nil nil)) to a BinTree.'), function(){
+      var t1 = new BinTree("nil", null, null);
+      var t2 = new BinTree("nil", null, null);
+      var t3 = new BinTree("nil", null, null);
+      var args = [];
+      var args2 = [];
+      args.push(t2); args.push(t3); 
+      args2.push(t1); args2.push(bt.cons(args));
+      console.log("Expected : " + bt.cons(args2).toString());
+
+      console.log("Received : " + wh.bintreeFromString("(cons nil (cons nil nil))").toString());
+      assert.isTrue(bt.evaluateEQ(bt.cons(args2), wh.bintreeFromString("(cons nil (cons nil nil))")));
+    });
+    it(('Should convert the following char sequence : (cons nil (cons nil nil) nil) to a BinTree.'), function(){
+      var t1 = new BinTree("nil", null, null);
+      var t2 = new BinTree("nil", null, null);
+      var t3 = new BinTree("nil", null, null);
+      var t4 = new BinTree("nil", null, null);
+
+      var args = [];
+      var args2 = [];
+      args.push(t2); args.push(t3); 
+      args2.push(t1); args2.push(bt.cons(args)); args2.push(t4);
+      console.log("Expected : " + bt.cons(args2).toString());
+
+      console.log("Received : " + wh.bintreeFromString("(cons nil (cons nil nil) nil)").toString());
+      assert.isTrue(bt.evaluateEQ(bt.cons(args2), wh.bintreeFromString("(cons nil (cons nil nil) nil)")));
+    });
     describe(('EXPRESSIONS THAT SHOULD NOT BE CONVERTED'), function() {
       it(('(cons nil nil )     : Additionnal space(s) before the closing parenthesis.'), function(){
         var args = [];
@@ -163,16 +191,7 @@ describe('BinTree Test Session', function() {
     });
       
 
-    /*it(('Should convert the following char sequence : (cons nil (cons nil nil)) to a BinTree.'), function(){
-      var t = new BinTree("nil", null, null);
-      var t2 = new BinTree("nil", null, null);
-      var t3 = new BinTree("nil", null, null);
-      var args = [];
-      var args2 = [];
-      args.push(t); args.push(t2); 
-      args2.push(t3); args2.push(bt.cons(args));
-      assert.isTrue(bt.evaluateEQ(bt.cons(args2), wh.bintreeFromString("(cons nil (cons nil  nil))")));
-    });*/
+    
     
   });
 
@@ -180,34 +199,65 @@ describe('BinTree Test Session', function() {
     it(('Should print the literal expression of the BinTree : (nil)'), function(){
       var t = new BinTree("nil", null, null);
 
-      assert.equal(t.toString(), "(nil)");
+      assert.equal(t.toString(), "nil");
     });
     it(('Should print the literal expression of the BinTree : (cons)'), function(){
       var args = []; 
 
-      assert.equal(bt.list(args).toString(), "(nil)");
+      assert.equal(bt.list(args).toString(), "nil");
     });
     it(('Should print the literal expression of the BinTree : (list)'), function(){
       var args = []; 
 
-      assert.equal(bt.list(args).toString(), "(nil)");
+      assert.equal(bt.list(args).toString(), "nil");
     });
-    it(('Should print the literal expression of the BinTree : (cons(nil)(nil))'), function(){
+    it(('Should print the literal expression of the BinTree : (cons nil nil)'), function(){
       var t1 = new BinTree("nil", null, null);
       var t2 = new BinTree("nil", null, null);
       var args = []; 
       args.push(t1); args.push(t2);
 
-      assert.equal(bt.cons(args).toString(), "(cons(nil)(nil))");
+      assert.equal(bt.cons(args).toString(), "(cons nil nil)");
     });
-    it(('Should print the literal expression of the BinTree : (list(nil)(list(nil)(list(nil)(nil))))'), function(){
+    it(('Should print the literal expression of the BinTree : (cons nil (cons nil nil))'), function(){
       var t1 = new BinTree("nil", null, null);
       var t2 = new BinTree("nil", null, null);
       var t3 = new BinTree("nil", null, null);
       var args = []; 
       args.push(t1); args.push(t2); args.push(t3);
 
-      assert.equal(bt.list(args).toString(), "(list(nil)(list(nil)(list(nil)(nil))))")
+      assert.equal(bt.cons(args).toString(), "(cons nil (cons nil nil))");
+    });
+    it(('Should print the literal expression of the BinTree : (cons nil (cons nil nil))'), function(){
+      var t1 = new BinTree("nil", null, null);
+      var t2 = new BinTree("nil", null, null);
+      var t3 = new BinTree("nil", null, null);
+      var t4 = new BinTree("nil", null, null);
+      var t5 = new BinTree("nil", null, null);
+      var args = []; 
+      args.push(t1); args.push(t2); args.push(t3);
+
+      assert.equal(bt.cons(args).toString(), "(cons nil (cons nil nil))");
+    });
+    it(('Should print the literal expression of the BinTree : (list nil (list nil (list nil  nil)))'), function(){
+      var t1 = new BinTree("nil", null, null);
+      var t2 = new BinTree("nil", null, null);
+      var t3 = new BinTree("nil", null, null);
+      var args = []; 
+      args.push(t1); args.push(t2); args.push(t3);
+
+      assert.equal(bt.list(args).toString(), "(list nil (list nil (list nil nil)))")
+    });
+    it(('Should print the literal expression of the BinTree : (cons nil (cons nil (cons nil (cons nil nil))))'), function(){
+      var t1 = new BinTree("nil", null, null);
+      var t2 = new BinTree("nil", null, null);
+      var t3 = new BinTree("nil", null, null);
+      var t4 = new BinTree("nil", null, null);
+      var t5 = new BinTree("nil", null, null);
+      var args = []; 
+      args.push(t1); args.push(t2); args.push(t3); args.push(t4); args.push(t5);
+
+      assert.equal(bt.cons(args).toString(), "(cons nil (cons nil (cons nil (cons nil nil))))");
     });
   });
 
