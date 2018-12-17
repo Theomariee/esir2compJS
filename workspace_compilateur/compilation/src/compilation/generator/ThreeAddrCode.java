@@ -49,6 +49,10 @@ public class ThreeAddrCode {
 			return addr1+" = whlib.eq("+addr2+","+addr3+");";
 		case "symb":
 			return addr1+" = whlib.symb(\'"+addr2+"\');";
+		case "while":
+			return "while(whlib.isTrue("+addr1+")){";
+		case "od":
+			return "}";
 		default :
 			return "whlib.nonImpl();";
 		}
