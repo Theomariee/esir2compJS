@@ -104,91 +104,95 @@
 				readOnly: 'nocursor'
 			});
 
-			$('#validateCompile').on('click', function(event){
-				$('#consoleOutput').empty();
-				jsEditor.setValue("");
-				jsEditor.clearHistory();
+			listenCompileClick();
 
-				var debugMode = true;
-				var codeWh = whileEditor.getValue();
+			function listenCompileClick() {
+				$('#validateCompile').on('click', function(event){
+					$('#consoleOutput').empty();
+					jsEditor.setValue("");
+					jsEditor.clearHistory();
 
-				$.ajax({
-					url: '/compile',
-					type: 'POST',
-					dataType: 'json',
-					data: {whilePrgm: codeWh, debugMode: debugMode},
-					success: (data) => {
-						$('#consoleOutput').html(data.jarPrints);
+					var debugMode = true;
+					var codeWh = whileEditor.getValue();
 
-						$.ajax({
-							url: '/output',
-							type: 'GET',
-							success: (data) => {
-								jsEditor.replaceSelection(data.compiledJS);
-								$('#execParams').removeClass('disabled');
-							}
-						});
+					$.ajax({
+						url: '/compile',
+						type: 'POST',
+						dataType: 'json',
+						data: {whilePrgm: codeWh, debugMode: debugMode},
+						success: (data) => {
+							$('#consoleOutput').html(data.jarPrints);
 
-						$.ajax({
-							url: '/parameters',
-							type: 'GET',
-							success: (data) => {
-								if(data.error){
-									$('#consoleOutput').append(data.error);
-								}else if(data.params){
-									generateInputAreas(data.params);
-									listenExecClick(jsEditor);
+							$.ajax({
+								url: '/output',
+								type: 'GET',
+								success: (data) => {
+									jsEditor.replaceSelection(data.compiledJS);
+									$('#execParams').removeClass('disabled');
 								}
-							}
-						});
-					}
-				});
-			});
-		};
+							});
 
-		//params should be array of the function parameters
-		function generateInputAreas(params) {
-			$('#paramInputs').html('');
-			for (var i = 0; i < params.length; i++) {
-				var current = params[i];
-				$('#paramInputs').append('<div class="col-md-12 my-2">\
-					<label for="'+ current +'">'+ current +'</label>\
-					<input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
-					</div>');
-			}
-			$('#exampleModal').modal('show'); 
-		}
-
-		function listenExecClick(jsEditor){
-			$("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
-			$('#execute').on('click', function(event){
-				var arrayValues = {};
-				$('input.parameter').each(function(index,data) {
-					arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
-				});
-				
-				$.ajax({
-					url: '/runCompiled',
-					type: 'POST',
-					dataType: 'json',
-					data: {
-						params: arrayValues
-					},
-					success: (data) => {
-						var outInt = data.outInt;
-						var outString = data.outString;
-						for(var i = 0; i < outInt.length; i++) {
-							$('#consoleOutput').append('\n------------------\n');
-							$('#consoleOutput').append('Résultat de l\'exécution :\n');
-							$('#consoleOutput').append('{\n');
-							$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
-							$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
-							$('#consoleOutput').append('}\n');
+							$.ajax({
+								url: '/parameters',
+								type: 'GET',
+								success: (data) => {
+									if(data.error){
+										$('#consoleOutput').append(data.error);
+									}else if(data.params){
+										generateInputAreas(data.params);
+										listenExecClick(jsEditor);
+									}
+								}
+							});
 						}
-					}
+					});
 				});
-			});
-		}
+			}
+
+			//params should be array of the function parameters
+			function generateInputAreas(params) {
+				$('#paramInputs').html('');
+				for (var i = 0; i < params.length; i++) {
+					var current = params[i];
+					$('#paramInputs').append('<div class="col-md-12 my-2">\
+						<label for="'+ current +'">'+ current +'</label>\
+						<input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
+						</div>');
+				}
+				$('#exampleModal').modal('show'); 
+			}
+
+			function listenExecClick(jsEditor){
+				$("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
+				$('#execute').on('click', function(event){
+					var arrayValues = {};
+					$('input.parameter').each(function(index,data) {
+						arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
+					});
+					
+					$.ajax({
+						url: '/runCompiled',
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							params: arrayValues
+						},
+						success: (data) => {
+							var outInt = data.outInt;
+							var outString = data.outString;
+							for(var i = 0; i < outInt.length; i++) {
+								$('#consoleOutput').append('\n------------------\n');
+								$('#consoleOutput').append('Résultat de l\'exécution :\n');
+								$('#consoleOutput').append('{\n');
+								$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
+								$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
+								$('#consoleOutput').append('}\n');
+							}
+						}
+					});
+				});
+			}
+		};
     </script>
 </body>
 </html>
