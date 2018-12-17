@@ -19,7 +19,7 @@ X := (X =? a)
 %	
 write X 
 
-function areEquals:
+function equals:
 read X, Y
 %
 X := (X =? Y)

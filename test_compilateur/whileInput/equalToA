@@ -1,6 +1,0 @@
-function equalToA:
-read X
-%
-X := (X =? a)
-%	
-write X 
