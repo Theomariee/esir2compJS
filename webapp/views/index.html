@@ -156,8 +156,7 @@
 	    }
 
 		function listenExecClick(jsEditor){
-		    // listen for click (put this in another function)
-        $("#execute").unbind('click');
+        $("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
 		   	$('#execute').on('click', function(event){
           console.log('hey');
 			    var arrayValues = {};
