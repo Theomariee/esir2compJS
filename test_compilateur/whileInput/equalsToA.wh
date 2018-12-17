@@ -1,0 +1,6 @@
+function equalsToA:
+read X
+%
+X := (X =? a)
+%	
+write X 

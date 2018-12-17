@@ -1,0 +1,6 @@
+function echange:
+read X, Y
+%
+X,Y := Y,X
+%	
+write X,Y

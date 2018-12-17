@@ -1,0 +1,6 @@
+function equals:
+read X, Y
+%
+X := (X =? Y)
+%	
+write X
