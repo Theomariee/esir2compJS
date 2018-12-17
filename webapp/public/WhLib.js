@@ -40,6 +40,10 @@ function not(addr2){
 	}
 }
 
+function isTrue(tree){
+	return bt.isTrue(tree);
+}
+
 function and(addr2,addr3){
     return bt.evaluate("AND",addr2,addr3);
 }
@@ -246,6 +250,7 @@ module.exports = {
     and:  and,
     or: or,
     eq: eq,
+    isTrue: isTrue,
     symb: symb,
     bintreeFromString: bintreeFromString,
     intFromBintree: intFromBintree,
