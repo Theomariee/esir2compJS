@@ -105,7 +105,6 @@
 			});
 
 			$('#validateCompile').on('click', function(event){
-			event.preventDefault();
 			var debugMode = true;
 			var codeWh = whileEditor.getValue();
 			$.ajax({
@@ -158,8 +157,9 @@
 
 		function listenExecClick(jsEditor){
 		    // listen for click (put this in another function)
+        $("#execute").unbind('click');
 		   	$('#execute').on('click', function(event){
-			    var jsCode = jsEditor.getValue();
+          console.log('hey');
 			    var arrayValues = {};
 			    $('input.parameter').each(function(index,data) {
 			        arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
@@ -170,7 +170,6 @@
 			        type: 'POST',
 			        dataType: 'json',
 			        data: {
-			          	code:  jsCode,
 			            params: arrayValues
 			        },
 			        success: (data) => {
@@ -188,6 +187,7 @@
 			            }
 			        }
 			    });
+
 		    });
 	  	}
     </script>
