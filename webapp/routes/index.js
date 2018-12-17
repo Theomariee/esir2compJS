@@ -81,7 +81,8 @@ router.get('/parameters', (req, res) => {
 });
 
 router.post('/runCompiled', (req, res) => {
-	// console.log(req.body);
+	console.log('body rq');
+	console.log(req.body);
 	// read compiled.js
 	if (fs.existsSync('temp/compiled.js')) {
 		fs.readFile("temp/compiled.js", 'utf-8', function (err, data) {

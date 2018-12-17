@@ -93,102 +93,102 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 	<script>
-    	window.onload = function () {
+		window.onload = function () {
 			var whileEditor = CodeMirror.fromTextArea($("#whileToCompile")[0], {
-			  lineNumbers: true,
-			  lineWrapping: true,
+				lineNumbers: true,
+				lineWrapping: true,
 			});
 			var jsEditor = CodeMirror.fromTextArea($("#jsCompiled")[0], {
-			  lineNumbers: true,
-			  lineWrapping: true,
-        readOnly: 'nocursor'
+				lineNumbers: true,
+				lineWrapping: true,
+				readOnly: 'nocursor'
 			});
 
 			$('#validateCompile').on('click', function(event){
-			var debugMode = true;
-			var codeWh = whileEditor.getValue();
-			$.ajax({
-			  url: '/compile',
-			  type: 'POST',
-			  dataType: 'json',
-			  data: {whilePrgm: codeWh, debugMode: debugMode},
-			  success: (data) => {
-			    $('#consoleOutput').html(data.jarPrints);
-			    $.ajax({
-			      url: '/output',
-			      type: 'GET',
-			      success: (data) => {
-			        console.log(data);
-			        jsEditor.setValue("");
-			        jsEditor.clearHistory();
-			        jsEditor.replaceSelection(data.compiledJS);
-			        $('#execParams').removeClass('disabled');
-			      }
-			    });
-			    $.ajax({
-			      url: '/parameters',
-			      type: 'GET',
-			      success: (data) => {
-			        if(data.error){
-			          $('#consoleOutput').append(data.error);
-			        }else if(data.params){
-			          generateInputAreas(data.params);
-			          listenExecClick(jsEditor);
-			        }
-			      }
-			    });
-			  }
-			});
+				$('#consoleOutput').empty();
+				jsEditor.setValue("");
+				jsEditor.clearHistory();
+
+				var debugMode = true;
+				var codeWh = whileEditor.getValue();
+
+				$.ajax({
+					url: '/compile',
+					type: 'POST',
+					dataType: 'json',
+					data: {whilePrgm: codeWh, debugMode: debugMode},
+					success: (data) => {
+						$('#consoleOutput').html(data.jarPrints);
+
+						$.ajax({
+							url: '/output',
+							type: 'GET',
+							success: (data) => {
+								jsEditor.replaceSelection(data.compiledJS);
+								$('#execParams').removeClass('disabled');
+							}
+						});
+
+						$.ajax({
+							url: '/parameters',
+							type: 'GET',
+							success: (data) => {
+								if(data.error){
+									$('#consoleOutput').append(data.error);
+								}else if(data.params){
+									generateInputAreas(data.params);
+									listenExecClick(jsEditor);
+								}
+							}
+						});
+					}
+				});
 			});
 		};
 
-	    //params should be array of the function parameters
-	    function generateInputAreas(params) {
-	      	$('#paramInputs').html('');
-	      	for (var i = 0; i < params.length; i++) {
-	        	var current = params[i];
-	        	$('#paramInputs').append('<div class="col-md-12 my-2">\
-	                                  <label for="'+ current +'">'+ current +'</label>\
-	                                  <input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
-	                                  </div>');
-	      	}
-		$('#exampleModal').modal('show'); 
-	    }
+		//params should be array of the function parameters
+		function generateInputAreas(params) {
+			$('#paramInputs').html('');
+			for (var i = 0; i < params.length; i++) {
+				var current = params[i];
+				$('#paramInputs').append('<div class="col-md-12 my-2">\
+					<label for="'+ current +'">'+ current +'</label>\
+					<input id="'+ current +'" name="'+ current +'" class="form-control parameter" type="text" placeholder="Valeur pour '+ current +'">\
+					</div>');
+			}
+			$('#exampleModal').modal('show'); 
+		}
 
 		function listenExecClick(jsEditor){
-        $("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
-		   	$('#execute').on('click', function(event){
-          console.log('hey');
-			    var arrayValues = {};
-			    $('input.parameter').each(function(index,data) {
-			        arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
-			    });
-			    console.log(arrayValues);
-			    $.ajax({
-			        url: '/runCompiled',
-			        type: 'POST',
-			        dataType: 'json',
-			        data: {
-			            params: arrayValues
-			        },
-			        success: (data) => {
-			            console.log(data);
-			            //$('#execOutput').empty();
-			            var outInt = data.outInt;
-			            var outString = data.outString;
-			            for(var i = 0; i < outInt.length; i++) {
-			            	$('#consoleOutput').append('\n------------------\n');
-			            	$('#consoleOutput').append('Résultat de l\'exécution :\n');
-			              	$('#consoleOutput').append('{\n');
-			              	$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
-			              	$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
-			              	$('#consoleOutput').append('}\n');
-			            }
-			        }
-			    });
-
-		    });
-	  	}
+			$("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
+			$('#execute').on('click', function(event){
+				var arrayValues = {};
+				$('input.parameter').each(function(index,data) {
+					arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
+				});
+				
+				$.ajax({
+					url: '/runCompiled',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						params: arrayValues
+					},
+					success: (data) => {
+						var outInt = data.outInt;
+						var outString = data.outString;
+						for(var i = 0; i < outInt.length; i++) {
+							$('#consoleOutput').append('\n------------------\n');
+							$('#consoleOutput').append('Résultat de l\'exécution :\n');
+							$('#consoleOutput').append('{\n');
+							$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
+							$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
+							$('#consoleOutput').append('}\n');
+						}
+					}
+				});
+			});
+		}
     </script>
 </body>
 </html>
