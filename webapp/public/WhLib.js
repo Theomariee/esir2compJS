@@ -250,6 +250,7 @@ module.exports = {
     and:  and,
     or: or,
     eq: eq,
+    isTrue: istrue,
     symb: symb,
     bintreeFromString: bintreeFromString,
     intFromBintree: intFromBintree,
