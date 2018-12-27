@@ -95,7 +95,7 @@ function head(tree) {
     if(tree.getLeft() != null){
         return tree.getLeft()
     }
-    return new BinTree("nil",null,null);
+    return new BinTree("nil",null,null)
 };
 /**
  * @param {*} tree : BinTree object.
@@ -105,7 +105,7 @@ function tail(tree) {
     if(tree.getRight() != null){
         return tree.getRight()
     }
-    return new BinTree("nil",null,null);
+    return new BinTree("nil",null,null)
 };
 
 /**
