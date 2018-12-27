@@ -70,7 +70,7 @@ public class Main {
 			CommandLine cmd = parser.parse(options, args);
 			/* Etape 3: Récupération et traitement des résultat. */
 			if (cmd.hasOption("help")) {
-				System.out.println("NAME\n\twhpc - Compile a WHILE program\n");
+				System.out.println("NAME\n\twhc - Compile a WHILE program\n");
 				System.out.println("SYNOPSIS\n\twhc file [options]\n");
 				System.out.println("DESCRIPTION\n\tCompile a source file written in WHILE language into a executable JSavaScript code.\n"
 						+ "\tThe output is redirected to the standard output or to a file by using the -o option.\n");

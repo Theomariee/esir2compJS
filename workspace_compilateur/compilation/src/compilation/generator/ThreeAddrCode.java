@@ -1,10 +1,15 @@
 package compilation.generator;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ThreeAddrCode {
 	String op;
 	String addr1;
 	String addr2;
 	String addr3;
+	
+	List<ThreeAddrCode> alors, sinon;
 	
 	public ThreeAddrCode(String op, String addr1, String addr2, String addr3) {
 		super();
@@ -12,11 +17,29 @@ public class ThreeAddrCode {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 		this.addr3 = addr3;
+		
+		this.alors = null;
+		this.sinon = null;
+		
+		switch(this.op) {
+		case "while" : 
+		case "foreach" :
+		case "for" :
+			alors = new LinkedList<ThreeAddrCode>();
+			break;
+		case "if":
+			alors = new LinkedList<ThreeAddrCode>();
+			sinon = new LinkedList<ThreeAddrCode>();
+			break;
+		default :
+			break;
+		}
 	}
 
 	@Override
 	public String toString() {
-		return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
+		//return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
+		return "<" + op + ", " + addr1 + ", " + ((alors==null)?addr2:alors.toString()) + ", " + ((sinon==null)?addr3:sinon.toString())+ ">";
 	}
 	public String compile() {
 		switch(this.op) {
@@ -50,12 +73,25 @@ public class ThreeAddrCode {
 		case "symb":
 			return addr1+" = whlib.symb(\'"+addr2+"\');";
 		case "while":
-			return "while(whlib.isTrue("+addr1+")){";
-		case "od":
-			return "}";
+			String res = "";
+			for(ThreeAddrCode threeAddrCode : alors)
+				res += threeAddrCode.compile()+"\n";
+			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
+		//case "foreach":
+		//case "for":
+		//case "if":
 		default :
 			return "whlib.nonImpl();";
 		}
 	}
+
+	public List<ThreeAddrCode> getAlors() {
+		return alors;
+	}
+
+	public List<ThreeAddrCode> getSinon() {
+		return sinon;
+	}
+
 	
 }

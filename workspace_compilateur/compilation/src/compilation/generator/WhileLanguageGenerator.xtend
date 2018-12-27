@@ -78,10 +78,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","whileVar",null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","out",null,null))
-		//Fait au premier passage
-		//f.definition.read.compile
+		
 		f.definition.commands.compile
 		f.definition.write.compile
+		
 		//postlude
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("ret","out",null,null))
 		if(code){
@@ -124,7 +124,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(While w){
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("while",w.expr.compile,null,null))
 		w.commands.compile
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("od",null,null,null))
+		w.expr.compile
+		functionTable.popFromInstructionList(currentName)
 	}
 	
 
@@ -206,6 +207,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		
 		else if(e.ope.equals("cons")) {
 			var name = registresExpr.push;
+			functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",name,e.lexpr.exprs.reverseView.remove(0).compile,null))
 			for(expr : e.lexpr.exprs.reverseView){
 				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("cons",name,expr.compile,name))
 			}

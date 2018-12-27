@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class FunctionTable {
 
@@ -17,7 +18,7 @@ public class FunctionTable {
 	 * Repertoire de fonctions representee par une liste de structures
 	 * FunctionDescriptor
 	 */
-	private Map<String, FunctionDescriptor> functionDirectory;
+	private Map<String, FunctionDescriptor> functionDirectory;	
 
 	/** Constructeur privé */
 	private FunctionTable() {
@@ -108,5 +109,12 @@ public class FunctionTable {
 			return currentFd.getVariables().containsKey(variable);
 		}
 		return false;
+	}
+
+	public void popFromInstructionList(String functionName) {
+		FunctionDescriptor currentFd = this.functionDirectory.get(functionName);
+		if (currentFd != null) {
+			currentFd.getInstructionList().pop();
+		}
 	}
 }
