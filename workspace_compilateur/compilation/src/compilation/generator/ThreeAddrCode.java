@@ -42,6 +42,7 @@ public class ThreeAddrCode {
 		return "<" + op + ", " + addr1 + ", " + ((alors==null)?addr2:alors.toString()) + ", " + ((sinon==null)?addr3:sinon.toString())+ ">";
 	}
 	public String compile() {
+		String res = "";
 		switch(this.op) {
 		case "nop" :
 			return "whlib.nop();";
@@ -73,13 +74,22 @@ public class ThreeAddrCode {
 		case "symb":
 			return addr1+" = whlib.symb(\'"+addr2+"\');";
 		case "while":
-			String res = "";
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
 			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
 		//case "foreach":
 		//case "for":
-		//case "if":
+		case "if":
+			for(ThreeAddrCode threeAddrCode : alors)
+				res += threeAddrCode.compile()+"\n";
+			res = "if (whlib.isTrue("+addr1+")){\n"+res+"}";
+			if(!sinon.isEmpty()) {
+				res+="\nelse{\n";
+				for(ThreeAddrCode threeAddrCode : alors)
+					res += threeAddrCode.compile()+"\n";
+				res+="}";
+			}
+			return res;
 		default :
 			return "whlib.nonImpl();";
 		}

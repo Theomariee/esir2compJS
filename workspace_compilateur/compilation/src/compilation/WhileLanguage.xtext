@@ -53,7 +53,7 @@ Command:
 ;
 
 Foreach:
-	('foreach' expr1=Expr 'in' expr2=Expr 'do' commands=Commands 'od')
+	('foreach' var=VARIABLE 'in' expr2=Expr 'do' commands=Commands 'od')
 ;
 
 If:
