@@ -122,9 +122,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("nop",null,null,null))
 	}
 	def compile(While w){
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("while",w.expr.compile,null,null))
+		var name = w.expr.compile
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("while",name,null,null))
 		w.commands.compile
-		w.expr.compile
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",name,w.expr.compile,null))
 		functionTable.popFromInstructionList(currentName)
 	}
 	
