@@ -170,11 +170,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	def compile(For f) {
 		var name = f.expr.compile
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("btoi",registresLoop.push,name,null))
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("for",registresLoop.push,null,registresI.push))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("for",registresLoop.pop,null,registresI.push))
 		f.commands.compile
 		
 		functionTable.popFromInstructionList(currentName)
-		registresLoop.pop()
 		registresI.pop()
 	}
 
