@@ -24,10 +24,12 @@ public class FunctionDescriptor {
 	}
 
 	public void addInstruction(ThreeAddrCode instruction) {
-		if (instructionList.isEmpty())
+		if (instructionList.isEmpty()) {
 			this.instructions.add(instruction);
-		else
+		}
+		else {
 			this.instructionList.peek().add(instruction);
+		}
 		if (instruction.getSinon() != null)
 			this.instructionList.push(instruction.getSinon());
 		if (instruction.getAlors() != null)
