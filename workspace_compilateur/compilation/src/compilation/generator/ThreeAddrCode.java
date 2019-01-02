@@ -73,6 +73,8 @@ public class ThreeAddrCode {
 			return addr1+" = whlib.eq("+addr2+","+addr3+");";
 		case "symb":
 			return addr1+" = whlib.symb(\'"+addr2+"\');";
+		case "btoi":
+			return addr1+" = whlib.bintreeToInt("+addr2+");";
 		case "while":
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
