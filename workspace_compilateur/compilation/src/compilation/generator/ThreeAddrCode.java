@@ -78,7 +78,10 @@ public class ThreeAddrCode {
 				res += threeAddrCode.compile()+"\n";
 			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
 		//case "foreach":
-		//case "for":
+		case "for":
+			for(ThreeAddrCode threeAddrCode : alors)
+				res += threeAddrCode.compile()+"\n";
+			return "for ("+addr3+" = 0; "+addr3+" < "+addr1+"; "+addr3+"++){\n"+res+"}";
 		case "if":
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";

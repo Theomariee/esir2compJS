@@ -34,6 +34,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	boolean code = false;
 	RegisterList registresAff = new RegisterList("aff");
 	RegisterStack registresExpr = new RegisterStack("expr");
+	RegisterStack registresI = new RegisterStack("i");
+	RegisterStack registresLoop = new RegisterStack("loop");
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 	
@@ -76,6 +78,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		//prélude
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresAff.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresExpr.getPrefixe(),null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresI.getPrefixe(),null,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array",registresLoop.getPrefixe(),null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","whileVar",null,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array","out",null,null))
 		
@@ -164,7 +168,14 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 
 	def compile(For f) {
+		var name = f.expr.compile
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("btoi",registresLoop.push,name,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("for",registresLoop.push,null,registresI.push))
+		f.commands.compile
 		
+		functionTable.popFromInstructionList(currentName)
+		registresLoop.pop()
+		registresI.pop()
 	}
 
 	def compile(Foreach f) {
