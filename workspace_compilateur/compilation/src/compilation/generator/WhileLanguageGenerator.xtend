@@ -172,7 +172,6 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("btoi",registresLoop.push,name,null))
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("for",registresLoop.pop,null,registresI.push))
 		f.commands.compile
-		
 		functionTable.popFromInstructionList(currentName)
 		registresI.pop()
 	}
