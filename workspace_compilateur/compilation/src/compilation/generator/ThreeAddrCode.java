@@ -85,7 +85,7 @@ public class ThreeAddrCode {
 			res = "if (whlib.isTrue("+addr1+")){\n"+res+"}";
 			if(!sinon.isEmpty()) {
 				res+="\nelse{\n";
-				for(ThreeAddrCode threeAddrCode : alors)
+				for(ThreeAddrCode threeAddrCode : sinon)
 					res += threeAddrCode.compile()+"\n";
 				res+="}";
 			}
