@@ -79,7 +79,12 @@ public class ThreeAddrCode {
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
 			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
-		//case "foreach":
+		case "foreach":
+			res+=addr3+" = whlib.hd("+addr1+")\n";
+			for(ThreeAddrCode threeAddrCode : alors)
+				res += threeAddrCode.compile()+"\n";
+			res+=addr1+" = whlib.tl("+addr1+")\n";
+			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
 		case "for":
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";

@@ -177,7 +177,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 	}
 
 	def compile(Foreach f) {
-	
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("foreach",f.expr.compile,null,registresExpr.push))
+		f.commands.compile
+		functionTable.popFromInstructionList(currentName)
+		registresExpr.pop
 	}
 	def compile(Write w) {	
 		for(v:w.variable){

@@ -39,7 +39,7 @@
     </genClasses>
     <genClasses ecoreClass="WhileLanguage.ecore#//Foreach">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute WhileLanguage.ecore#//Foreach/var"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference WhileLanguage.ecore#//Foreach/expr2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference WhileLanguage.ecore#//Foreach/expr"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference WhileLanguage.ecore#//Foreach/commands"/>
     </genClasses>
     <genClasses ecoreClass="WhileLanguage.ecore#//If">
