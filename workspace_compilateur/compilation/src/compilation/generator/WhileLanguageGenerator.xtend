@@ -180,7 +180,8 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		if(!functionTable.varExists(currentName,f.variable)){
 			functionTable.addVariable(currentName,f.variable)
 		}
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("foreach",f.expr.compile,null,functionTable.getVariable(currentName,f.variable)))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff",registresExpr.push,f.expr.compile,null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("foreach",registresExpr.pop,null,functionTable.getVariable(currentName,f.variable)))
 		f.commands.compile
 		functionTable.popFromInstructionList(currentName)
 	}
