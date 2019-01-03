@@ -39,3 +39,12 @@ read X, Y
 Z := (not(Y or X))
 %	
 write Z
+
+function main:
+read X
+%
+for X do
+  Y:= (cons nil Y)
+od
+%
+write Y

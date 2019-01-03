@@ -178,12 +178,11 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(Foreach f) {
 		if(!functionTable.varExists(currentName,f.variable)){
-		functionTable.addVariable(currentName,f.variable)
+			functionTable.addVariable(currentName,f.variable)
 		}
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("foreach",f.expr.compile,null,functionTable.getVariable(currentName,f.variable)))
 		f.commands.compile
 		functionTable.popFromInstructionList(currentName)
-		registresExpr.pop
 	}
 	def compile(Write w) {	
 		for(v:w.variable){
