@@ -92,7 +92,7 @@ console.log(bt.toString());*/
  * @returns the head of tree. If its left son equals to null, will return nil.
  */
 function head(tree) {
-    if(tree.getLeft() != null){
+    if(tree != null && tree.getLeft() != null){
         return tree.getLeft()
     }
     return new BinTree("nil",null,null)
@@ -102,7 +102,7 @@ function head(tree) {
  * @returns the tail of tree. If its right son equals to null, will return nil.
  */
 function tail(tree) {
-    if(tree.getRight() != null){
+    if(tree != null && tree.getRight() != null){
         return tree.getRight()
     }
     return new BinTree("nil",null,null)
