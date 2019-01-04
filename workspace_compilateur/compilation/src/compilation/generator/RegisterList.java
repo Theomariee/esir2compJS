@@ -27,6 +27,6 @@ public class RegisterList {
 		return prefixe;
 	}
 	public boolean isEmpty() {
-		return this.isEmpty();
+		return this.registres.isEmpty();
 	}
 }
