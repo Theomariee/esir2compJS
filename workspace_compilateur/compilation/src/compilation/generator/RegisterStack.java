@@ -26,4 +26,7 @@ public class RegisterStack {
 	public String getPrefixe() {
 		return prefixe;
 	}
+	public boolean isEmpty() {
+		return this.isEmpty();
+	}
 }

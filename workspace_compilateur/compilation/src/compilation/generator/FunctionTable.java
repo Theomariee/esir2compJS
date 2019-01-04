@@ -117,4 +117,7 @@ public class FunctionTable {
 			currentFd.getInstructionList().pop();
 		}
 	}
+	public boolean functionExists(String functionName) {
+		return functionDirectory.containsKey(functionName);
+	}
 }
