@@ -187,12 +187,14 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			// r = cons nil ?
 			if (registresAff.isEmpty()) {
 				errorList.add("too many values at the left side of the affectation")
+				return
 			}
 			functionTable.addThreeAddrInstruction(currentName,
 				new ThreeAddrCode("aff", functionTable.getVariable(currentName, v), registresAff.pop(), null))
 		}
 		if (!registresAff.isEmpty()) {
 			errorList.add("too many values at the right side of the affectation")
+			return
 		}
 	}
 
