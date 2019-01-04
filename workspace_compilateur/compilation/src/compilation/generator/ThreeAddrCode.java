@@ -78,7 +78,7 @@ public class ThreeAddrCode {
 		case "btoi":
 			return addr1+" = whlib.intFromBintree("+addr2+");";
 		case "call":
-			return addr3+" = "+addr1+".apply("+addr2+");";
+			return addr3+" = "+addr1+".apply(null, "+addr2+");";
 		case "pop" :
 			return addr1+" = "+addr2+".shift();";
 		case "while":
