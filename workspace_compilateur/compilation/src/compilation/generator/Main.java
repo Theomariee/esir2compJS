@@ -138,6 +138,6 @@ public class Main {
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		generator.doGenerate(resource, fileAccess, context, output, code);
 
-		System.out.print("compilation done");
+		System.out.println("compilation done");
 	}
 }

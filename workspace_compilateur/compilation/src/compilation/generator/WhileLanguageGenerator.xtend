@@ -54,10 +54,20 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		for (e : resource.allContents.toIterable.filter(typeof(Program))) {
 			e.compile
 			if (!errorList.isEmpty) {
+				System.err.println("Compilation errors :");
 				for (String issue : errorList) {
 					System.err.println(issue);
 				}
 				return;
+			}
+			if (code) {
+				for (f : functionTable.getFunctions) {
+					println("Code 3 adresses de " + f + " :")
+					for (instruction : functionTable.getInstructions(f)) {
+						println(instruction.toString())
+					}
+					println("------------------")
+				}
 			}
 			if (output.equals("")) {
 				println(compileToJs)
@@ -104,13 +114,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		f.definition.write.compile
 		// postlude
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("ret", "out", null, null))
-		if (code) {
-			println("Code 3 adresses de " + currentName + " :")
-			for (instruction : functionTable.getInstructions(currentName)) {
-				println(instruction.toString())
-			}
-			println("------------------")
-		}
+
 	}
 
 	def compile(Read r) {
@@ -181,13 +185,13 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		}
 		for (v : a.affectations) {
 			// r = cons nil ?
-			if(registresAff.isEmpty()){
+			if (registresAff.isEmpty()) {
 				errorList.add("too many values at the left side of the affectation")
 			}
 			functionTable.addThreeAddrInstruction(currentName,
 				new ThreeAddrCode("aff", functionTable.getVariable(currentName, v), registresAff.pop(), null))
 		}
-		if(!registresAff.isEmpty()){
+		if (!registresAff.isEmpty()) {
 			errorList.add("too many values at the right side of the affectation")
 		}
 	}
@@ -303,7 +307,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				}
 				functionTable.addThreeAddrInstruction(currentName,
 					new ThreeAddrCode("call", e.ope, registresArgs.pop, registresExpr.pop))
-				//cas affectation (sauf le dernier)
+				// cas affectation (sauf le dernier)
 				if (functionTable.getOutput(e.ope) > 1) {
 					var i = 0
 					for (i = 0; i < functionTable.getOutput(e.ope) - 1; i++) {
@@ -315,7 +319,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 							new ThreeAddrCode("aff", registresAff.push, registresExpr.pop, null))
 					}
 				}
-				//le dernier
+				// le dernier
 				functionTable.addThreeAddrInstruction(currentName,
 					new ThreeAddrCode("pop", registresExpr.push, name, null))
 				return registresExpr.pop;
