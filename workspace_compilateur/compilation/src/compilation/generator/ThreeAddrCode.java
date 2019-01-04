@@ -52,6 +52,8 @@ public class ThreeAddrCode {
 			return addr1+".push("+addr2+");";
 		case "array":
 			return "var "+addr1+" = [];";
+		case "subarray":
+			return addr1+" = [];";
 		case "aff":
 			return addr1+" = "+addr2+";";
 		case "nil":

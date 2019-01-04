@@ -302,7 +302,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			if ((e.eContainer instanceof Affectation) || functionTable.getOutput(e.ope) == 1) {
 				var name = registresExpr.push;
 				var args = registresArgs.push
-				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("array", args, null, null))
+				functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("subarray", args, null, null))
 				for (expr : e.lexpr.exprs) {
 					functionTable.addThreeAddrInstruction(currentName,
 						new ThreeAddrCode("push", args, expr.compile, null))
