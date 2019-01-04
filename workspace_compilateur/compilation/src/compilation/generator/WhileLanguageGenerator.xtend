@@ -186,14 +186,16 @@ class WhileLanguageGenerator extends AbstractGenerator {
 		for (v : a.affectations) {
 			// r = cons nil ?
 			if (registresAff.isEmpty()) {
-				errorList.add("too many values at the left side of the affectation")
+				errorList.add("[ERROR]Too many values at the left side of the affectation")
 				return
 			}
 			functionTable.addThreeAddrInstruction(currentName,
 				new ThreeAddrCode("aff", functionTable.getVariable(currentName, v), registresAff.pop(), null))
 		}
 		if (!registresAff.isEmpty()) {
-			errorList.add("too many values at the right side of the affectation")
+			errorList.add("[ERROR]Too many values at the right side of the affectation")
+			while(!registresAff.isEmpty())
+			registresAff.pop
 			return
 		}
 	}
@@ -309,7 +311,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 				}
 				functionTable.addThreeAddrInstruction(currentName,
 					new ThreeAddrCode("call", e.ope, registresArgs.pop, registresExpr.pop))
-				// cas affectation (sauf le dernier)
+				// le premier
+				functionTable.addThreeAddrInstruction(currentName,
+					new ThreeAddrCode("pop", registresExpr.push, name, null))
+				// cas affectation (sauf le premier)
 				if (functionTable.getOutput(e.ope) > 1) {
 					var i = 0
 					for (i = 0; i < functionTable.getOutput(e.ope) - 1; i++) {
@@ -321,9 +326,7 @@ class WhileLanguageGenerator extends AbstractGenerator {
 							new ThreeAddrCode("aff", registresAff.push, registresExpr.pop, null))
 					}
 				}
-				// le dernier
-				functionTable.addThreeAddrInstruction(currentName,
-					new ThreeAddrCode("pop", registresExpr.push, name, null))
+				
 				return registresExpr.pop;
 
 			} else {
