@@ -1,5 +1,5 @@
 function inc:
-read X	
+read X
 %
 X := (cons nil X)
 %	
