@@ -239,7 +239,6 @@ module.exports = {
     nop: nop,
     nil: nil,
     cons: cons,
-    list: list,
     hd: hd,
     tl: tl,
     not: not,
