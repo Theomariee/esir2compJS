@@ -13,14 +13,10 @@ function cons(addr2,addr3){
 	if(addr3 != null){
 		args.push(addr3); //clone the addr3
 	}
+	else {
+		args.push(nil());
+	}
     return bt.cons(args); //return the new bintree
-}
-
-function list(addr2,addr3){
-    var args=[];
-    args.push(Object.assign(Object.create(Object.getPrototypeOf(addr2)),addr2)); //clone the addr2
-    args.push(Object.assign(Object.create(Object.getPrototypeOf(addr3)),addr3)); //clone the addr3
-    return bt.list(args); //return the new bintree
 }
 
 function hd(addr2){
