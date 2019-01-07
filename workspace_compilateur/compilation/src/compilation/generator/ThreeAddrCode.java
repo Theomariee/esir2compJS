@@ -39,7 +39,7 @@ public class ThreeAddrCode {
 	@Override
 	public String toString() {
 		//return "<" + op + ", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
-		return "<" + op + ", " + addr1 + ", " + ((alors==null)?addr2:alors.toString()) + ", " + ((sinon==null)?addr3:sinon.toString())+ ">";
+		return "<" + op+" " +((alors!=null)?alors.toString():"")+((sinon!=null)?" ELSE "+sinon.toString():"")+", " + addr1 + ", " + addr2 + ", " + addr3+ ">";
 	}
 	public String compile() {
 		String res = "";
@@ -84,21 +84,22 @@ public class ThreeAddrCode {
 		case "while":
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
-			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
+			return "while(whlib.isTrue("+addr2+")){\n"+res+"}";
 		case "foreach":
 			res+=addr3+" = whlib.hd("+addr1+")\n";
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
 			res+=addr1+" = whlib.tl("+addr1+")\n";
-			return "while(whlib.isTrue("+addr1+")){\n"+res+"}";
+			return addr1+" = "+addr2+";\nwhile(whlib.isTrue("+addr1+")){\n"+res+"}";
 		case "for":
+			res+= addr1+" = whlib.intFromBintree("+addr2+");\n";
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
-			return "for ("+addr3+" = 0; "+addr3+" < "+addr1+"; "+addr3+"++){\n"+res+"}";
+			return addr1+" = whlib.intFromBintree("+addr2+");\nfor ("+addr3+" = 0; "+addr3+" < "+addr1+"; "+addr3+"++){\n"+res+"}";
 		case "if":
 			for(ThreeAddrCode threeAddrCode : alors)
 				res += threeAddrCode.compile()+"\n";
-			res = "if (whlib.isTrue("+addr1+")){\n"+res+"}";
+			res = "if (whlib.isTrue("+addr2+")){\n"+res+"}";
 			if(!sinon.isEmpty()) {
 				res+="\nelse{\n";
 				for(ThreeAddrCode threeAddrCode : sinon)

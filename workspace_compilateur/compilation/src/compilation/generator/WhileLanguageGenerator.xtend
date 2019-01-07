@@ -151,14 +151,14 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(While w) {
 		var name = w.expr.compile
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("while", name, null, null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("while", null, name, null))
 		w.commands.compile
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("aff", name, w.expr.compile, null))
 		functionTable.popFromInstructionList(currentName)
 	}
 
 	def compile(If i) {
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("if", i.expr.compile, null, null))
+		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("if", null, i.expr.compile, null))
 		println("if")
 		if (i.commands2 !== null) {
 			i.commands2.compile
@@ -202,12 +202,12 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(For f) {
 		var name = f.expr.compile
-		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("btoi", registresLoop.push, name, null))
 		functionTable.addThreeAddrInstruction(currentName,
-			new ThreeAddrCode("for", registresLoop.pop, null, registresI.push))
+			new ThreeAddrCode("for", registresLoop.push, name, registresI.push))
 		f.commands.compile
 		functionTable.popFromInstructionList(currentName)
 		registresI.pop()
+		registresLoop.pop
 	}
 
 	def compile(Foreach f) {
@@ -215,11 +215,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 			functionTable.addVariable(currentName, f.variable)
 		}
 		functionTable.addThreeAddrInstruction(currentName,
-			new ThreeAddrCode("aff", registresExpr.push, f.expr.compile, null))
-		functionTable.addThreeAddrInstruction(currentName,
-			new ThreeAddrCode("foreach", registresExpr.pop, null, functionTable.getVariable(currentName, f.variable)))
+			new ThreeAddrCode("foreach", registresExpr.push, f.expr.compile, functionTable.getVariable(currentName, f.variable)))
 		f.commands.compile
 		functionTable.popFromInstructionList(currentName)
+		registresExpr.pop
 	}
 
 	def compile(Write w) {
