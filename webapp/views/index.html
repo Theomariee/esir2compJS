@@ -104,6 +104,11 @@
 				readOnly: 'nocursor'
 			});
 
+			// quick fix pour empêcher le submit des paramètres avec enter
+			$( "form" ).submit(function( event ) {
+				event.preventDefault();
+			});
+
 			listenCompileClick();
 
 			function listenCompileClick() {
