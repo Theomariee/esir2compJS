@@ -224,6 +224,10 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(Write w) {
 		for (v : w.variable) {
+			if(!functionTable.varExists(currentName, v)){
+				functionTable.addThreeAddrInstruction(currentName,
+				new ThreeAddrCode("nil", functionTable.getVariable(currentName, v), null, null))
+			}
 			functionTable.addThreeAddrInstruction(currentName,
 				new ThreeAddrCode("push", "out", functionTable.getVariable(currentName, v), null))
 		}
