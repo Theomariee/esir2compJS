@@ -1,0 +1,14 @@
+function inc:
+read X	
+%
+X := (cons nil X)
+%	
+write X
+
+function incCalled:
+read X,Y
+%
+X := (inc X);
+Y := (inc Y)
+%
+write X,Y
