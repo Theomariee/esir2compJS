@@ -385,13 +385,229 @@ describe('WHC Test Session', function() {
 
     describe('testing control structures', function() {
         describe('testing while loops', function() {
+            describe('...calling the while testing while loop decrementation program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "whileTestDec";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('whileTestDec 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),1);
+                });
 
+                it('whileTestDec 5 should return 5', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(5);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),5);
+                });     
+        
+                it('whileTestDec 100 should return 100', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(100);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),100);
+                });
+            });
         });
         describe('testing for loops', function() {
+            describe('...calling the while forTestInc program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "forTestInc";
 
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+                it('forTestInc 0 should return 0', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 0);
+                });
+
+                it('forTestInc 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 1);
+                });
+                it('forTestInc 10 should return 10', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 10);
+                });
+                it('forTestInc 300 should return 300', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(300);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 300);
+                });
+            });
+
+            describe('...calling the while forTestDec program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "forTestDec";
+    
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+                    
+                it('forTestDec 0 should return 0', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+    
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 0);
+                });
+                it('forTestDec 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+    
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 1);
+                });
+                it('forTestDec 10 should return 10', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+    
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 10);
+                });
+                it('forTestDec 1000 should return 1000', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1000);
+    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+    
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 1000);
+                });
+            });
         });
+        
+       
         describe('testing foreach loops', function() {
+            describe('...calling the while testing foreach loop incrementation program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "foreachTestInc";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('foreachTestInc 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.isTrue(bt.evaluateEQ(res[1],whlib.bintreeFromString(1)));
+                });
 
+                it('foreachTestInc 5 should return 5', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(5);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.isTrue(bt.evaluateEQ(res[1],whlib.bintreeFromString(5)));
+                });
+            });
         });
         describe('testing imbricated control structures within function calls', function() {
 

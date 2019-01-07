@@ -1,0 +1,9 @@
+function foreachTestInc:
+read X
+%
+Y:=nil;
+foreach Z in X do
+    Y := (cons Z Y)
+od
+%	
+write X,Y

@@ -1,0 +1,9 @@
+function whileTestInfinite:
+read X
+%
+Y:=nil;
+while X do
+    Y := (cons nil Y)
+od
+%	
+write X,Y

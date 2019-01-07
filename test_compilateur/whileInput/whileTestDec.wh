@@ -1,0 +1,10 @@
+function whileTestDec:
+read X
+%
+Y:=nil;
+while X do
+    Y := (cons nil Y);
+    X := (tl X)
+od
+%	
+write X,Y
