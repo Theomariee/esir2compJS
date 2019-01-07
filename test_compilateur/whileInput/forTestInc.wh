@@ -1,0 +1,9 @@
+function forTestInc :
+read X
+%
+    Y := nil;
+    for X do
+        Y := (cons nil Y)
+    od
+%
+write X, Y

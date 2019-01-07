@@ -1,0 +1,11 @@
+function forTestDec :
+read X
+%
+    Y := nil;
+    Z := X;
+    for X do
+        Y := (cons nil Y);
+        X := (tl X)
+    od
+%
+write Z, Y 
