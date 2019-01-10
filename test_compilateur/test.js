@@ -225,12 +225,9 @@ describe('WHC Test Session', function() {
                 assert.equal(whlib.intFromBintree(res[1]),0);
             });
         });
-    });
-
-    describe('testing comparisons', function() {
-        describe('...while equals program', function() {
+        describe('...while list program', function() {
             var testFunction, args, valueArgs;
-            var functionName = "equals";
+            var functionName = "listing";
     
             beforeEach(function() {
                 testFunction = require("./javascriptOutput/"+functionName+".txt");
@@ -238,40 +235,9 @@ describe('WHC Test Session', function() {
                 valueArgs = [];
             });
     
-            it('equals 1,2 should return false, a nil bintree', function() {
+            it('listing should return a list similar to a cons', function() {
                 //push each argument that you want to pass to the function
-                valueArgs.push(1);
                 valueArgs.push(2);
-                
-                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
-                
-                //console.log(testFunction);
-                eval(testFunction);
-                //console.log(res);
-    
-                //assert each result
-                assert.equal(whlib.intFromBintree(res[0]),0);
-            });
-    
-            it('equals 0,0 should return true, a cons bintree', function() {
-                //push each argument that you want to pass to the function
-                valueArgs.push(0);
-                valueArgs.push(0);
-                
-                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
-                
-                //console.log(testFunction);
-                eval(testFunction);
-                //console.log(res);
-    
-                //assert each result
-                assert.equal(whlib.intFromBintree(res[0]),1);
-            });
-    
-            it('equals 10,10 should return true, a cons bintree', function() {
-                //push each argument that you want to pass to the function
-                valueArgs.push(10);
-                valueArgs.push(10);
                 
                 testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
                 
@@ -283,57 +249,271 @@ describe('WHC Test Session', function() {
                 assert.equal(whlib.intFromBintree(res[0]),1);
             });
         });
+    });
     
-        describe('...while equalsToA program', function() {
-            var testFunction, args, valueArgs;
-            var functionName = "equalsToA";
-    
-            beforeEach(function() {
-                testFunction = require("./javascriptOutput/"+functionName+".txt");
-                args = require("./temp/"+functionName+".txt").split(",");
-                valueArgs = [];
+    describe('testing conditions', function() {
+        describe('testing or and not', function() {
+            describe('...while or program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "or";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('or 1,2 should return true', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(2);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+        
+                it('or 0,0 should return false', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
+                it('or 0,1 should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+                
+                it('or 1,0 should return true', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+
+                
+                it('or 1,1 should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+        
+                it('or 10,10 should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+                    valueArgs.push(10);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
             });
-    
-            it('equalsToA 1 should return false, a nil bintree', function() {
-                //push each argument that you want to pass to the function
-                valueArgs.push(1);
+            describe('...while not program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "not";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('not 1 should return false', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
+        
+                it('not 0 should return true', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
                 
-                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
-                
-                //console.log(testFunction);
-                eval(testFunction);
-                //console.log(res);
-    
-                //assert each result
-                assert.equal(whlib.intFromBintree(res[0]),0);
+                it('not 10 should return false', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
             });
-    
-            it('equalsToA a should return true, a cons bintree', function() {
-                //push each argument that you want to pass to the function
-                valueArgs.push("'a'");
-                
-                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
-                
-                //console.log(testFunction);
-                eval(testFunction);
-                //console.log(res);
-    
-                //assert each result
-                assert.equal(whlib.intFromBintree(res[0]),1);
+        });
+        describe('testing comparisons', function() {
+            describe('...while equals program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "equals";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('equals 1,2 should return false, a nil bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(2);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
+        
+                it('equals 0,0 should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+        
+                it('equals 10,10 should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+                    valueArgs.push(10);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
             });
-    
-            it('equalsToA b should return false, a nil bintree', function() {
-                //push each argument that you want to pass to the function
-                valueArgs.push("'b'");
-                
-                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
-                
-                //console.log(testFunction);
-                eval(testFunction);
-                //console.log(res);
-    
-                //assert each result
-                assert.equal(whlib.intFromBintree(res[0]),0);
+        
+            describe('...while equalsToA program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "equalsToA";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('equalsToA 1 should return false, a nil bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
+        
+                it('equalsToA a should return true, a cons bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push("'a'");
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),1);
+                });
+        
+                it('equalsToA b should return false, a nil bintree', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push("'b'");
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]),0);
+                });
             });
         });
     });
@@ -379,6 +559,47 @@ describe('WHC Test Session', function() {
                 //assert each result
                 assert.equal(whlib.intFromBintree(res[0]),6);
                 assert.equal(whlib.intFromBintree(res[1]),7);
+            });
+        });
+
+        describe('...calling the while redefinition program', function() {
+            var testFunction, args, valueArgs;
+            var functionName = "redefinition";
+    
+            beforeEach(function() {
+                testFunction = require("./javascriptOutput/"+functionName+".txt");
+                args = require("./temp/"+functionName+".txt").split(",");
+                valueArgs = [];
+            });
+    
+            it('incrementing 1,2 should return 2', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(1);
+                valueArgs.push(2);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.equal(whlib.intFromBintree(res[0]),2);
+            });        
+    
+            it('incrementing 5,6 should return 6', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(5);
+                valueArgs.push(6);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.equal(whlib.intFromBintree(res[0]),6);
             });
         });
     });
@@ -435,6 +656,72 @@ describe('WHC Test Session', function() {
         
                     //assert each result
                     assert.equal(whlib.intFromBintree(res[1]),100);
+                });
+            });
+
+            describe('...calling the while testing double while loop program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "whileDouble";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('whileDouble 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),1);
+                });
+                it('whileDouble 2 should return 4', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(2);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),4);
+                });    
+
+                it('whileDouble 5 should return 25', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(5);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),25);
+                });     
+        
+                it('whileDouble 100 should return 10000', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(100);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]),10000);
                 });
             });
         });
@@ -566,6 +853,159 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[1]), 1000);
                 });
             });
+
+            describe('...calling the while forDouble program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "forDouble";
+
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+                it('forDouble 0 should return 0', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 0);
+                });
+
+                it('forDouble 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 1);
+                });
+                it('forDouble 2 should return 4', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(2);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 4);
+                });
+                it('forDouble 4 should return 16', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(4);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 16);
+                });
+            });
+            describe('...calling the while forTriple program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "forTriple";
+
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+                it('forTriple 0 should return 0', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 0);
+                });
+
+                it('forTriple 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 1);
+                });
+                it('forTriple 2 should return 8', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(2);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 8);
+                });
+                it('forTriple 3 should return 27', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(3);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 27);
+                });
+                it('forTriple 4 should return 64', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(4);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 64);
+                });
+                it('forTriple 5 should return 125', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(5);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[1]), 125);
+                });
+            });
         });
         
        
@@ -610,7 +1050,74 @@ describe('WHC Test Session', function() {
             });
         });
         describe('testing imbricated control structures within function calls', function() {
+            describe('...calling the incCalledInFor program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "incCalledInFor";
+        
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+        
+                it('incCalledInFor 1,0 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 1);
+                });
 
+                it('incCalledInFor 5,0 should return 5', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(5);
+                    valueArgs.push(0);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 5);
+                });
+                it('incCalledInFor 1,5 should return 6', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+                    valueArgs.push(5);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 6);
+                });
+                it('incCalledInFor 10,10 should return 20', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(10);
+                    valueArgs.push(10);
+                    
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                    
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+        
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 20);
+                });
+            });
         });
     });
 });

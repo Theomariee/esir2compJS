@@ -1,0 +1,13 @@
+function forTriple :
+read X
+%
+    Y := nil;
+    for X do
+        for X do
+            for X do
+                Y := (cons nil Y)
+            od
+        od
+    od
+%
+write X, Y

@@ -1,0 +1,6 @@
+function or :
+read X, Y
+%
+X := (X or Y)
+%	
+write X

@@ -1,0 +1,7 @@
+function listing:
+read X
+%
+Y := (list nil nil);
+X := (X =? Y)
+%
+write X

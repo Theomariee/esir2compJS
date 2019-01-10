@@ -1,0 +1,15 @@
+function inc:
+read X	
+%
+X := (cons nil X)
+%	
+write X
+
+function incCalledInFor:
+read X,Y
+%
+for X do
+    Y := (inc Y)
+od
+%
+write Y

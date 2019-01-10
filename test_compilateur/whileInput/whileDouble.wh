@@ -1,0 +1,15 @@
+function whileDouble:
+read X
+%
+Y:=nil;
+T:=X;
+while X do
+    Z:=T;
+    while Z do
+        Y := (cons nil Y);
+        Z := (tl Z)
+    od;
+    X := (tl X)
+od
+%	
+write X,Y

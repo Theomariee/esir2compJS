@@ -1,0 +1,6 @@
+function not :
+read X
+%
+X := (not X)
+%	
+write X

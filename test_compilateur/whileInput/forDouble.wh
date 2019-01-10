@@ -1,0 +1,11 @@
+function forDouble :
+read X
+%
+    Y := nil;
+    for X do
+        for X do
+            Y := (cons nil Y)
+        od
+    od
+%
+write X, Y
