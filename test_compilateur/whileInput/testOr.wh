@@ -1,4 +1,4 @@
-function or :
+function testOr :
 read X, Y
 %
 X := (X or Y)

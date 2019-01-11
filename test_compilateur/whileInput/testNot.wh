@@ -1,4 +1,4 @@
-function not :
+function testNot :
 read X
 %
 X := (not X)

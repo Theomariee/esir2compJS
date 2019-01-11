@@ -253,9 +253,9 @@ describe('WHC Test Session', function() {
     
     describe('testing conditions', function() {
         describe('testing or and not', function() {
-            describe('...while or program', function() {
+            describe('...while testOr program', function() {
                 var testFunction, args, valueArgs;
-                var functionName = "or";
+                var functionName = "testOr";
         
                 beforeEach(function() {
                     testFunction = require("./javascriptOutput/"+functionName+".txt");
@@ -263,7 +263,7 @@ describe('WHC Test Session', function() {
                     valueArgs = [];
                 });
         
-                it('or 1,2 should return true', function() {
+                it('testOr 1,2 should return true', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(1);
                     valueArgs.push(2);
@@ -278,7 +278,7 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),1);
                 });
         
-                it('or 0,0 should return false', function() {
+                it('testOr 0,0 should return false', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(0);
                     valueArgs.push(0);
@@ -292,7 +292,7 @@ describe('WHC Test Session', function() {
                     //assert each result
                     assert.equal(whlib.intFromBintree(res[0]),0);
                 });
-                it('or 0,1 should return true, a cons bintree', function() {
+                it('testOr 0,1 should return true, a cons bintree', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(0);
                     valueArgs.push(1);
@@ -307,7 +307,7 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),1);
                 });
                 
-                it('or 1,0 should return true', function() {
+                it('testOr 1,0 should return true', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(1);
                     valueArgs.push(0);
@@ -323,7 +323,7 @@ describe('WHC Test Session', function() {
                 });
 
                 
-                it('or 1,1 should return true, a cons bintree', function() {
+                it('testOr 1,1 should return true, a cons bintree', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(1);
                     valueArgs.push(1);
@@ -338,7 +338,7 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),1);
                 });
         
-                it('or 10,10 should return true, a cons bintree', function() {
+                it('testOr 10,10 should return true, a cons bintree', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(10);
                     valueArgs.push(10);
@@ -353,9 +353,9 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),1);
                 });
             });
-            describe('...while not program', function() {
+            describe('...while testNot program', function() {
                 var testFunction, args, valueArgs;
-                var functionName = "not";
+                var functionName = "testNot";
         
                 beforeEach(function() {
                     testFunction = require("./javascriptOutput/"+functionName+".txt");
@@ -363,7 +363,7 @@ describe('WHC Test Session', function() {
                     valueArgs = [];
                 });
         
-                it('not 1 should return false', function() {
+                it('testNot 1 should return false', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(1);
                     
@@ -377,7 +377,7 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),0);
                 });
         
-                it('not 0 should return true', function() {
+                it('testNot 0 should return true', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(0);
                     
@@ -391,7 +391,7 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[0]),1);
                 });
                 
-                it('not 10 should return false', function() {
+                it('testNot 10 should return false', function() {
                     //push each argument that you want to pass to the function
                     valueArgs.push(10);
                     
