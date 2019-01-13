@@ -1006,6 +1006,82 @@ describe('WHC Test Session', function() {
                     assert.equal(whlib.intFromBintree(res[1]), 125);
                 });
             });
+            describe('...calling the while forTriple2 program', function() {
+                var testFunction, args, valueArgs;
+                var functionName = "forTriple2";
+
+                beforeEach(function() {
+                    testFunction = require("./javascriptOutput/"+functionName+".txt");
+                    args = require("./temp/"+functionName+".txt").split(",");
+                    valueArgs = [];
+                });
+                it('forTriple2 0 should return 0', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(0);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 0);
+                });
+
+                it('forTriple2 1 should return 1', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(1);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 2);
+                });
+                it('forTriple2 2 should return 8', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(2);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 2048);
+                });/*
+                it('forTriple2 3 should return 27', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(3);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 27);
+                });
+                it('forTriple2 4 should return 64', function() {
+                    //push each argument that you want to pass to the function
+                    valueArgs.push(4);
+
+                    testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+
+                    //console.log(testFunction);
+                    eval(testFunction);
+                    //console.log(res);
+
+                    //assert each result
+                    assert.equal(whlib.intFromBintree(res[0]), 64);
+                });*/
+            });
         });
         
        

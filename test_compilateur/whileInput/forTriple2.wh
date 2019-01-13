@@ -1,0 +1,12 @@
+function forTriple2 :
+read X
+%
+    for X do
+        for X do
+            for X do
+                X := (cons nil X)
+            od
+        od
+    od
+%
+write X
