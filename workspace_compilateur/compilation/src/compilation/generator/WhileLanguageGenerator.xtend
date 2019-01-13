@@ -159,7 +159,6 @@ class WhileLanguageGenerator extends AbstractGenerator {
 
 	def compile(If i) {
 		functionTable.addThreeAddrInstruction(currentName, new ThreeAddrCode("if", null, i.expr.compile, null))
-		println("if")
 		if (i.commands2 !== null) {
 			i.commands2.compile
 		}
