@@ -1,0 +1,10 @@
+function testIfElse :
+read X
+%
+    if (X =? nil) then
+        Y:=nul
+    else
+        Y:=nonnul
+fi
+%
+write Y

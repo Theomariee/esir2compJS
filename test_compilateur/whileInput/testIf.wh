@@ -1,0 +1,9 @@
+function testIf :
+read X
+%
+Y := nil;
+if (X =? nil) then
+    Y := nul
+fi
+%	
+write Y

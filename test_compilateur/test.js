@@ -406,6 +406,110 @@ describe('WHC Test Session', function() {
                 });
             });
         });
+        
+        describe('...while test if program', function() {
+            var testFunction, args, valueArgs;
+            var functionName = "testIf";
+    
+            beforeEach(function() {
+                testFunction = require("./javascriptOutput/"+functionName+".txt");
+                args = require("./temp/"+functionName+".txt").split(",");
+                valueArgs = [];
+            });
+    
+            it('testIf 1 should return a nil bintree', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(1);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("0")));
+            });
+    
+            it('testIf 0 should return nul', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(0);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("nul")));
+            });
+            
+            it('testIf 10 should return a nil bintree', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(10);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("0")));
+            });
+        });
+        describe('...while test if else program', function() {
+            var testFunction, args, valueArgs;
+            var functionName = "testIfElse";
+    
+            beforeEach(function() {
+                testFunction = require("./javascriptOutput/"+functionName+".txt");
+                args = require("./temp/"+functionName+".txt").split(",");
+                valueArgs = [];
+            });
+    
+            it('testIfElse 1 should return nonnul', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(1);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("nonnul")));
+            });
+    
+            it('testIfElse 0 should return nul', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(0);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("nul")));
+            });
+            
+            it('testIfElse 10 should return nonnul', function() {
+                //push each argument that you want to pass to the function
+                valueArgs.push(10);
+                
+                testFunction = appendFunctionString(args, valueArgs, testFunction, functionName);
+                
+                //console.log(testFunction);
+                eval(testFunction);
+                //console.log(res);
+    
+                //assert each result
+                assert.isTrue(bt.evaluateEQ(res[0],whlib.bintreeFromString("nonnul")));
+            });
+        });
         describe('testing comparisons', function() {
             describe('...while equals program', function() {
                 var testFunction, args, valueArgs;
