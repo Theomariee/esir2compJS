@@ -170,31 +170,41 @@
 			function listenExecClick(jsEditor){
 				$("#execute").unbind('click');	// remove old click bind if compiled button was clicked twice without reloading page
 				$('#execute').on('click', function(event){
-					var arrayValues = {};
-					$('input.parameter').each(function(index,data) {
-						arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
-					});
-					
-					$.ajax({
-						url: '/runCompiled',
-						type: 'POST',
-						dataType: 'json',
-						data: {
-							params: arrayValues
-						},
-						success: (data) => {
-							var outInt = data.outInt;
-							var outString = data.outString;
-							for(var i = 0; i < outInt.length; i++) {
-								$('#consoleOutput').append('\n------------------\n');
-								$('#consoleOutput').append('Résultat de l\'exécution :\n');
-								$('#consoleOutput').append('{\n');
-								$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
-								$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
-								$('#consoleOutput').append('}\n');
-							}
+					var allInputsFilled = true;
+					$('#paramInputs input[type=text]').each(function() {
+						if(this.value === ''){
+							allInputsFilled = false;
 						}
 					});
+					if(allInputsFilled){
+						var arrayValues = {};
+						$('input.parameter').each(function(index,data) {
+							arrayValues[$(this).attr('id')] = $(this).val();  // key = nom de la variable, value = la valeur rentrée dans l'input
+						});
+						
+						$.ajax({
+							url: '/runCompiled',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								params: arrayValues
+							},
+							success: (data) => {
+								var outInt = data.outInt;
+								var outString = data.outString;
+								for(var i = 0; i < outInt.length; i++) {
+									$('#consoleOutput').append('\n------------------\n');
+									$('#consoleOutput').append('Résultat de l\'exécution :\n');
+									$('#consoleOutput').append('{\n');
+									$('#consoleOutput').append('BinTree : ' + outString[i] + ',\n');
+									$('#consoleOutput').append('Int : ' + outInt[i] + '\n');
+									$('#consoleOutput').append('}\n');
+								}
+							}
+						});
+					}else{
+						$('#consoleOutput').append('Un ou plusieurs paramètres manquants !\n');
+					}
 				});
 			}
 		};
