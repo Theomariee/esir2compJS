@@ -28,6 +28,10 @@ router.post('/compile', (req, res) => {
 	if (fs.existsSync('temp/compiled.js')) {
     	fs.unlinkSync('temp/compiled.js'); 
 	}
+	// supprime le fichier de paramètres s'il existe
+	if (fs.existsSync('temp/main.txt')) {
+    	fs.unlinkSync('temp/main.txt'); 
+	}
 	
 	if(debugMode) {
 	    debugOption = " -a";
