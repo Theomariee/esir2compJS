@@ -1,0 +1,24 @@
+DEMO 1 : Renvoie nul si X est egal a nil sinon nonnul
+
+function main :
+read X
+%
+  if (X =? nil) then
+    Y:=nul
+  else
+    Y:=nonnul
+  fi
+%
+write Y
+
+DEMO 2 : Renvoie le double de la valeur de X.
+X est modifié dans la boucle for et le nombre d'itération ne change pas.
+
+function main :
+read X
+%
+  for X do
+    X:=(cons nil X)
+  od
+%
+write X
