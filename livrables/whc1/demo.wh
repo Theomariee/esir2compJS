@@ -22,3 +22,58 @@ read X
   od
 %
 write X
+
+DEMO 3 : Renvoie le carré de X
+
+function main :
+read X
+%
+  Y:=nil;
+  foreach Elem in X do
+    for X do
+      Y:=(inc Y)
+    od
+  od
+%
+write Y
+
+function inc:
+read X
+%
+  X:=(cons nil X)
+%
+write X
+
+DEMO 4 : Renvoie la somme d'une lste donnée en paramètre
+Appels de fonction inexistante,
+Apels de fonction avec le mauvais nombre de paramètre,
+
+function main :
+read X
+%
+  Y:=(sum X)
+%
+write Y
+
+function sum:
+read X
+%
+  foreach Number in X do
+    Y:=(add Y Number)
+  od
+%
+write Y
+
+function add:
+read X, Y
+%
+  for Y do
+    Res:=(cons nil Res)
+  od;
+  for X do
+    Res:=(cons nil Res)
+  od
+%
+write Res
+
+(list (cons nil nil nil nil) (nil) (cons nil nil nil nil) (cons nil nil nil))
